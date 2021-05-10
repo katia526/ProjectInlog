@@ -34,21 +34,22 @@ namespace ProjectInlog
                     LastName = "verachtert",
                     Function = "1",
                     Email = "katia@hotmail.com",
-                    Password = "12ab34CD",
+                    Password = "abcd",
                     UserName = "Jefke"
                 });
 
                 ctx.Clients.Add(new Client()
                 {
-                    C_Name = "biermans",
-                    C_Adress = "markt",
-
-                    C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03),
+                    C_Name = "Biermans",
+                    C_Adress = "Markt 2",
+                    C_City = "2440 Geel",
+                    C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
 
                 });
+                ctx.SaveChanges();
             }
-
-
+           
+        }
         public class Employee
         {
             [Key]
@@ -59,6 +60,7 @@ namespace ProjectInlog
             public string Email { get; set; }
             public string Password { get; set; }
             public string UserName { get; set; }
+            public Client Client { get; set; }
 
         }
         public class Client
@@ -135,7 +137,8 @@ namespace ProjectInlog
             public DateTime CreatedAt { get; set; } = DateTime.Now;
             [DataType(DataType.Date)]
             public DateTime PayedAt { get; set; } = DateTime.Now;
-
+            public Order order { get; set; }
+            public Client client { get; set; }
 
         }
         public class OrderLine
@@ -163,6 +166,22 @@ namespace ProjectInlog
             public DbSet<Order> Orders { get; set; }
             public DbSet<Invoice> Invoices { get; set; }
             public DbSet<OrderLine> OrderLines { get; set; }
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
+
+                if (result != null && result.Function == "1")
+                {
+
+                    ScrAdministrator scrAdministrator = new ScrAdministrator();
+
+                    scrAdministrator.Show();
+                }
+            }
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿<Window x:Class="ProjectInlog.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectInlog"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <Border x:Name="bdrGebr" BorderBrush="Black" BorderThickness="2" Background="Azure" Width="400" Height="300"/>
+        <StackPanel Width="400" Height="300" >
+            <Label Content="Gebruikers bewerken" HorizontalAlignment="Center" FontSize="25" Margin="0,10,0,0" ></Label>
+            <Separator/>
+            <Button x:Name="btnNieuw" Content="Nieuw" Width="100" Height="30" Margin="0,30,0,0" Click="btnNieuw_Click"></Button>
+            <Button x:Name="btnBewerk" Content="Bewerk" Width="100" Height="30" Margin="0,20,0,0"></Button>
+            <Button x:Name="btnVerwijder" Content="Verwijder" Width="100" Height="30" Margin="0,20,0,0"></Button>
+            <Button x:Name="btnExit" Content="Exit" Width="100" Height="30" Margin="0,40,0,0" ></Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,21 @@
+﻿<Window x:Class="ProjectInlog.ScrAdministrator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectInlog"
+        mc:Ignorable="d"
+        Title="ScrAdministrator" Height="450" Width="800">
+    <Grid>
+        <Border x:Name="BrdAdmin" BorderBrush="Black" BorderThickness="2" Height="300" Width="400" CornerRadius="20">
+            <StackPanel>
+                <Label Content="Administrator Page" FontSize="20" HorizontalAlignment="Center" Margin="20"></Label>
+                <Separator/>
+                <Button x:Name="btnProfiel" Width="100" Height="30" Content="Gebruikers" Margin="0, 60, 0, 0 " Click="btnProfiel_Click"></Button>
+                <Button x:Name="btnData" Width="100" Height="30" Content="Database" Margin="0,20, 0, 0"></Button>
+                <Button x:Name="btnExit" Width="100" Height="30" Content="Exit" Margin="0,20"></Button>
+            </StackPanel>
+        </Border>
+        
+    </Grid>
+</Window>
