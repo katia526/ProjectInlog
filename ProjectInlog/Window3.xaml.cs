@@ -20,31 +20,56 @@ namespace ProjectInlog
     /// </summary>
     public partial class Window3 : Window
     {
+      
         public Window3()
         {
             InitializeComponent();
             using (ProjectContext ctx = new ProjectContext())
             {
-                //var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName });
-
-                ////var col = ctx.Albums.Select(c => new { Id = c.AlbumId, Name = c.Name }).ToList();
-                //// var col = ctx.Albums.Select(c => c.A_ArtistId == (Convert.ToInt32(cbArtiest.SelectedItem))
-                ////     .Where(c => new { Id = c.AlbumId, Name = c.Name, Aid = c.A_ArtistId }).ToList();
-                ////   var col = ctx.Albums.Select(c => c.A_ArtistId == index);
-
-                ////cbAlbum.DataSource = col;
-                ////cbAlbum.DisplayMember = "Name";
-                ////cbAlbum.ValueMember = "Id";
-
-
-                //cbUsers.DataSource = col;
-                //cbUsers.DisplayMember = "Name";
-                //cbUsers.
-                this.DataContext = ctx.Employees;
+                var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
                
+
+                cbUsers.ItemsSource = col;
+
             }
         }
-       public class Employee
+        
+
+        private void cbUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //var a = cbUsers.SelectedItem.ToString();
+            //var b = cbUsers.SelectedValue;
+
+
+            var ind = cbUsers.SelectedIndex;
+
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Employees.FirstOrDefault(c => c.UserId == ind + 1);
+                txtFirstName.Text = col.FirstName;
+                txtLastName.Text = col.LastName;
+                txtEmail.Text = col.Email;
+                //txtFunction.Text = col.Function;
+
+            }
+
+
+        }
+
+        private void btnBewaar_Click(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).FirstName = txtFirstName.Text;
+                ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).LastName = txtLastName.Text;
+                ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).Email = txtEmail.Text;
+                // ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).address = txtAddress.Text;
+
+                ctx.SaveChanges();
+
+            }
+        }
+        public class Employee
         {
             public int EmployeeId { get; set; }
             public string FirstName { get; set; }

@@ -46,7 +46,7 @@ namespace ProjectInlog
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)

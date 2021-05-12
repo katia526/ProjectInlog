@@ -33,7 +33,14 @@ namespace ProjectInlog
 
         private void btnBewerk_Click(object sender, RoutedEventArgs e)
         {
+            Window3 window3 = new Window3();
 
+            window3.Show();
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

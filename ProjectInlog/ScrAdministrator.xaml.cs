@@ -30,5 +30,10 @@ namespace ProjectInlog
 
             window1.Show();
         }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

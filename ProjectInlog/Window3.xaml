@@ -7,18 +7,50 @@
         mc:Ignorable="d"
         Title="Window3" Height="450" Width="800">
     <Grid>
-        <StackPanel Width="400" Height="300">
-            <ComboBox x:Name="cbUsers" HorizontalAlignment="Center" Height="50" Margin="3,25,0,0" VerticalAlignment="Top" Width="200" 
-                     DisplayMemberPath ="FirstName" ItemsSource="{Binding}">
+        <TextBlock Height="23" HorizontalAlignment="Left" 
+                   Margin="10,5,0,0" Name="textBlockHeading" 
+                   Text="User aanpassen:" VerticalAlignment="Top" 
+                   Width="120"  FontSize="17" FontStretch="ExtraCondensed"/>
+        <Grid Margin="33,0,27,19" Background="White" Height="314" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="272" />
+                <RowDefinition Height="12*" />
+            </Grid.RowDefinitions>
+            
+            
+            <!--<StackPanel Width="400" Height="300">
+                --><!--<ComboBox x:Name="cbUsers" HorizontalAlignment="Center" Height="50" Margin="3,25,0,0" VerticalAlignment="Top" Width="200" 
+                     DisplayMemberPath ="FirstName" ItemsSource="{Binding col}">-->
+            <ComboBox x:Name="cbUsers" HorizontalAlignment="Right" Height="50" Margin="3,10,0,0" 
+                      VerticalAlignment="Top" Width="200" >
+                          <!--VerticalAlignment="Top" Width="200" ItemsSource="{Binding ElementName = cbUsers}">-->
+                
                 <ComboBox.ItemTemplate>
-                    <DataTemplate>
+                        <DataTemplate>
+                           
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            
+                <TextBlock Height="20" HorizontalAlignment="Left" Margin="67,0,0,0" x:Name ="txtError" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,20,0,0" Name="textBlockFirstname" Text="First Name:" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,50,0,0" Name="textBlockLastName" Text="Last Name:" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,80,0,0" Name="textBlockEmail" Text="Email" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,109,0,0" Name="textBlockFunctie" Text="Functie" VerticalAlignment="Top" Width="110" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,135,0,0" Name="textBlockPassword" Text="Password:" VerticalAlignment="Top" Width="110"  />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,166,0,0" Name="textBlockConfirmPwd" Text="UserName:" VerticalAlignment="Top" Width="110" Grid.RowSpan="2" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,198,0,0" Name="textBlockAddress" Text="Address" VerticalAlignment="Top" Width="110" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="183,20,0,0" Name="txtFirstName" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="183,50,0,0" Name="txtLastName" VerticalAlignment="Top" Width="222" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="183,80,0,0" Name="txtEmail" VerticalAlignment="Top" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,137,0,0" Name="txtPassword" VerticalAlignment="Top" Width="222" />
+            <!--For password-->
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,166,0,0" Name="txtUserName" VerticalAlignment="Top" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,53" Name="txtAddress" VerticalAlignment="Bottom" Width="222" RenderTransformOrigin="0.553,-1.171" />
+            <!--</StackPanel>-->
 
-                    </DataTemplate>
-
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
-        </StackPanel>
-        
+            <Button x:Name="btnBewaar" Content="Bewaar" Width="70" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,20" Click="btnBewaar_Click"></Button>
+        </Grid>
     </Grid>
 </Window>

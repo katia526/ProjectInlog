@@ -13,7 +13,7 @@
                 <Separator/>
                 <Button x:Name="btnProfiel" Width="100" Height="30" Content="Gebruikers" Margin="0, 60, 0, 0 " Click="btnProfiel_Click"></Button>
                 <Button x:Name="btnData" Width="100" Height="30" Content="Database" Margin="0,20, 0, 0"></Button>
-                <Button x:Name="btnExit" Width="100" Height="30" Content="Exit" Margin="0,20"></Button>
+                <Button x:Name="btnExit" Width="100" Height="30" Content="Exit" Margin="0,20" Click="btnExit_Click"></Button>
             </StackPanel>
         </Border>
         

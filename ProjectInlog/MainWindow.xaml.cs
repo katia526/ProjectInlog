@@ -27,29 +27,30 @@ namespace ProjectInlog
         {
             InitializeComponent();
 
-            //using (ProjectContext ctx = new ProjectContext())
-            //{
-            //    ctx.Employees.Add(new Employee()
-            //    {
-            //        FirstName = "Jef",
-            //        LastName = "verachtert",
-            //        Function = "1",
-            //        Email = "katia@hotmail.com",
-            //        Password = "abcd",
-            //        UserName = "Jefke"
-            //    });
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                ctx.Employees.Add(new Employee()
+                {
+                    FirstName = "Jef",
+                    LastName = "verachtert",
+                    Function = "1",
+                    Email = "katia@hotmail.com",
+                    Password = "abcd",
+                    UserName = "Jefke",
+                   Address = "Markt 5",
+                });
 
-            //    ctx.Clients.Add(new Client()
-            //    {
-            //        C_Name = "Biermans",
-            //        C_Adress = "Markt 2",
-            //        C_City = "2440 Geel",
-            //        C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
+                ctx.Clients.Add(new Client()
+                {
+                    C_Name = "Biermans",
+                    C_Adress = "Markt 2",
+                    C_City = "2440 Geel",
+                    C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
 
-            //    });
-            //    ctx.SaveChanges();
-            //}
-           
+                });
+                ctx.SaveChanges();
+            }
+
         }
         public class Employee
         {
@@ -61,6 +62,7 @@ namespace ProjectInlog
             public string Email { get; set; }
             public string Password { get; set; }
             public string UserName { get; set; }
+            public string Address { get; set; }
             public Client Client { get; set; }
 
         }
