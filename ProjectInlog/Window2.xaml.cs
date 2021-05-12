@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -50,33 +51,50 @@ namespace ProjectInlog
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            string sel = " ";
+            string pwdHashed = " ";
+
+            string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+            Regex rg = new Regex(pattern);
+            Match match = rg.Match(txtPassword.Text);
             if (txtFirstName.Text == null)
             {
                 txtError.Text = "Geef een voornaam";
                 txtFirstName.Focus();
             }
-            else if (txtLastName.Text == null)
+            if (txtLastName.Text == null)
             {
                 txtError.Text = "Achternaam ontbreekt";
                 txtLastName.Focus();
             }
-            else if (txtEmail.Text == null)
+            if (txtEmail.Text == null)
             {
                 txtError.Text = "Vul het email adres in ";
                 txtEmail.Focus();
             }
-            else if (txtPassword.Text == null)
+            else if (!Regex.IsMatch(txtEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+            {
+                txtError.Text = "Email voldoet niet aan vereiste. ";
+                txtEmail.Focus();
+            }
+            if (txtPassword.Text == null)
             {
                 txtError.Text = "vul het paswoord in";
                 txtPassword.Focus();
             }
          //   else if (!Regex.IsMatch(txtPassword.Text, "^(?=.*[0 - 9])(?=.*[a - z])(?=.*[A - Z])(?=.*[@$!% *? &])([a - zA - Z0 - 9@$!% *? &]{ 8,})$"))
-               else if(!Regex.IsMatch(txtPassword.Text, "^(?=.*?[A - Z])(?=.*?[a - z])(?=.*?[0 - 9])(?=.*?[#?!@$%^&*-]).{8,}$")) 
+               else if (!match.Success)
                     {
                 txtError.Text = "het paswoord voldoet niet aan de voorschriften";
                 txtPassword.Focus();
             }
-            else if (txtUserName.Text == null)
+            else
+            {
+                string pwd = txtPassword.Text;
+                string salt = SecurityHelper.GenerateSalt(30);
+                pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
+            }
+            if (txtUserName.Text == null)
             {
                 txtError.Text = "vul de Usernaam in";
                 txtUserName.Focus();
@@ -87,11 +105,11 @@ namespace ProjectInlog
                 if (result != null)
                 {
                     txtError.Text = "Gebruiker bestaat reeds";
-                   
+
                 }
                 else
                 {
-                    string sel = " ";
+                   
                     if (txtFunctie.Text == "magazijnier")
                     {
                         sel = "1";
@@ -100,23 +118,54 @@ namespace ProjectInlog
                     {
                         sel = "2";
                     }
-
-                    ctx.Employees.Add(new Employee()
-                    {
-                        FirstName = txtFirstName.Text,
-                        LastName = txtLastName.Text,
-                        Email = txtEmail.Text,
-                        Function = sel,
-                        Password = txtPassword.Text,
-                        UserName = txtUserName.Text
-                    });
+                }
+            ctx.Employees.Add(new Employee()
+                {
+                FirstName = txtFirstName.Text,
+                LastName = txtLastName.Text,
+                Email = txtEmail.Text,
+                Function = sel,
+                Password = pwdHashed,
+                UserName = txtUserName.Text
+                });
 
                     ctx.SaveChanges();
+
+                    txtFirstName.Text = " ";
+                    txtLastName.Text = " ";
+                    txtEmail.Text = " ";
+                    txtFunctie.Text = " ";
+                    txtPassword.Text = " ";
+                    txtUserName.Text = " ";
+                    txtAddress.Text = " ";
+                    txtError.Text = " ";
+            
+            }
+   
+        }
+        public class SecurityHelper
+        {
+            public static string GenerateSalt(int nSalt)
+            {
+                var saltBytes = new byte[nSalt];
+
+                using (var provider = new RNGCryptoServiceProvider())
+                {
+                    provider.GetNonZeroBytes(saltBytes);
                 }
 
-
+                return Convert.ToBase64String(saltBytes);
             }
-            
+
+            public static string HashPassword(string password, string salt, int nIterations, int nHash)
+            {
+                var saltBytes = Convert.FromBase64String(salt);
+
+                using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
+                {
+                    return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
+                }
+            }
         }
     }
 }

@@ -30,5 +30,10 @@ namespace ProjectInlog
 
             window2.Show();
         }
+
+        private void btnBewerk_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
