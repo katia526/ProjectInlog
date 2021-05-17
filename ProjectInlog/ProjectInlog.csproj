@@ -65,10 +65,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Magazijniers.xaml.cs">
+      <DependentUpon>Magazijniers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="magazijnTab.xaml.cs">
+      <DependentUpon>magazijnTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page1.xaml.cs">
+      <DependentUpon>Page1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScrAdministrator.xaml.cs">
       <DependentUpon>ScrAdministrator.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
+    <Compile Include="Vertegenwoordigers.xaml.cs">
+      <DependentUpon>Vertegenwoordigers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -78,6 +90,26 @@
     <Compile Include="Window3.xaml.cs">
       <DependentUpon>Window3.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window4.xaml.cs">
+      <DependentUpon>Window4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window5.xaml.cs">
+      <DependentUpon>Window5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window6.xaml.cs">
+      <DependentUpon>Window6.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window7.xaml.cs">
+      <DependentUpon>Window7.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Magazijniers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="magazijnTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,7 +123,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Page1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ScrAdministrator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vertegenwoordigers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -104,6 +144,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window6.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window7.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

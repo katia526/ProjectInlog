@@ -13,7 +13,7 @@
             <Separator/>
             <Button x:Name="btnNieuw" Content="Nieuw" Width="100" Height="30" Margin="0,30,0,0" Click="btnNieuw_Click"></Button>
             <Button x:Name="btnBewerk" Content="Bewerk" Width="100" Height="30" Margin="0,20,0,0" Click="btnBewerk_Click"></Button>
-            <Button x:Name="btnVerwijder" Content="Verwijder" Width="100" Height="30" Margin="0,20,0,0"></Button>
+            <Button x:Name="btnVerwijder" Content="Verwijder" Width="100" Height="30" Margin="0,20,0,0" Click="btnVerwijder_Click"></Button>
             <Button x:Name="btnExit" Content="Exit" Width="100" Height="30" Margin="0,40,0,0" Click="btnExit_Click" ></Button>
         </StackPanel>
         

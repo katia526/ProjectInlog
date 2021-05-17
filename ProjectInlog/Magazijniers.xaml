@@ -1,0 +1,44 @@
+﻿<Window x:Class="ProjectInlog.Magazijniers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectInlog"
+        mc:Ignorable="d"
+        Title="Magazijniers" Height="450" Width="800">
+  
+    <Grid>
+        <Border x:Name="bdrMagazijnier" Width="400" Height="300" BorderThickness="2" BorderBrush="Black"></Border>
+      
+        <StackPanel Width="400" Height="300" >
+            <Label Content="Magazijniers" FontSize="25" HorizontalAlignment="Center"></Label>
+            <!--<Separator/>
+            <StackPanel>-->
+            <Grid Name="MCGrid" Width="400" ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                  
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                    <RowDefinition Height="65" />
+                </Grid.RowDefinitions>
+
+                <Button x:Name="btnLeveranciers" Grid.Column="0" Content="Leveranciers" HorizontalAlignment="Center" Width="100" Height="30" Click="btnNieuwe_Click" ></Button>
+                <Button x:Name="btnMagazijn" Content="Magazijn" Grid.Column="0" Grid.Row="1" HorizontalAlignment="center" Width="100" Height="30" ></Button>
+                <Button x:Name="btnVoegtoe" Content="Nieuwe" Grid.Column="1" HorizontalAlignment="Center" Width="100" Height="30" Click="btnVoegtoe_Click" Visibility="Hidden"></Button>
+                <Button x:Name="btnPasAan" Content="Wijzig" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="100" Height="30" Visibility="Hidden"></Button>
+                <Button x:Name="btnDelete" Content="Verwijder" Grid.Column="1" Grid.Row="2"   HorizontalAlignment="Center" Width="100" Height="30" Visibility="Hidden" Click="btnDelete_Click"></Button>
+                <!--<Button x:Name="btnMVoegtoe" Content="Nieuwe" Grid.Column="1" HorizontalAlignment="Center" Width="100" Height="30" ></Button>
+                <Button x:Name="btnMPasAan" Content="Wijzig" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="100" Height="30" ></Button>
+                <Button x:Name="btnMDelete" Content="Verwijder" Grid.Column="1" Grid.Row="2"   HorizontalAlignment="Center" Width="100" Height="30" ></Button>-->
+                <Button x:Name="btnExit" Content="Exit" Width="70" Grid.Column="0" Grid.Row="3" Height="30" HorizontalAlignment="Center"  Click="btnExit_Click"></Button>
+            </Grid>
+            <!--</StackPanel>-->
+        </StackPanel>
+    </Grid>
+  
+</Window>

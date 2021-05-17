@@ -28,31 +28,28 @@ namespace ProjectInlog
             {
                 var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
                
-
                 cbUsers.ItemsSource = col;
-
+                cbUsers.DisplayMemberPath = "Name";
+                cbUsers.SelectedValuePath = "Id";
             }
         }
         
 
         private void cbUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var a = cbUsers.SelectedItem.ToString();
-            //var b = cbUsers.SelectedValue;
 
-
-            var ind = cbUsers.SelectedIndex;
+            string id = cbUsers.SelectedValue.ToString();
+            var del = Convert.ToInt32(id);
 
             using (ProjectContext ctx = new ProjectContext())
             {
-                var col = ctx.Employees.FirstOrDefault(c => c.UserId == ind + 1);
+                var col = ctx.Employees.FirstOrDefault(c => c.UserId == del);
                 txtFirstName.Text = col.FirstName;
                 txtLastName.Text = col.LastName;
                 txtEmail.Text = col.Email;
                 //txtFunction.Text = col.Function;
 
             }
-
 
         }
 
@@ -74,6 +71,27 @@ namespace ProjectInlog
             public int EmployeeId { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
+        }
+
+        private void cbUsers_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            string id = cbUsers.SelectedValue.ToString();
+            var del = Convert.ToInt32(id);
+
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Employees.FirstOrDefault(c => c.UserId == del);
+                txtFirstName.Text = col.FirstName;
+                txtLastName.Text = col.LastName;
+                txtEmail.Text = col.Email;
+                //txtFunction.Text = col.Function;
+
+            }
+        }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

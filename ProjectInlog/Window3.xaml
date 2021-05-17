@@ -9,8 +9,8 @@
     <Grid>
         <TextBlock Height="23" HorizontalAlignment="Left" 
                    Margin="10,5,0,0" Name="textBlockHeading" 
-                   Text="User aanpassen:" VerticalAlignment="Top" 
-                   Width="120"  FontSize="17" FontStretch="ExtraCondensed"/>
+                   Text="Werknemer aanpassen:" VerticalAlignment="Top" 
+                   Width="200"  FontSize="17" FontStretch="ExtraCondensed"/>
         <Grid Margin="33,0,27,19" Background="White" Height="314" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
                 <RowDefinition Height="272" />
@@ -21,16 +21,20 @@
             <!--<StackPanel Width="400" Height="300">
                 --><!--<ComboBox x:Name="cbUsers" HorizontalAlignment="Center" Height="50" Margin="3,25,0,0" VerticalAlignment="Top" Width="200" 
                      DisplayMemberPath ="FirstName" ItemsSource="{Binding col}">-->
-            <ComboBox x:Name="cbUsers" HorizontalAlignment="Right" Height="50" Margin="3,10,0,0" 
-                      VerticalAlignment="Top" Width="200" >
+            <ComboBox x:Name="cbUsers" HorizontalAlignment="Right" Height="30" Margin="3,10,0,0" 
+                      VerticalAlignment="Top" Width="200" 
+                      ItemsSource="{Binding col}"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="Id"
+                      SelectedValue="{Binding col}" SelectionChanged="cbUsers_SelectionChanged_1">
                           <!--VerticalAlignment="Top" Width="200" ItemsSource="{Binding ElementName = cbUsers}">-->
                 
-                <ComboBox.ItemTemplate>
+                <!--<ComboBox.ItemTemplate>
                         <DataTemplate>
                            
                             <TextBlock Text="{Binding Name}"/>
                         </DataTemplate>
-                    </ComboBox.ItemTemplate>
+                    </ComboBox.ItemTemplate>-->
                 </ComboBox>
             
                 <TextBlock Height="20" HorizontalAlignment="Left" Margin="67,0,0,0" x:Name ="txtError" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" />
@@ -49,8 +53,10 @@
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,166,0,0" Name="txtUserName" VerticalAlignment="Top" Width="222" />
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,53" Name="txtAddress" VerticalAlignment="Bottom" Width="222" RenderTransformOrigin="0.553,-1.171" />
             <!--</StackPanel>-->
-
-            <Button x:Name="btnBewaar" Content="Bewaar" Width="70" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,20" Click="btnBewaar_Click"></Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button x:Name="btnBewaar" Content="Bewaar" Width="70" Height="30" Margin="0,0,20,20" Click="btnBewaar_Click"></Button>
+            <Button x:Name="btnExit" Content="Exit" Width="70" Height="30" Margin="0,0,20,20" Click="btnExit_Click" ></Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

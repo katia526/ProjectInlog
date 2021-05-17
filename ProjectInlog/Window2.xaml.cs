@@ -52,7 +52,7 @@ namespace ProjectInlog
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             string sel = " ";
-            string pwdHashed = " ";
+          
 
             string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
             Regex rg = new Regex(pattern);
@@ -82,18 +82,18 @@ namespace ProjectInlog
                 txtError.Text = "vul het paswoord in";
                 txtPassword.Focus();
             }
-         //   else if (!Regex.IsMatch(txtPassword.Text, "^(?=.*[0 - 9])(?=.*[a - z])(?=.*[A - Z])(?=.*[@$!% *? &])([a - zA - Z0 - 9@$!% *? &]{ 8,})$"))
+        
                else if (!match.Success)
                     {
                 txtError.Text = "het paswoord voldoet niet aan de voorschriften";
                 txtPassword.Focus();
             }
-            else
-            {
-                string pwd = txtPassword.Text;
-                string salt = SecurityHelper.GenerateSalt(30);
-                pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
-            }
+            //else
+            //{
+            //    string pwd = txtPassword.Text;
+            //    string salt = SecurityHelper.GenerateSalt(30);
+            //    pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
+            //}
             if (txtUserName.Text == null)
             {
                 txtError.Text = "vul de Usernaam in";
@@ -125,7 +125,7 @@ namespace ProjectInlog
                 LastName = txtLastName.Text,
                 Email = txtEmail.Text,
                 Function = sel,
-                Password = pwdHashed,
+                Password = txtPassword.Text,
                 UserName = txtUserName.Text
                 });
 
@@ -143,29 +143,29 @@ namespace ProjectInlog
             }
    
         }
-        public class SecurityHelper
-        {
-            public static string GenerateSalt(int nSalt)
-            {
-                var saltBytes = new byte[nSalt];
+        //public class SecurityHelper
+        //{
+        //    public static string GenerateSalt(int nSalt)
+        //    {
+        //        var saltBytes = new byte[nSalt];
 
-                using (var provider = new RNGCryptoServiceProvider())
-                {
-                    provider.GetNonZeroBytes(saltBytes);
-                }
+        //        using (var provider = new RNGCryptoServiceProvider())
+        //        {
+        //            provider.GetNonZeroBytes(saltBytes);
+        //        }
 
-                return Convert.ToBase64String(saltBytes);
-            }
+        //        return Convert.ToBase64String(saltBytes);
+        //    }
 
-            public static string HashPassword(string password, string salt, int nIterations, int nHash)
-            {
-                var saltBytes = Convert.FromBase64String(salt);
+        //    public static string HashPassword(string password, string salt, int nIterations, int nHash)
+        //    {
+        //        var saltBytes = Convert.FromBase64String(salt);
 
-                using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
-                {
-                    return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
-                }
-            }
-        }
+        //        using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
+        //        {
+        //            return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
+        //        }
+        //    }
+        //}
     }
 }

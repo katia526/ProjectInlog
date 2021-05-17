@@ -37,7 +37,27 @@ namespace ProjectInlog
                     Email = "katia@hotmail.com",
                     Password = "abcd",
                     UserName = "Jefke",
-                   Address = "Markt 5",
+                    Address = "Markt 5",
+                });
+                ctx.Employees.Add(new Employee()
+                {
+                    FirstName = "Mieke",
+                    LastName = "ver",
+                    Function = "2",
+                    Email = "m@hotmail.com",
+                    Password = "MIaz56%%",
+                    UserName = "Mieke",
+                    Address = "Markt 5",
+                });
+                ctx.Employees.Add(new Employee()
+                {
+                    FirstName = "Louis",
+                    LastName = "p",
+                    Function = "3",
+                    Email = "p@hotmail.com",
+                    Password = "MIaz56%%",
+                    UserName = "Louis",
+                    Address = "Markt 5",
                 });
 
                 ctx.Clients.Add(new Client()
@@ -87,8 +107,12 @@ namespace ProjectInlog
             public int SupplierId { get; set; }
             public string S_Name { get; set; }
             public string S_Address { get; set; }
+            public string s_PostCode { get; set; }
             public string s_City { get; set; }
+            public string s_Contact { get; set; }
             public string S_Phone { get; set; }
+            public string S_Email { get; set; }
+            public string S_Contact { get; set; }
 
             [DataType(DataType.Date)]
             public DateTime S_CreatedAt { get; set; } = DateTime.Now;
@@ -159,7 +183,7 @@ namespace ProjectInlog
             {
                 // Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
                 Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
-                //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
+                  //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 
             public DbSet<Employee> Employees { get; set; }
@@ -176,10 +200,10 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
                 var result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
-
+                
                 if (result != null && result.Function == "1")
                 {
-
+                    
                     ScrAdministrator scrAdministrator = new ScrAdministrator();
 
                     scrAdministrator.Show();
@@ -189,19 +213,19 @@ namespace ProjectInlog
                 //string pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
                 //result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == pwdHashed);
                 result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
+               
                 if (result != null && result.Function == "2")
                 {
 
-                    ScrAdministrator scrAdministrator = new ScrAdministrator();
-
-                    scrAdministrator.Show();
+                    Magazijniers magazijniers = new Magazijniers();
+                    magazijniers.Show();
                 }
                 if (result != null && result.Function == "3")
                 {
 
-                    ScrAdministrator scrAdministrator = new ScrAdministrator();
+                    Vertegenwoordigers vertegenwoordigers = new Vertegenwoordigers();
 
-                    scrAdministrator.Show();
+                    vertegenwoordigers.Show();
                 }
             }
         }
