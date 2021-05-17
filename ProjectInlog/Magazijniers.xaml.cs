@@ -24,7 +24,7 @@ namespace ProjectInlog
         {
             InitializeComponent(); 
             btnVoegtoe.Visibility = Visibility.Hidden;
-            btnPasAan.Visibility = Visibility.Hidden;
+           // btnPasAan.Visibility = Visibility.Hidden;
             btnDelete.Visibility = Visibility.Hidden;
             btnMagazijn.Visibility = Visibility.Visible;
         }
@@ -37,7 +37,7 @@ namespace ProjectInlog
         private void btnNieuwe_Click(object sender, RoutedEventArgs e)
         {
             btnVoegtoe.Visibility = Visibility.Visible;
-            btnPasAan.Visibility = Visibility.Visible;
+           // btnPasAan.Visibility = Visibility.Visible;
             btnDelete.Visibility = Visibility.Visible;
             btnMagazijn.Visibility = Visibility.Hidden;
 
@@ -53,6 +53,12 @@ namespace ProjectInlog
         {
             Window7 window7 = new Window7();
             window7.Show();
+        }
+
+        private void btnMagazijn_Click(object sender, RoutedEventArgs e)
+        {
+            magazijnTab magazijnTab = new magazijnTab();
+            magazijnTab.Show();
         }
     }
 }

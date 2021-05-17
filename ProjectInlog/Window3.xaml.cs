@@ -24,14 +24,7 @@ namespace ProjectInlog
         public Window3()
         {
             InitializeComponent();
-            using (ProjectContext ctx = new ProjectContext())
-            {
-                var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
-               
-                cbUsers.ItemsSource = col;
-                cbUsers.DisplayMemberPath = "Name";
-                cbUsers.SelectedValuePath = "Id";
-            }
+            Laad();
         }
         
 
@@ -48,22 +41,25 @@ namespace ProjectInlog
                 txtLastName.Text = col.LastName;
                 txtEmail.Text = col.Email;
                 //txtFunction.Text = col.Function;
-
+                txtAddress.Text = col.Address;
             }
 
         }
 
         private void btnBewaar_Click(object sender, RoutedEventArgs e)
         {
+            string id = cbUsers.SelectedValue.ToString();
+            var sel = Convert.ToInt32(id);
+
             using (ProjectContext ctx = new ProjectContext())
             {
-                ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).FirstName = txtFirstName.Text;
-                ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).LastName = txtLastName.Text;
-                ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).Email = txtEmail.Text;
-                // ctx.Employees.FirstOrDefault(c => c.UserId == cbUsers.SelectedIndex).address = txtAddress.Text;
+                ctx.Employees.FirstOrDefault(c => c.UserId == sel).FirstName = txtFirstName.Text;
+                ctx.Employees.FirstOrDefault(c => c.UserId == sel).LastName = txtLastName.Text;
+                ctx.Employees.FirstOrDefault(c => c.UserId == sel).Email = txtEmail.Text;
+                ctx.Employees.FirstOrDefault(c => c.UserId == sel).Address = txtAddress.Text;
 
                 ctx.SaveChanges();
-
+                Laad();
             }
         }
         public class Employee
@@ -75,23 +71,39 @@ namespace ProjectInlog
 
         private void cbUsers_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            string id = cbUsers.SelectedValue.ToString();
-            var del = Convert.ToInt32(id);
 
-            using (ProjectContext ctx = new ProjectContext())
+            if (cbUsers.SelectedValue.ToString() != null)
             {
-                var col = ctx.Employees.FirstOrDefault(c => c.UserId == del);
-                txtFirstName.Text = col.FirstName;
-                txtLastName.Text = col.LastName;
-                txtEmail.Text = col.Email;
-                //txtFunction.Text = col.Function;
+                string id = cbUsers.SelectedValue.ToString();
+                var del = Convert.ToInt32(id);
 
+                using (ProjectContext ctx = new ProjectContext())
+                {
+                    var col = ctx.Employees.FirstOrDefault(c => c.UserId == del);
+                    txtFirstName.Text = col.FirstName;
+                    txtLastName.Text = col.LastName;
+                    txtEmail.Text = col.Email;
+                    //  txtFunction.Text = col.Function;
+                    txtAddress.Text = col.Address;
+                }
             }
+           
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        public void Laad()
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
+
+                cbUsers.ItemsSource = col;
+                cbUsers.DisplayMemberPath = "Name";
+                cbUsers.SelectedValuePath = "Id";
+            }
         }
     }
 }

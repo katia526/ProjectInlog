@@ -22,6 +22,7 @@ namespace ProjectInlog
         public ScrAdministrator()
         {
             InitializeComponent();
+           
         }
 
         private void btnProfiel_Click(object sender, RoutedEventArgs e)

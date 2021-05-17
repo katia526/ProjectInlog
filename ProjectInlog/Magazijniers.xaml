@@ -28,7 +28,7 @@
                 </Grid.RowDefinitions>
 
                 <Button x:Name="btnLeveranciers" Grid.Column="0" Content="Leveranciers" HorizontalAlignment="Center" Width="100" Height="30" Click="btnNieuwe_Click" ></Button>
-                <Button x:Name="btnMagazijn" Content="Magazijn" Grid.Column="0" Grid.Row="1" HorizontalAlignment="center" Width="100" Height="30" ></Button>
+               <Button x:Name="btnMagazijn" Content="Magazijn" Grid.Column="0" Grid.Row="1" HorizontalAlignment="center" Width="100" Height="30" Click="btnMagazijn_Click" ></Button>
                 <Button x:Name="btnVoegtoe" Content="Nieuwe" Grid.Column="1" HorizontalAlignment="Center" Width="100" Height="30" Click="btnVoegtoe_Click" Visibility="Hidden"></Button>
                 <Button x:Name="btnPasAan" Content="Wijzig" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="100" Height="30" Visibility="Hidden"></Button>
                 <Button x:Name="btnDelete" Content="Verwijder" Grid.Column="1" Grid.Row="2"   HorizontalAlignment="Center" Width="100" Height="30" Visibility="Hidden" Click="btnDelete_Click"></Button>

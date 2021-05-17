@@ -7,29 +7,38 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" >
     <Grid>
-        <Border x:Name="Border" BorderBrush="Black" BorderThickness="2" Width="300" Height="230" >
-        <StackPanel Width="300" Height="230" Orientation="Vertical" HorizontalAlignment="Center" Background="LightGray" >
+        <Image Source="Images/achtergrond.jpg" Stretch="Fill" StretchDirection="Both"></Image>
+        <Border x:Name="Border" BorderBrush="Black" BorderThickness="2" Width="400" Height="330" >
+        <StackPanel Width="400" Height="330" Orientation="Vertical" HorizontalAlignment="Center" Background="LightGray" >
             
 
             <StackPanel >
                 <TextBlock>
-                <Image Source="Images\logo.png" Width="50" Height="50" HorizontalAlignment="Left"  Margin="10,0"></Image>
-                <Label Content="Login" HorizontalAlignment="Center" FontSize="20" Padding="10" ></Label>
+                  <Canvas Width="100" Height="50" VerticalAlignment="Top">
+            <Ellipse Fill="Gainsboro" Canvas.Left="10" Canvas.Top="10" Width="30" Height="30" />
+            <Rectangle Fill="LightBlue" Canvas.Left="10" Canvas.Top="10" Width="15" Height="15" />
+            <Rectangle Fill="LightCoral" Canvas.Left="15" Canvas.Top="15" Width="15" Height="15" />
+            <Rectangle Fill="LightCyan" Canvas.Left="20" Canvas.Top="20" Width="15" Height="15" />
+            
+        </Canvas>   
+                    
+              
+                <Label Content="Aanmelden" HorizontalAlignment="Center" FontSize="20" Padding="30,10,0,10" ></Label>
 
                 </TextBlock>
             </StackPanel>
                 <Separator/>
                 <StackPanel>
-                <TextBlock HorizontalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0">
             <Label Content="Username" Width="70" HorizontalAlignment="Left" Margin="10"></Label>
             <TextBox x:Name="txtUserName" Width="100" HorizontalAlignment="Center" Margin="10"></TextBox>
                 </TextBlock>
-                <TextBlock HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Content="Password" Width="70" HorizontalAlignment="Left" Margin="10" ></Label>
             <PasswordBox x:Name="txtPassword" Width="100" HorizontalAlignment="Center" PasswordChar="*" MaxLength="10" Margin="10" ></PasswordBox>
                 </TextBlock>
             </StackPanel>
-            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Width="60" Height="30" Margin="10" Click="btnLogin_Click"></Button>
+            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Width="60" Height="30" Margin="80" Click="btnLogin_Click"></Button>
             </StackPanel>
             </Border>
 

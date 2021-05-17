@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="ScrAdministrator" Height="450" Width="800">
     <Grid>
-        <Border x:Name="BrdAdmin" BorderBrush="Black" BorderThickness="2" Height="300" Width="400" CornerRadius="20">
-            <StackPanel>
-                <Label Content="Administrator Page" FontSize="20" HorizontalAlignment="Center" Margin="20"></Label>
+        <Image Source="Images/achtergrond.jpg" Stretch="Fill" StretchDirection="Both"></Image>
+        <Border x:Name="BrdAdmin" BorderBrush="Black" BorderThickness="2" Height="300" Width="400" >
+            <StackPanel Background="LightGray">
+                <Label Content="Administrator Page" FontSize="20" HorizontalAlignment="Center" Margin="20" Background="LightGray"></Label>
                 <Separator/>
                 <Button x:Name="btnProfiel" Width="100" Height="30" Content="Gebruikers" Margin="0, 60, 0, 0 " Click="btnProfiel_Click"></Button>
                 <Button x:Name="btnData" Width="100" Height="30" Content="Database" Margin="0,20, 0, 0" Visibility="Hidden"></Button>

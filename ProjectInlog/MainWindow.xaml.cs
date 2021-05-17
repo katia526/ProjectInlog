@@ -27,49 +27,49 @@ namespace ProjectInlog
         {
             InitializeComponent();
 
-            using (ProjectContext ctx = new ProjectContext())
-            {
-                ctx.Employees.Add(new Employee()
-                {
-                    FirstName = "Jef",
-                    LastName = "verachtert",
-                    Function = "1",
-                    Email = "katia@hotmail.com",
-                    Password = "abcd",
-                    UserName = "Jefke",
-                    Address = "Markt 5",
-                });
-                ctx.Employees.Add(new Employee()
-                {
-                    FirstName = "Mieke",
-                    LastName = "ver",
-                    Function = "2",
-                    Email = "m@hotmail.com",
-                    Password = "MIaz56%%",
-                    UserName = "Mieke",
-                    Address = "Markt 5",
-                });
-                ctx.Employees.Add(new Employee()
-                {
-                    FirstName = "Louis",
-                    LastName = "p",
-                    Function = "3",
-                    Email = "p@hotmail.com",
-                    Password = "MIaz56%%",
-                    UserName = "Louis",
-                    Address = "Markt 5",
-                });
+            //using (ProjectContext ctx = new ProjectContext())
+            //{
+            //    ctx.Employees.Add(new Employee()
+            //    {
+            //        FirstName = "Jef",
+            //        LastName = "verachtert",
+            //        Function = "1",
+            //        Email = "katia@hotmail.com",
+            //        Password = "abcd",
+            //        UserName = "Jefke",
+            //        Address = "Markt 5",
+            //    });
+            //    ctx.Employees.Add(new Employee()
+            //    {
+            //        FirstName = "Mieke",
+            //        LastName = "ver",
+            //        Function = "2",
+            //        Email = "m@hotmail.com",
+            //        Password = "MIaz56%%",
+            //        UserName = "Mieke",
+            //        Address = "Markt 5",
+            //    });
+            //    ctx.Employees.Add(new Employee()
+            //    {
+            //        FirstName = "Louis",
+            //        LastName = "p",
+            //        Function = "3",
+            //        Email = "p@hotmail.com",
+            //        Password = "MIaz56%%",
+            //        UserName = "Louis",
+            //        Address = "Markt 5",
+            //    });
 
-                ctx.Clients.Add(new Client()
-                {
-                    C_Name = "Biermans",
-                    C_Adress = "Markt 2",
-                    C_City = "2440 Geel",
-                    C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
+            //    ctx.Clients.Add(new Client()
+            //    {
+            //        C_Name = "Biermans",
+            //        C_Adress = "Markt 2",
+            //        C_City = "2440 Geel",
+            //        C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
 
-                });
-                ctx.SaveChanges();
-            }
+            //    });
+            //    ctx.SaveChanges();
+            //}
 
         }
         public class Employee
@@ -112,7 +112,7 @@ namespace ProjectInlog
             public string s_Contact { get; set; }
             public string S_Phone { get; set; }
             public string S_Email { get; set; }
-            public string S_Contact { get; set; }
+         
 
             [DataType(DataType.Date)]
             public DateTime S_CreatedAt { get; set; } = DateTime.Now;
@@ -183,7 +183,7 @@ namespace ProjectInlog
             {
                 // Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
                 Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
-                  //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
+                //  Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 
             public DbSet<Employee> Employees { get; set; }

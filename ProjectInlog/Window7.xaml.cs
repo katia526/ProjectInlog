@@ -23,17 +23,7 @@ namespace ProjectInlog
         public Window7()
         {
             InitializeComponent();
-
-            using (ProjectContext ctx = new ProjectContext())
-            {
-
-              //  var col = ctx.Supplier.AsEnumerable().Where(c => c.S_Name.StartsWith())
-               var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
-               
-                cbLeverancier.ItemsSource = col;
-                cbLeverancier.DisplayMemberPath = "Name";
-                cbLeverancier.SelectedValuePath = "Id";
-            }
+            Laad();
         }
 
         private void cbLeverancier_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,8 +41,22 @@ namespace ProjectInlog
                 ctx.Supplier.Remove(ctx.Supplier.FirstOrDefault(c => c.SupplierId == del));
 
                 ctx.SaveChanges();
+                Laad();
             }
             
+        }
+        public void Laad()
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+
+                //  var col = ctx.Supplier.AsEnumerable().Where(c => c.S_Name.StartsWith())
+                var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
+
+                cbLeverancier.ItemsSource = col;
+                cbLeverancier.DisplayMemberPath = "Name";
+                cbLeverancier.SelectedValuePath = "Id";
+            }
         }
     }
 }

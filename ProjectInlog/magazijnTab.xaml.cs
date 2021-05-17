@@ -48,7 +48,7 @@ namespace ProjectInlog
                         s_Contact = txtContact.Text,
                         S_Phone = txtTelefoon.Text,
                         S_Email = txtEmail.Text,
-                        S_Contact = txtContact.Text
+                       
                     });
                     ctx.SaveChanges();
                     txtNaam.Text = " ";
@@ -58,9 +58,10 @@ namespace ProjectInlog
                     txtContact.Text = " ";
                     txtTelefoon.Text = " ";
                     txtEmail.Text = " ";
-                    txtContact.Text = " ";
+                   
                 }
             }
+           
         }
 
         private void txtEditor_TextChanged(object sender, TextChangedEventArgs e)
@@ -70,16 +71,38 @@ namespace ProjectInlog
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+        }
+
+        private void lbLeveranciers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+        }
+        public void LaadLeveranciers()
+        {
             using (ProjectContext ctx = new ProjectContext())
             {
-
+                //lbLeveranciers.Items.Clear();
+                //var dataTable = new DataTable();
                 //  var col = ctx.Supplier.AsEnumerable().Where(c => c.S_Name.StartsWith())
                 var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
-
-                lbLeveranciers.ItemsSource = col;
-                lbLeveranciers.DisplayMemberPath = "Name";
-                lbLeveranciers.SelectedValuePath = "Id";
+                if (col != null)
+                {
+                    lbLeveranciers.ItemsSource = col;
+                    lbLeveranciers.DisplayMemberPath = "Name";
+                    lbLeveranciers.SelectedValuePath = "Id";
+                }
             }
+        }
+
+        private void TabItem_ContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+           
+        }
+
+        private void TabItem_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            LaadLeveranciers();
         }
     }
 }
