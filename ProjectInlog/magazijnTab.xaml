@@ -188,8 +188,52 @@
                             <TextBox x:Name="txtAdresBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
                             <TextBox x:Name="txtWoonplaatsBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
                             <Button x:Name="btnVerwijder" HorizontalAlignment="Center" Width="100" Height="30" Content="Verwijder" Click="btnVerwijder_Click"></Button>
-                            <Button x:Name="btnExit" HorizontalAlignment="Center" Width="100" Height="30" Content="Exit" Margin="0,10,0,0" Click="btnExit_Click" ></Button>
+                           
                         </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Overzicht leveranciers" Margin="-2,0">
+                        <Grid>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <Button x:Name="btnAlfa" Content="Alfabetisch" Width="100" Height="25"  Margin="20,20,20,0" Click="btnAlfa_Click"></Button>
+                            <Button x:Name="btnPost" Content="kies een postcode" Width="100" Height="25"  Margin="20,20,20,0" Click="btnPost_Click"></Button>
+                                <TextBox x:Name="txtPost" Width="100" Height="25" ></TextBox>
+                        </StackPanel>
+                        <!--<StackPanel>
+                                <TextBox x:Name="txtHoofd" Width="200" Height="25" Margin="0,20,0,0"></TextBox>
+                                <ListView x:Name="lstLev" Width="200" Height="300" Margin="60"  ItemsSource="{Binding col}" DisplayMemberPath="Name"     
+                                    SelectedValuePath="Id"
+                                    SelectedValue="{Binding col}">
+
+                                </ListView>
+                        </StackPanel>-->
+                            
+                            <!--<ListView x:Name="lstLev" Width="400" Height="300" Margin="60">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding ID}" />
+                                            <TextBlock Text=" " />
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>-->
+
+                            <TextBox x:Name="txtHoofd" VerticalAlignment="Top" Width="200" Height="25" Margin="0,20,0,0"></TextBox>
+                            <ListView x:Name="lstLev" Width="300" Height="400" Margin="0,60,0,0" ItemsSource="{Binding col}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                        <TextBlock Text="{Binding S_Name}" FontWeight="Bold"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding S_Phone}"/>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            
+                            
+                        </Grid>    
                     </TabItem>
                 </TabControl>
             </StackPanel>

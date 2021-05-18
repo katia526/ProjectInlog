@@ -181,6 +181,17 @@ namespace ProjectInlog
 
         private void cmbLeverancier_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
+                if (col != null)
+                {
+                    cmbLeverancier.ItemsSource = col;
+                    cmbLeverancier.DisplayMemberPath = "Name";
+                    cmbLeverancier.SelectedValuePath = "Id";
+                }
+            }
+
             if (cmbLeverancier.SelectedValue.ToString() != null)
             {
                 string id = cmbLeverancier.SelectedValue.ToString();
@@ -197,15 +208,7 @@ namespace ProjectInlog
                     txtLevTelefoon.Text = col.S_Phone;
                     txtLevWebsite.Text = col.S_Website;
                     txtLevWoonplaats.Text = col.s_City;
-                    ctx.SaveChanges();
-                    txtLevNaam.Text = " ";
-                    txtLevAdres.Text = " ";
-                    txtLevContact.Text = " ";
-                    txtLevEmail.Text = " ";
-                    txtLevPostcode.Text = " ";
-                    txtLevTelefoon.Text = " ";
-                    txtLevWebsite.Text = " ";
-                    txtLevWoonplaats.Text = " ";
+                                        
                 }
             }
         }
@@ -240,12 +243,66 @@ namespace ProjectInlog
                 S_tewijzigen.S_Website = txtLevWebsite.Text;
 
                 ctx.SaveChanges();
+                txtLevNaam.Text = " ";
+                txtLevAdres.Text = " ";
+                txtLevContact.Text = " ";
+                txtLevEmail.Text = " ";
+                txtLevPostcode.Text = " ";
+                txtLevTelefoon.Text = " ";
+                txtLevWebsite.Text = " ";
+                txtLevWoonplaats.Text = " ";
             }
         }
 
         private void btnEinde_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+           
+        }
+
+        private void btnAlfa_Click(object sender, RoutedEventArgs e)
+        {
+
+            txtHoofd.Text = "Alfabetisch gesorteerd";
+            using (ProjectContext ctx = new ProjectContext())
+            {
+              //  var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
+                var col = ctx.Supplier.OrderBy(c => c.S_Name ).ToList();
+                if (col != null)
+                {
+                    lstLev.ItemsSource = col;
+                    //lstLev.DisplayMemberPath = "Name";
+                    //lstLev.SelectedValuePath = "Id";
+                }
+            }
+        }
+
+        private void btnPost_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtPost.Text == null)
+            {
+                txtHoofd.Text = "Vul een postcode in";
+                txtPost.Focus();
+            }
+            else
+            {
+                using (ProjectContext ctx = new ProjectContext())
+                {
+                    // var col = ctx.Supplier.AddRange(ctx.Supplier.Where(c => c.s_PostCode == txtPost.Text)).ToList();
+
+                    //ctx.Supplier.Select(p => new {
+                    //    p,
+                    //    leeftijdscategorie = (p.age >= 40) ? "Ouder dan 40" : "Jonger dan 40";
+
+
+
+
+                    var col = ctx.Supplier.Where(c => c.s_PostCode == txtPost.Text)
+                        .Select(s => new { Name = s.S_Name, Id = s.SupplierId}).ToList();
+                    txtHoofd.Text = txtPost.Text;
+                    lstLev.ItemsSource = col;
+                }
+                   
+            }
         }
     }
 }
