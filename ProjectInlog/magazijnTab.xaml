@@ -111,17 +111,66 @@
                             </Grid>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Leverancier wijzigen">
-                        <Expander ExpandDirection="Right" IsExpanded="True">
+                    <TabItem Header="Leverancier wijzigen" Margin="-2,0" Loaded="TabItem_Loaded_1">
+                        <!--<Expander ExpandDirection="Right" IsExpanded="True">
                             <Label>Ik ben hidden!</Label>
-                        </Expander>
+                        </Expander>-->
+                        <Grid HorizontalAlignment="Center">
+                            <StackPanel>
+                        <TextBlock Margin="0,0,0,20">
+                        <Label Content="Naam leverancier" Width="100" Height="25" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
+                        <ComboBox x:Name="cmbLeverancier" Width="200" Height="25" HorizontalAlignment="Center" Margin="0,20,0,0"
+                                  ItemsSource="{Binding col}"
+                                  DisplayMemberPath="Name"
+                                  SelectedValuePath="Id"
+                                  SelectedValue="{Binding col}" SelectionChanged="cmbLeverancier_SelectionChanged">
+                            
+                        </ComboBox>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,10">
+                            <Label Content="Naam" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevNaam" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="Adres" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevAdres" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="Woonplaats" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevWoonplaats" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="Telefoonnr" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevTelefoon" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="ContactPersoon" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevContact" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="Postcode" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevPostcode" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="Email" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevEmail" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
+                            <Label Content="Website" Width="100" Height="25" HorizontalAlignment="Center"></Label>
+                            <TextBox x:Name="txtLevWebsite" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <Button x:Name="btnSave" Content="Bewaar" Width="100" Height="25" Margin="0,20,0,0" Click="btnSave_Click"></Button>
+                                <Button x:Name="btnEinde" Content="Exit" Width="100" Height="25" Margin="0,20,0,0" Click="btnEinde_Click"></Button>
+                            </StackPanel>
+    </Grid>    
                     </TabItem>
-                    <TabItem Header="Leverancier verwijderen" Margin="-2,0" ContextMenuClosing="TabItem_ContextMenuClosing" ContextMenuOpening="TabItem_ContextMenuOpening">
+                    <TabItem Header="Leverancier verwijderen" Margin="-2,0" ContextMenuClosing="TabItem_ContextMenuClosing" ContextMenuOpening="TabItem_ContextMenuOpening" Loaded="TabItem_Loaded">
                         <StackPanel Orientation="Vertical" Width="400" Height="400">
-                        <ListBox x:Name="lbLeveranciers" HorizontalContentAlignment="Center" Width="200" Height="100" Margin="0,40,0,30" ItemsSource="{Binding col}"
+                            <!--<TextBox DockPanel.Dock="Top" Margin="0,50,0,10"  Width="200" Name="txtFilter" TextChanged="txtFilter_TextChanged" />-->
+                            <ListBox x:Name="lbLeveranciers" HorizontalContentAlignment="Center" Width="200" Height="100" Margin="0,40,0,30" ItemsSource="{Binding col}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
-                                 SelectedValue="{Binding col}" SelectionChanged="lbLeveranciers_SelectionChanged">
+                                 SelectedValue="{Binding col}" SelectionChanged="lbLeveranciers_SelectionChanged_2"  >
                             <!--<ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="0,2">
@@ -135,7 +184,11 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>-->
                         </ListBox>
-                        <Button x:Name="btnVerwijder" HorizontalAlignment="Center" Width="100" Height="30" Content="Verwijder"></Button>
+                            <TextBox x:Name="txtNaamBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
+                            <TextBox x:Name="txtAdresBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
+                            <TextBox x:Name="txtWoonplaatsBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
+                            <Button x:Name="btnVerwijder" HorizontalAlignment="Center" Width="100" Height="30" Content="Verwijder" Click="btnVerwijder_Click"></Button>
+                            <Button x:Name="btnExit" HorizontalAlignment="Center" Width="100" Height="30" Content="Exit" Margin="0,10,0,0" Click="btnExit_Click" ></Button>
                         </StackPanel>
                     </TabItem>
                 </TabControl>

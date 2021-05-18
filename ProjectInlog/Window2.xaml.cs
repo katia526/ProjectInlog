@@ -114,9 +114,13 @@ namespace ProjectInlog
                     {
                         sel = "1";
                     }
-                    else
+                    else if (txtFunctie.Text == "verkoper")
                     {
                         sel = "2";
+                    }
+                    else 
+                    {
+                        sel = "3";
                     }
                 }
             ctx.Employees.Add(new Employee()

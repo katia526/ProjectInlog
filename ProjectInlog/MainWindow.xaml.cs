@@ -38,6 +38,7 @@ namespace ProjectInlog
             //        Password = "abcd",
             //        UserName = "Jefke",
             //        Address = "Markt 5",
+            //        DatumIn = new DateTime(year: 2018, month: 5, day: 03)
             //    });
             //    ctx.Employees.Add(new Employee()
             //    {
@@ -48,6 +49,7 @@ namespace ProjectInlog
             //        Password = "MIaz56%%",
             //        UserName = "Mieke",
             //        Address = "Markt 5",
+            //        DatumIn = new DateTime(year: 2019, month: 5, day: 03)
             //    });
             //    ctx.Employees.Add(new Employee()
             //    {
@@ -58,6 +60,7 @@ namespace ProjectInlog
             //        Password = "MIaz56%%",
             //        UserName = "Louis",
             //        Address = "Markt 5",
+            //        DatumIn = new DateTime(year: 2020, month: 5, day: 03)
             //    });
 
             //    ctx.Clients.Add(new Client()
@@ -83,8 +86,13 @@ namespace ProjectInlog
             public string Password { get; set; }
             public string UserName { get; set; }
             public string Address { get; set; }
+            public string Woonplaats { get; set; }
+            
+            [DataType(DataType.Date)]
+            public DateTime DatumIn { get; set; } = DateTime.Now;
+            [DataType(DataType.Date)]
+            public DateTime DatumUit { get; set; } = DateTime.Now;
             public Client Client { get; set; }
-
         }
         public class Client
         {
@@ -112,6 +120,7 @@ namespace ProjectInlog
             public string s_Contact { get; set; }
             public string S_Phone { get; set; }
             public string S_Email { get; set; }
+            public string S_Website { get; set; }
          
 
             [DataType(DataType.Date)]

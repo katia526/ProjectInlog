@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectInlog"
         mc:Ignorable="d"
-        Title="Window2" Height="450" Width="800">
-    <Grid  Height="350" Width="525" Background="Bisque">
+        Title="Window2" Height="600" Width="800">
+    <Grid  Height="450" Width="525" >
         <TextBlock Height="23" HorizontalAlignment="Left" 
                    Margin="10,5,0,0" Name="textBlockHeading" 
                    Text="Nieuwe werknemer:" VerticalAlignment="Top" 
                    Width="200"  FontSize="17" FontStretch="ExtraCondensed"/>
-        <Grid Margin="31,0,29,23" Background="White" Height="283" VerticalAlignment="Bottom">
+        <Grid Margin="33,0,27,25" Background="White" Height="350" VerticalAlignment="Bottom">
             <Grid.RowDefinitions>
-                <RowDefinition Height="272*" />
+                <RowDefinition Height="350*" />
                 <!--   <RowDefinition Height="12*" />-->
             </Grid.RowDefinitions>
             <TextBlock Height="20" HorizontalAlignment="Left" Margin="67,0,0,0" x:Name ="txtError" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" />
@@ -24,6 +24,8 @@
             <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,135,0,0" Name="textBlockPassword" Text="Password:" VerticalAlignment="Top" Width="110"  />
             <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,166,0,0" Name="textBlockConfirmPwd" Text="UserName:" VerticalAlignment="Top" Width="110" Grid.RowSpan="2" />
             <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,198,0,0" Name="textBlockAddress" Text="Address" VerticalAlignment="Top" Width="110" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,228,0,0" Name="textBlockDatumIn" Text="DatumIn" VerticalAlignment="Top" Width="110" />
+            <TextBlock Height="23" HorizontalAlignment="Left" Margin="67,258,0,0" Name="textBlockDatumUit" Text="DatumUit" VerticalAlignment="Top" Width="110" />
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,20,0,0" Name="txtFirstName" VerticalAlignment="Top" Width="222" />
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,50,0,0" Name="txtLastName" VerticalAlignment="Top" Width="222" />
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,80,0,0" Name="txtEmail" VerticalAlignment="Top" Width="222" />
@@ -31,15 +33,18 @@
             <ComboBox Height="23" HorizontalAlignment="Left" Margin="183,109,0,0" Name="txtFunctie" Text="Functie" VerticalAlignment="Top" Width="222" >
                 <ComboBoxItem IsSelected="True">Verkoper</ComboBoxItem>
                 <ComboBoxItem>Magazijnier</ComboBoxItem>
+                <ComboBoxItem>Administrator</ComboBoxItem>
             </ComboBox>
           
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,137,0,0" Name="txtPassword" VerticalAlignment="Top" Width="222" />
             <!--For password-->
             <TextBox Height="23" HorizontalAlignment="Left" Margin="183,166,0,0" Name="txtUserName" VerticalAlignment="Top" Width="222" />
-            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,66" Name="txtAddress" VerticalAlignment="Bottom" Width="222" />
-            <Button Content="Submit" Height="23" HorizontalAlignment="Left" Margin="183,224,0,0" Name="Submit" VerticalAlignment="Top" Width="70" Click="Submit_Click" />
-            <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="259,224,0,0" Name="Reset" VerticalAlignment="Top" Width="70" Click="Reset_Click" />
-            <Button Content="Exit" Height="23" HorizontalAlignment="Right" Margin="0,224,60,0" Name="Exit" VerticalAlignment="Top" Width="70" Click="Exit_Click"  />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,132" Name="txtAddress" VerticalAlignment="Bottom" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,72" Name="txtDatumIn" VerticalAlignment="Bottom" Width="222" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="183,0,0,100" Name="txtDatumUit" VerticalAlignment="Bottom" Width="222" />
+            <Button Content="Submit" Height="23" HorizontalAlignment="Left" Margin="183,290,0,0" Name="Submit" VerticalAlignment="Top" Width="70" Click="Submit_Click" />
+            <Button Content="Reset" Height="23" HorizontalAlignment="Left" Margin="259,290,0,0" Name="Reset" VerticalAlignment="Top" Width="70" Click="Reset_Click" />
+            <Button Content="Exit" Height="23" HorizontalAlignment="Right" Margin="0,290,60,0" Name="Exit" VerticalAlignment="Top" Width="70" Click="Exit_Click"  />
         </Grid>
 
 
