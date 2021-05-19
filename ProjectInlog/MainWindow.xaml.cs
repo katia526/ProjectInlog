@@ -67,7 +67,8 @@ namespace ProjectInlog
             //    {
             //        C_Name = "Biermans",
             //        C_Adress = "Markt 2",
-            //        C_City = "2440 Geel",
+            //        C_PostCode = "2440",
+            //        C_Woonplaats = "Geel",
             //        C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
 
             //    });
@@ -100,12 +101,17 @@ namespace ProjectInlog
             public int ClientId { get; set; }
             public string C_Name { get; set; }
             public string C_Adress { get; set; }
-            public string C_City { get; set; }
+            public string C_Woonplaats { get; set; }
+            public string C_PostCode { get; set; }
             public string C_Phone { get; set; }
-            public string TVA { get; set; }
-            public string Representative { get; set; }
+            public string C_BtwNr { get; set; }
+            public string C_Verkoper { get; set; }
+            public string C_Email { get; set; }
+            public string C_Contact { get; set; }
             [DataType(DataType.Date)]
             public DateTime C_CreatedAt { get; set; } = DateTime.Now;
+            [DataType(DataType.Date)]
+            public DateTime C_ChangedAt { get; set; } = DateTime.Now;
 
         }
 
@@ -192,7 +198,7 @@ namespace ProjectInlog
             {
                 // Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
                 Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
-                //  Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
+                // Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 
             public DbSet<Employee> Employees { get; set; }
@@ -221,7 +227,7 @@ namespace ProjectInlog
                 //string salt = SecurityHelper.GenerateSalt(30);
                 //string pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
                 //result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == pwdHashed);
-                result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
+               // result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
                
                 if (result != null && result.Function == "2")
                 {
@@ -232,9 +238,9 @@ namespace ProjectInlog
                 if (result != null && result.Function == "3")
                 {
 
-                    Vertegenwoordigers vertegenwoordigers = new Vertegenwoordigers();
+                    Verkopers verkopers = new Verkopers();
 
-                    vertegenwoordigers.Show();
+                    verkopers.Show();
                 }
             }
         }

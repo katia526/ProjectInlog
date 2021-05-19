@@ -78,8 +78,8 @@
       <DependentUpon>ScrAdministrator.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
-    <Compile Include="Vertegenwoordigers.xaml.cs">
-      <DependentUpon>Vertegenwoordigers.xaml</DependentUpon>
+    <Compile Include="Verkopers.xaml.cs">
+      <DependentUpon>Verkopers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
@@ -131,7 +131,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vertegenwoordigers.xaml">
+    <Page Include="Verkopers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
