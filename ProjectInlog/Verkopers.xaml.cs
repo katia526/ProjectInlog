@@ -115,17 +115,14 @@ namespace ProjectInlog
                 lbKlant.DisplayMemberPath = "Name";
                 lbKlant.SelectedValuePath = "Id";
 
-
-                //var result = ctx.Clients.FirstOrDefault(c => c.C_Name == txtNaam.Text && c.C_Adress == txtAdres.Text);
-
-
             }
         }
 
         private void lbKlant_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbKlant.SelectedValue.ToString() != null)
-            {
+            if (lbKlant.Items.Count != 0)
+           
+                {
                 string id = lbKlant.SelectedValue.ToString();
                 var del = Convert.ToInt32(id);
 
@@ -161,6 +158,147 @@ namespace ProjectInlog
                 txtWoonplaatsKl.Text = " ";
 
             }
+        }
+
+        private void TabItem_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                cmbKlant.ItemsSource = col;
+                cmbKlant.DisplayMemberPath = "Name";
+                cmbKlant.SelectedValuePath = "Id";
+
+            }
+        }
+
+        private void cmbKlant_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string id = cmbKlant.SelectedValue.ToString();
+            var del = Convert.ToInt32(id);
+
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Clients.FirstOrDefault(c => c.ClientId == del);
+                txtKltNaam.Text = col.C_Name;
+                txtKltAdres.Text = col.C_Adress;
+                txtKltContact.Text = col.C_Contact;
+                txtKltEmail.Text = col.C_Email;
+                txtKltPostcode.Text = col.C_PostCode;
+                txtKltTelefoon.Text = col.C_Phone;
+                txtKltWoonplaats.Text = col.C_Woonplaats;
+                txtKltBtwNr.Text = col.C_BtwNr;
+            }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            string id = cmbKlant.SelectedValue.ToString();
+            var del = Convert.ToInt32(id);
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                Client S_tewijzigen = ctx.Clients.Where(c => c.ClientId == del).FirstOrDefault();
+                S_tewijzigen.C_Name = txtKltNaam.Text;
+                S_tewijzigen.C_Contact = txtKltContact.Text;
+                S_tewijzigen.C_Woonplaats = txtKltWoonplaats.Text;
+                S_tewijzigen.C_PostCode = txtKltPostcode.Text;
+                S_tewijzigen.C_Email = txtKltEmail.Text;
+                S_tewijzigen.C_Adress = txtKltAdres.Text;
+                S_tewijzigen.C_BtwNr = txtKltBtwNr.Text;
+                S_tewijzigen.C_Phone = txtKltTelefoon.Text;
+
+                ctx.SaveChanges();
+                txtKltNaam.Text = " ";
+                txtKltAdres.Text = " ";
+                txtKltContact.Text = " ";
+                txtKltEmail.Text = " ";
+                txtKltPostcode.Text = " ";
+                txtKltTelefoon.Text = " ";
+                txtKltBtwNr.Text = " ";
+                txtKltWoonplaats.Text = " ";
+            }
+        }
+
+        private void btnAlfa_Click(object sender, RoutedEventArgs e)
+        {
+            txtHoofd.Text = "Alfabetisch gesorteerd";
+            using (ProjectContext ctx = new ProjectContext())
+            {
+               
+                var col = ctx.Clients.OrderBy(c => c.C_Name).ToList()
+                     .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
+                if (col != null)
+                {
+                    lstKlant.ItemsSource = col;
+                   
+                }
+            }
+        }
+
+        private void btnPost_Click(object sender, RoutedEventArgs e)
+        {
+            txtHoofd.Text = "Postcode: " + txtPost.Text;
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                //var col = ctx.Clients.Where(s => s.C_PostCode == txtPost.Text);
+                    
+                var col = ctx.Clients.Where(s => s.C_PostCode == txtPost.Text)
+                  .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
+
+                if (col != null)
+                {
+                    lstKlant.ItemsSource = col;
+                }
+            }    
+        }
+
+        private void TabItem_Loaded_2(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Employees.Where(s => s.Function == "3")
+                   .Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
+
+                cmbVerk.ItemsSource = col;
+                cmbVerk.DisplayMemberPath = "Name";
+                cmbVerk.SelectedValuePath = "Id";
+               
+                var coll = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                cmbKlnt.ItemsSource = coll;
+                cmbKlnt.DisplayMemberPath = "Name";
+                cmbKlnt.SelectedValuePath = "Id";
+
+                var prod = ctx.Products.Select(c => new { Id = c.ProductId, Name = c.Description, Prijs = c.Price }).ToList();
+
+                cmbProd.ItemsSource = prod;
+                cmbProd.DisplayMemberPath = "Name";
+                cmbProd.SelectedValuePath = "Id";
+
+            }    
+
+        }
+
+        private void cmbProd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string id = cmbProd.SelectedValue.ToString();
+            var del = Convert.ToInt32(id);
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                Product prijs = ctx.Products.Where(c => c.ProductId == del).FirstOrDefault();
+             //       .Select(c => new { Id = c.ProductId, Name = c.Description }).ToList();
+
+               // Client S_tewijzigen = ctx.Clients.Where(c => c.ClientId == del).FirstOrDefault();
+
+
+                txtPrijs.Text = prijs.Price.ToString();
+            }
+        }
+
+        private void btnKeep_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

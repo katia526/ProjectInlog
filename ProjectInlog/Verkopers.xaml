@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectInlog"
         mc:Ignorable="d"
-        Title="Verkopers" Height="1000" Width="800">
+        Title="Verkopers" Height="800" Width="1000">
     <Grid>
         <DockPanel>
             <StackPanel DockPanel.Dock="Top">
@@ -114,7 +114,7 @@
                             </Grid>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Klantgegevens wijzigen" Margin="-2,0">
+                    <TabItem Header="Klantgegevens wijzigen" Margin="-2,0" Loaded="TabItem_Loaded_1">
                         <!--<Expander ExpandDirection="Right" IsExpanded="True">
                             <Label>Ik ben hidden!</Label>
                         </Expander>-->
@@ -126,7 +126,7 @@
                                   ItemsSource="{Binding col}"
                                   DisplayMemberPath="Name"
                                   SelectedValuePath="Id"
-                                  SelectedValue="{Binding col}" >
+                                  SelectedValue="{Binding col}" SelectionChanged="cmbKlant_SelectionChanged" >
                             
                         </ComboBox>
                                 </TextBlock>
@@ -162,7 +162,7 @@
                             <Label Content="BTWnr" Width="100" Height="25" HorizontalAlignment="Center"></Label>
                             <TextBox x:Name="txtKltBtwNr" Width="200" Height="25"></TextBox>
                                 </TextBlock>
-                                <Button x:Name="btnSave" Content="Bewaar" Width="100" Height="25" Margin="0,20,0,0" ></Button>
+                                <Button x:Name="btnSave" Content="Bewaar" Width="100" Height="25" Margin="0,20,0,0" Click="btnSave_Click" ></Button>
                                 <Button x:Name="btnEinde" Content="Exit" Width="100" Height="25" Margin="0,20,0,0" ></Button>
                             </StackPanel>
                         </Grid>
@@ -197,8 +197,8 @@
                     <TabItem Header="Overzicht klanten" Margin="-2,0">
                         <Grid>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                <Button x:Name="btnAlfa" Content="Alfabetisch" Width="100" Height="25"  Margin="20,20,20,0" ></Button>
-                                <Button x:Name="btnPost" Content="kies een postcode" Width="100" Height="25"  Margin="20,20,20,0" ></Button>
+                                <Button x:Name="btnAlfa" Content="Alfabetisch" Width="100" Height="25"  Margin="20,20,20,0" Click="btnAlfa_Click" ></Button>
+                                <Button x:Name="btnPost" Content="kies een postcode" Width="100" Height="25"  Margin="20,20,20,0" Click="btnPost_Click" ></Button>
                                 <TextBox x:Name="txtPost" Width="100" Height="25" ></TextBox>
                             </StackPanel>
                             <!--<StackPanel>
@@ -227,9 +227,9 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel>
-                                            <TextBlock Text="{Binding S_Name}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                                             <TextBlock Text=" - "/>
-                                            <TextBlock Text="{Binding S_Phone}"/>
+                                            <TextBlock Text="{Binding Phone}"/>
                                         </WrapPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -237,6 +237,110 @@
 
 
                         </Grid>
+                    </TabItem>
+                    <TabItem Header="Bestelling ingeven" Loaded="TabItem_Loaded_2">
+                        <StackPanel Width="1000" Height="800">
+                            <Label Content="Bestelling" FontSize="25" HorizontalAlignment="Center"></Label>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="6*"/>
+                                    <RowDefinition Height="6*"/>
+                                    <RowDefinition Height="6*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                    <RowDefinition Height="0*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                                 
+                                    <TextBox x:Name="txtErrorMes" Width="200" Height="25" Visibility="Hidden"></TextBox>
+                                </TextBlock>
+                                <!--<TextBlock Grid.Column="0" Grid.Row="0">
+                                    <Label x:Name="lblNaam" Content="Naam" Width="100" Height="25" Margin="0,30,0,0"></Label>
+                                    <TextBox x:Name="txtNaam" Width="200" Height="25"></TextBox>
+                                </TextBlock>-->
+                                <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,5,0,0">
+                                    <Label x:Name="lblVerk" Content="Verkoper" Width="100" Height="25"></Label>
+                                     <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbVerk" Width="200" 
+                                               ItemsSource="{Binding col}" 
+                                               DisplayMemberPath="Name"
+                                               SelectedValuePath="Id"
+                                               SelectedValue="{Binding col}" >
+                                                 
+                                     </ComboBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="3" Margin="0,5,0,0">
+                                    <Label x:Name="lblKlnt" Content="Klant" Width="100" Height="25"></Label>
+                                     <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbKlnt" Width="200" 
+                                               ItemsSource="{Binding coll}" 
+                                               DisplayMemberPath="Name"
+                                               SelectedValuePath="Id"
+                                               SelectedValue="{Binding coll}" >
+                                                 
+                                     </ComboBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="4" Margin="0,5,0,0">
+                                    <Label x:Name="lblProd" Content="Product" Width="100" Height="25"></Label>
+                                     <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbProd" Width="200" 
+                                               ItemsSource="{Binding prod}" 
+                                               DisplayMemberPath="Name"
+                                               SelectedValuePath="Id"
+                                               SelectedValue="{Binding prod}" SelectionChanged="cmbProd_SelectionChanged" >
+                                                 
+                                     </ComboBox>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="0" Grid.Row="5" Margin="0,5,0,0">
+                                    <Label x:Name="lblAantal" Content="Aantal" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtAantal" Width="200" Height="25" ></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="6" Margin="0,5,0,0">
+                                    <Label x:Name="lblPrijs" Content="Prijs" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtPrijs" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="7" Margin="0,5,0,0">
+                                    <Label x:Name="lblTotaal" Content="Totaal" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtTotaal" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Margin="0,5,0,0">
+                                    <ListView Width="400" Height="100">
+                                        
+                                    </ListView>
+                                </TextBlock>
+                                <!--<TextBlock Grid.Column="0" Grid.Row="5" Margin="0,5,0,0">
+                                    <Label x:Name="lblWoonplaats" Content="Woonplaats" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtWoonplaats" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="6" Margin="0,5,0,0">
+                                    <Label x:Name="lblEmail" Content="Email" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtEmail" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="7" Margin="0,5,0,0">
+                                    <Label x:Name="lblTelefoon" Content="Telefoon" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtTelefoon" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="8" Margin="0,5,0,0">
+                                    <Label x:Name="lblBTWnr" Content="BTWnr" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtBTWnr" Width="200" Height="25"></TextBox>
+                                </TextBlock>-->
+                                <Button x:Name="btnKeep" Content="Bewaar" Width="200" Grid.Column="0" Grid.Row="10" Margin="150,5,150,0" Height="20" VerticalAlignment="Top" Grid.RowSpan="2" Click="btnKeep_Click" />
+                            </Grid>
+                        </StackPanel>
                     </TabItem>
                 </TabControl>
             </StackPanel>
