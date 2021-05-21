@@ -61,9 +61,7 @@ namespace ProjectInlog
         {
             string id = cmbVerkoper.SelectedValue.ToString();
             var del = Convert.ToInt32(id);
-           // DateTime now = DateTime.Now;
-
-
+           
             using (ProjectContext ctx = new ProjectContext())
             {
               
@@ -73,7 +71,7 @@ namespace ProjectInlog
             {
                 txtErrorMessage.Visibility = Visibility.Visible;
                 txtErrorMessage.Text = " Deze Klant bestaat reeds!";
-                    txtNaam.Text = " ";
+                txtNaam.Text = " ";
                 txtNaam.Focus();
             }
             else
@@ -305,22 +303,25 @@ namespace ProjectInlog
 
             bestellingen.Add(new Bestelling() { Aantal = Convert.ToInt32(txtAantal.Text), Prijs = Convert.ToDouble(txtPrijs.Text), Product = cmbProd.Text });
 
-            //foreach (var item in bestellingen)
-            //{
-            //    string[] arr = new string[10];
-            //    ListViewItem itm;
-            //    arr[0] = txtAantal.Text;
-            //    arr[1] = txtPrijs.Text;
-            //    arr[2] = cmbProd.Text;
-            //    itm = new ListViewItem(arr);
-            //    lstView.Items.Add(itm);
+            foreach (var bestelling in bestellingen)
+            {
+                //    string[] arr = new string[10];
+                //    ListViewItem itm;
+                //    arr[0] = txtAantal.Text;
+                //    arr[1] = txtPrijs.Text;
+                //    arr[2] = cmbProd.Text;
+                //    itm = new ListViewItem(arr);
+                //    lstView.Items.Add(itm);
 
-            //    //lstView.Items.Add(item.Product);
-            //    //lstView.Items.Add(item.Aantal);
-            //    //lstView.Items.Add(item.Prijs);
+                //lstView.Items.Add(bestelling.Product, bestelling.Aantal, bestelling.Prijs);
+                //lstView.Items.Add(item.Aantal);
+                //lstView.Items.Add(item.Prijs);
 
-            //}
-        }    
+            }
+            txtAantal.Text = " ";
+            txtPrijs.Text = " ";
+           
+        }
         class Bestelling
         {
            
@@ -338,10 +339,50 @@ namespace ProjectInlog
                 this.arr = arr;
             }
 
-            public string Product { get; set; }
-            public int Aantal { get; set; }
-            public double Prijs { get; set; }
+            public string Prod { get; set; }
+            public int Aant { get; set; }
+            public double Pr { get; set; }
 
+        }
+
+        private void btnSlaOp_Click(object sender, RoutedEventArgs e)
+        {
+            string id = cmbKlnt.SelectedValue.ToString();
+            var klt = Convert.ToInt32(id);
+
+            string idV = cmbVerk.SelectedValue.ToString();
+            var lev = Convert.ToInt32(idV);
+
+            string idP = cmbProd.SelectedValue.ToString();
+            var pro = Convert.ToInt32(idP);
+
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                ctx.Orders.Add(new Order()
+                {
+                    O_ClientId = klt,
+                    O_VerkId = lev,
+                    OrderedAt = DateTime.Now,
+                    Invoice = false
+                }); 
+                ctx.SaveChanges();
+
+           //     var ordr = 2;
+           ////     var ordr = ctx.Orders.Where(OrderId).lastindexof();
+           //     foreach (var bestelling in bestellingen)
+           //     {
+           //         ctx.OrderLines.Add(new OrderLine()
+           //         {
+           //             O_OrderId = ordr,
+           //             O_ProductId = pro,
+           //             O_Aantal = Convert.ToInt32(bestelling.Aantal)
+           //         });
+                   
+           //     }
+           //     ctx.SaveChanges();
+            }
+            txtAantal.Text = " ";
+            txtPrijs.Text = " ";
         }
     }
 }

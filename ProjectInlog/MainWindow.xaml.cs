@@ -157,6 +157,7 @@ namespace ProjectInlog
             [Key]
             public int OrderId { get; set; }
             public int O_ClientId { get; set; }
+            public int O_VerkId { get; set; }
             public int Orderline { get; set; }
             [DataType(DataType.Date)]
             public DateTime OrderedAt { get; set; } = DateTime.Now;
@@ -187,7 +188,9 @@ namespace ProjectInlog
         {
             [Key]
             public int O_OrderId { get; set; }
+            [Key]
             public int O_ProductId { get; set; }
+            public int O_Aantal { get; set; }
 
             public Order Order { get; set; }
             public Product Product { get; set; }

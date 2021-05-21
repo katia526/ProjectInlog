@@ -326,6 +326,8 @@
                                             <WrapPanel>
                                                 <TextBlock Text="{Binding Product}" FontWeight="Bold"/>
                                                 <TextBlock Text=" - "/>
+                                                <TextBlock Text="{Binding Aantal}"/>
+                                                <TextBlock Text=" - "/>
                                                 <TextBlock Text="{Binding Prijs}"/>
                                             </WrapPanel>
                                         </DataTemplate>
@@ -357,7 +359,9 @@
                                     <Label x:Name="lblBTWnr" Content="BTWnr" Width="100" Height="25"></Label>
                                     <TextBox x:Name="txtBTWnr" Width="200" Height="25"></TextBox>
                                 </TextBlock>-->
-                                <Button x:Name="btnKeep" Content="Bewaar" Width="200" Grid.Column="0" Grid.Row="10" Margin="150,5,150,0" Height="20" VerticalAlignment="Top" Grid.RowSpan="2" Click="btnKeep_Click" />
+                                <Button x:Name="btnKeep" Content="VoegToe" Width="200" Grid.Column="0" Grid.Row="10" Margin="150,5,150,0" Height="20" VerticalAlignment="Top" Click="btnKeep_Click" />
+                                <Button x:Name="btnSlaOp" Content="Bewaar" Width="200" Grid.Column="0" Grid.Row="11" Margin="150,5,150,0" Click="btnSlaOp_Click"  />
+
                             </Grid>
                         </StackPanel>
                     </TabItem>
