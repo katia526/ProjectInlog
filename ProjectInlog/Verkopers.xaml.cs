@@ -20,6 +20,7 @@ namespace ProjectInlog
     /// </summary>
     public partial class Verkopers : Window
     {
+        List<Bestelling> bestellingen = new List<Bestelling>();
         public Verkopers()
         {
             InitializeComponent();
@@ -296,8 +297,50 @@ namespace ProjectInlog
             }
         }
 
-        private void btnKeep_Click(object sender, RoutedEventArgs e)
+        public void btnKeep_Click(object sender, RoutedEventArgs e)
         {
+       
+            lstView.Items.Clear();
+          
+
+            bestellingen.Add(new Bestelling() { Aantal = Convert.ToInt32(txtAantal.Text), Prijs = Convert.ToDouble(txtPrijs.Text), Product = cmbProd.Text });
+
+            //foreach (var item in bestellingen)
+            //{
+            //    string[] arr = new string[10];
+            //    ListViewItem itm;
+            //    arr[0] = txtAantal.Text;
+            //    arr[1] = txtPrijs.Text;
+            //    arr[2] = cmbProd.Text;
+            //    itm = new ListViewItem(arr);
+            //    lstView.Items.Add(itm);
+
+            //    //lstView.Items.Add(item.Product);
+            //    //lstView.Items.Add(item.Aantal);
+            //    //lstView.Items.Add(item.Prijs);
+
+            //}
+        }    
+        class Bestelling
+        {
+           
+            public string Product { get; set; }
+            public int Aantal { get; set; }
+            public double Prijs { get; set; }
+            
+        }
+        class ListViewItem
+        {
+            private string[] arr;
+
+            public ListViewItem(string[] arr)
+            {
+                this.arr = arr;
+            }
+
+            public string Product { get; set; }
+            public int Aantal { get; set; }
+            public double Prijs { get; set; }
 
         }
     }
