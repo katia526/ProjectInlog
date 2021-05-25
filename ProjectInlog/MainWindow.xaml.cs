@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
@@ -27,6 +28,9 @@ namespace ProjectInlog
         {
             InitializeComponent();
 
+            //DateTime DatumUit = DateTime.Now.ToString("MM/dd/yyyy");
+            DateTime DatumUit = new DateTime(1900, 01, 01);
+
             //using (ProjectContext ctx = new ProjectContext())
             //{
             //    ctx.Employees.Add(new Employee()
@@ -38,6 +42,8 @@ namespace ProjectInlog
             //        Password = "abcd",
             //        UserName = "Jefke",
             //        Address = "Markt 5",
+            //        PostCode = "2440",
+            //        Woonplaats = "Geel",
             //        DatumIn = new DateTime(year: 2018, month: 5, day: 03)
             //    });
             //    ctx.Employees.Add(new Employee()
@@ -49,6 +55,8 @@ namespace ProjectInlog
             //        Password = "MIaz56%%",
             //        UserName = "Mieke",
             //        Address = "Markt 5",
+            //        PostCode = "2440",
+            //        Woonplaats = "Geel",
             //        DatumIn = new DateTime(year: 2019, month: 5, day: 03)
             //    });
             //    ctx.Employees.Add(new Employee()
@@ -60,6 +68,8 @@ namespace ProjectInlog
             //        Password = "MIaz56%%",
             //        UserName = "Louis",
             //        Address = "Markt 5",
+            //        PostCode = "2440",
+            //        Woonplaats = "Geel",
             //        DatumIn = new DateTime(year: 2020, month: 5, day: 03)
             //    });
 
@@ -88,11 +98,22 @@ namespace ProjectInlog
             public string UserName { get; set; }
             public string Address { get; set; }
             public string Woonplaats { get; set; }
-            
+            public string Telefoon { get; set; }
+            public string PostCode { get; set; }
+
+
             [DataType(DataType.Date)]
             public DateTime DatumIn { get; set; } = DateTime.Now;
+
             [DataType(DataType.Date)]
-            public DateTime DatumUit { get; set; } = DateTime.Now;
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [Display(Name = "Date")]
+            public DateTime? DatumUit { get; set; }
+
+            //[DataType(DataType.Date)]
+            //public DateTime DatumUit { get; set; } 
+
+
             public Client Client { get; set; }
         }
         public class Client
@@ -186,9 +207,9 @@ namespace ProjectInlog
         }
         public class OrderLine
         {
-            [Key]
+            [Key, Column(Order = 1)]
             public int O_OrderId { get; set; }
-            [Key]
+            [Key, Column(Order = 2)]
             public int O_ProductId { get; set; }
             public int O_Aantal { get; set; }
 
@@ -200,8 +221,8 @@ namespace ProjectInlog
             public ProjectContext() : base("name=ProjectDBConnectString")
             {
                 // Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
-                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
-                // Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
+                  Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
+                //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 
             public DbSet<Employee> Employees { get; set; }
@@ -218,13 +239,28 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
                 var result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
+                if (result == null)
+                {
+                    MessageBox.Show("fout paswoord of username");
+                    txtUserName.Focus();
+                }
                 
                 if (result != null && result.Function == "1")
                 {
-                    
-                    ScrAdministrator scrAdministrator = new ScrAdministrator();
+                    //ScrAdministrator scrAdministrator = new ScrAdministrator();
 
-                    scrAdministrator.Show();
+                    //scrAdministrator.Show();
+
+                    this.Hide();
+
+                    Administrator Administrator = new Administrator();
+
+                    Administrator.Show();
+
+                    
+                    this.Close();
+
+
                 }
                 //string pwd = txtPassword.Password;
                 //string salt = SecurityHelper.GenerateSalt(30);
@@ -234,16 +270,18 @@ namespace ProjectInlog
                
                 if (result != null && result.Function == "2")
                 {
-
-                    Magazijniers magazijniers = new Magazijniers();
-                    magazijniers.Show();
+                    this.Hide();
+                    magazijnTab magazijnTab = new magazijnTab();
+                    magazijnTab.Show();
+                    this.Close();
                 }
                 if (result != null && result.Function == "3")
                 {
-
+                    this.Hide();
                     Verkopers verkopers = new Verkopers();
 
                     verkopers.Show();
+                    this.Close();
                 }
             }
         }
@@ -271,5 +309,9 @@ namespace ProjectInlog
         //        }
         //    }
         //}
+        public class thisDate1
+        {
+            public DateTime thisdate { get; set; }
+        }
     }
 }

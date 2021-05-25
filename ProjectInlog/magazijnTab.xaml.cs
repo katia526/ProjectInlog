@@ -122,7 +122,7 @@ namespace ProjectInlog
                 {
                     var col = ctx.Supplier.FirstOrDefault(c => c.SupplierId == del);
                     txtNaamBedrijf.Text = col.S_Name;
-                    txtAdres.Text = col.S_Address;
+                    txtAdresBedrijf.Text = col.S_Address;
                     txtWoonplaatsBedrijf.Text = col.s_City;
                 }
            }
@@ -265,8 +265,11 @@ namespace ProjectInlog
             txtHoofd.Text = "Alfabetisch gesorteerd";
             using (ProjectContext ctx = new ProjectContext())
             {
-              //  var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
-                var col = ctx.Supplier.OrderBy(c => c.S_Name ).ToList();
+                // var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name, Phone = c.S_Phone }).ToList();
+                var col = ctx.Supplier.OrderBy(c => c.S_Name)
+                       .Select(s => new { Name = s.S_Name, Id = s.SupplierId, Phone = s.S_Phone }).ToList();
+
+
                 if (col != null)
                 {
                     lstLev.ItemsSource = col;
@@ -289,15 +292,9 @@ namespace ProjectInlog
                 {
                     // var col = ctx.Supplier.AddRange(ctx.Supplier.Where(c => c.s_PostCode == txtPost.Text)).ToList();
 
-                    //ctx.Supplier.Select(p => new {
-                    //    p,
-                    //    leeftijdscategorie = (p.age >= 40) ? "Ouder dan 40" : "Jonger dan 40";
-
-
-
 
                     var col = ctx.Supplier.Where(c => c.s_PostCode == txtPost.Text)
-                        .Select(s => new { Name = s.S_Name, Id = s.SupplierId}).ToList();
+                        .Select(s => new { Name = s.S_Name, Id = s.SupplierId, Phone = s.S_Phone}).ToList();
                     txtHoofd.Text = txtPost.Text;
                     lstLev.ItemsSource = col;
                 }

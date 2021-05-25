@@ -224,9 +224,9 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel>
-                                        <TextBlock Text="{Binding S_Name}" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                                             <TextBlock Text=" - "/>
-                                            <TextBlock Text="{Binding S_Phone}"/>
+                                            <TextBlock Text="{Binding Phone}"/>
                                         </WrapPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

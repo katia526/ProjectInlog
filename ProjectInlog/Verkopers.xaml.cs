@@ -363,23 +363,27 @@ namespace ProjectInlog
                     O_ClientId = klt,
                     O_VerkId = lev,
                     OrderedAt = DateTime.Now,
-                    Invoice = false
+                    Invoice = false,
+                    
                 }); 
                 ctx.SaveChanges();
 
-           //     var ordr = 2;
-           ////     var ordr = ctx.Orders.Where(OrderId).lastindexof();
-           //     foreach (var bestelling in bestellingen)
-           //     {
-           //         ctx.OrderLines.Add(new OrderLine()
-           //         {
-           //             O_OrderId = ordr,
-           //             O_ProductId = pro,
-           //             O_Aantal = Convert.ToInt32(bestelling.Aantal)
-           //         });
-                   
-           //     }
-           //     ctx.SaveChanges();
+                //var ordr = 2;
+                //    var ordr = ctx.Orders.Where(c => c.OrderId).lastindexof();
+
+               int i = ctx.Orders.LastOrDefault(c => c.OrderId);
+
+                foreach (var bestelling in bestellingen)
+                {
+                    ctx.OrderLines.Add(new OrderLine()
+                    {
+                      //  O_OrderId = Order.orderId,
+                        O_ProductId = pro,
+                        O_Aantal = Convert.ToInt32(bestelling.Aantal)
+                    });
+
+                }
+                ctx.SaveChanges();
             }
             txtAantal.Text = " ";
             txtPrijs.Text = " ";

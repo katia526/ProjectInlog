@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administrator.xaml.cs">
+      <DependentUpon>Administrator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Magazijniers.xaml.cs">
       <DependentUpon>Magazijniers.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     <Compile Include="Window7.xaml.cs">
       <DependentUpon>Window7.xaml</DependentUpon>
     </Compile>
+    <Page Include="Administrator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Magazijniers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
