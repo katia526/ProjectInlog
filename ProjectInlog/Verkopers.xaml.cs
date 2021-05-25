@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -225,7 +226,7 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
                
-                var col = ctx.Clients.OrderBy(c => c.C_Name).ToList()
+                var col = ctx.Clients.OrderBy(c => c.C_Name)
                      .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
                 if (col != null)
                 {
@@ -315,8 +316,8 @@ namespace ProjectInlog
 
                 //lstView.Items.Add(bestelling.Product, bestelling.Aantal, bestelling.Prijs);
                 //lstView.Items.Add(item.Aantal);
-                //lstView.Items.Add(item.Prijs);
-
+                //lstView.Items.Add({ prijs = item.Prijs });
+                lstView.Items.Add(new ListViewItem(new string[] { txtAantal.Text, txtPrijs.Text}));
             }
             txtAantal.Text = " ";
             txtPrijs.Text = " ";
@@ -360,25 +361,38 @@ namespace ProjectInlog
             {
                 ctx.Orders.Add(new Order()
                 {
-                    O_ClientId = klt,
-                    O_VerkId = lev,
+                    ClientId = klt,
+                    VerkId = lev,
                     OrderedAt = DateTime.Now,
-                    Invoice = false,
-                    
-                }); 
-                ctx.SaveChanges();
+                    Invoice = false
+                });
 
-                //var ordr = 2;
-                //    var ordr = ctx.Orders.Where(c => c.OrderId).lastindexof();
+               
+            
 
-               int i = ctx.Orders.LastOrDefault(c => c.OrderId);
+           
+                //ctx.SaveChanges();
+
+                var odr = ctx.Orders.Select(c => c.OrderId).LastOrDefault();
+
+                //SELECT* FROM foo WHERE ID = (SELECT max(ID) FROM foo)
+
+                //var col = ctx.Orders.Where(s => s.OrderId.Max())
+                //  .Select(c => new { Id = c.OrderId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
+
+
+               //var ordr = Convert.ToInt32(ctx.Orders.Max());
+                // var ordr = ctx.Orders.Select(c => c.OrderId).lastindexof();
+               // DataRow lastRow = ctx.Orders.Rows[yourTable.Rows.Count - 1];
+               // var odr = current
+               //int i = ctx.Orders.LastOrDefault(c => c.OrderId);
 
                 foreach (var bestelling in bestellingen)
                 {
                     ctx.OrderLines.Add(new OrderLine()
                     {
-                      //  O_OrderId = Order.orderId,
-                        O_ProductId = pro,
+                       //OrderId = odr,
+                       // ProductId = pro,
                         O_Aantal = Convert.ToInt32(bestelling.Aantal)
                     });
 
