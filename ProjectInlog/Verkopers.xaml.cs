@@ -298,9 +298,12 @@ namespace ProjectInlog
 
         public void btnKeep_Click(object sender, RoutedEventArgs e)
         {
-       
-   
-            bestellingen.Add(new Bestelling() { Aantal = Convert.ToInt32(txtAantal.Text), Prijs = Convert.ToDouble(txtPrijs.Text), Product = cmbProd.Text });
+            string idP = cmbProd.SelectedValue.ToString();
+            var pro = Convert.ToInt32(idP);
+
+            bestellingen.Add(new Bestelling() { Aantal = Convert.ToInt32(txtAantal.Text), Prijs = Convert.ToDouble(txtPrijs.Text), 
+                Product = idP, Pnaam = cmbProd.Text
+            });
 
             foreach (var bestelling in bestellingen)
             {
@@ -332,6 +335,7 @@ namespace ProjectInlog
         {
            
             public string Product { get; set; }
+            public string Pnaam { get; set; }
             public int Aantal { get; set; }
             public double Prijs { get; set; }
             
@@ -359,43 +363,31 @@ namespace ProjectInlog
             string idV = cmbVerk.SelectedValue.ToString();
             var lev = Convert.ToInt32(idV);
 
-            string idP = cmbProd.SelectedValue.ToString();
-            var pro = Convert.ToInt32(idP);
+            
 
             using (ProjectContext ctx = new ProjectContext())
             {
+              
                 ctx.Orders.Add(new Order()
                 {
                     ClientId = klt,
                     VerkId = lev,
                     OrderedAt = DateTime.Now,
                     Invoice = false
+   
                 });
 
      
                 ctx.SaveChanges();
 
-                //var odr = ctx.Orders.Select(c => c.OrderId).LastOrDefault();
-
-                //SELECT* FROM foo WHERE ID = (SELECT max(ID) FROM foo)
-
-                //var col = ctx.Orders.Where(s => s.OrderId.Max())
-                //  .Select(c => new { Id = c.OrderId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
-
-
-               //var ordr = Convert.ToInt32(ctx.Orders.Max());
-                // var ordr = ctx.Orders.Select(c => c.OrderId).lastindexof();
-               // DataRow lastRow = ctx.Orders.Rows[yourTable.Rows.Count - 1];
-               // var odr = current
-               //int i = ctx.Orders.LastOrDefault(c => c.OrderId);
-
+              
                 foreach (var bestelling in bestellingen)
                 {
                     ctx.OrderLines.Add(new OrderLine()
                     {
-                       //OrderId = ,
-                       // ProductId = pro,
-                        O_Aantal = Convert.ToInt32(bestelling.Aantal)
+                       //OrderId = aant.OrderId,
+                       ProductId = Convert.ToInt32(bestelling.Product),
+                       O_Aantal = Convert.ToInt32(bestelling.Aantal)
                     });
 
                 }
@@ -403,6 +395,36 @@ namespace ProjectInlog
             }
             txtAantal.Text = " ";
             txtPrijs.Text = " ";
+           
+        }
+
+        private void TabItem_Loaded_3(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var klant = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                cmbKlan.ItemsSource = klant;
+                cmbKlan.DisplayMemberPath = "Name";
+                cmbKlan.SelectedValuePath = "Id";
+            }
+
+                
+        }
+
+        private void cmbKlan_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string id = cmbKlan.SelectedValue.ToString();
+            var klt = Convert.ToInt32(id);
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var best = ctx.Orders.Where(c => c.ClientId == klt)
+                   .Select(c => new { Id = c.ClientId, Ordr = c.OrderId, Verk = c.VerkId }).ToList();
+
+
+                lstbest.ItemsSource = best;
+                
+            }
         }
     }
 }

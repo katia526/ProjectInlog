@@ -210,7 +210,7 @@ namespace ProjectInlog
         }
         public class OrderLine
         {
-            //[Key]
+            [Key]
             public int OrderLineId { get; set; }
             //[Key, Column(Order = 1)]
 
@@ -218,13 +218,14 @@ namespace ProjectInlog
 
             public int O_Aantal { get; set; }
 
-           
-            [ForeignKey("Order")]
-            public int OrderID { get; set; }
-            public Order Order { get; set; }
-            [ForeignKey("Product")]
+
+            //[ForeignKey("Order")]
+            public int OrderId { get; set; }
+            //public Order Order { get; set; }
+            //[ForeignKey("Product")]
             public int ProductId { get; set; }
             public Product Product { get; set; }
+            public ICollection<Order> Orders { get; set; }
         }
         public class ProjectContext : DbContext
         {
