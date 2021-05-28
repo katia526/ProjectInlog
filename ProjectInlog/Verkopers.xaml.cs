@@ -299,26 +299,31 @@ namespace ProjectInlog
         public void btnKeep_Click(object sender, RoutedEventArgs e)
         {
        
-            lstView.Items.Clear();
-          
-
+   
             bestellingen.Add(new Bestelling() { Aantal = Convert.ToInt32(txtAantal.Text), Prijs = Convert.ToDouble(txtPrijs.Text), Product = cmbProd.Text });
 
             foreach (var bestelling in bestellingen)
             {
-                //    string[] arr = new string[10];
-                //    ListViewItem itm;
-                //    arr[0] = txtAantal.Text;
-                //    arr[1] = txtPrijs.Text;
-                //    arr[2] = cmbProd.Text;
-                //    itm = new ListViewItem(arr);
-                //    lstView.Items.Add(itm);
-
-                //lstView.Items.Add(bestelling.Product, bestelling.Aantal, bestelling.Prijs);
-                //lstView.Items.Add(item.Aantal);
-                //lstView.Items.Add({ prijs = item.Prijs });
-                lstView.Items.Add(new ListViewItem(new string[] { txtAantal.Text, txtPrijs.Text}));
+                lstView.ItemsSource = bestellingen;
             }
+            
+
+
+            //foreach (var bestelling in bestellingen)
+            //{
+            //    string[] arr = new string[10];
+            //    ListViewItem itm;
+            //    arr[0] = txtAantal.Text;
+            //    arr[1] = txtPrijs.Text;
+            //    arr[2] = cmbProd.Text;
+            //    itm = new ListViewItem(arr);
+            //    lstView.Items.Add(itm);
+
+            //lstView.Items.Add(bestelling.Product, bestelling.Aantal, bestelling.Prijs);
+            //lstView.Items.Add(item.Aantal);
+            //lstView.Items.Add({ prijs = item.Prijs });
+            //    lstView.Items.Add(new ListViewItem(new string[] { txtAantal.Text, txtPrijs.Text}));
+            //}
             txtAantal.Text = " ";
             txtPrijs.Text = " ";
            
@@ -367,13 +372,10 @@ namespace ProjectInlog
                     Invoice = false
                 });
 
-               
-            
+     
+                ctx.SaveChanges();
 
-           
-                //ctx.SaveChanges();
-
-                var odr = ctx.Orders.Select(c => c.OrderId).LastOrDefault();
+                //var odr = ctx.Orders.Select(c => c.OrderId).LastOrDefault();
 
                 //SELECT* FROM foo WHERE ID = (SELECT max(ID) FROM foo)
 
@@ -391,7 +393,7 @@ namespace ProjectInlog
                 {
                     ctx.OrderLines.Add(new OrderLine()
                     {
-                       //OrderId = odr,
+                       //OrderId = ,
                        // ProductId = pro,
                         O_Aantal = Convert.ToInt32(bestelling.Aantal)
                     });

@@ -31,59 +31,59 @@ namespace ProjectInlog
             //DateTime DatumUit = DateTime.Now.ToString("MM/dd/yyyy");
             DateTime DatumUit = new DateTime(1900, 01, 01);
 
-            using (ProjectContext ctx = new ProjectContext())
-            {
-                ctx.Employees.Add(new Employee()
-                {
-                    FirstName = "Jef",
-                    LastName = "verachtert",
-                    Function = "1",
-                    Email = "katia@hotmail.com",
-                    Password = "abcd",
-                    UserName = "Jefke",
-                    Address = "Markt 5",
-                    PostCode = "2440",
-                    Woonplaats = "Geel",
-                    DatumIn = new DateTime(year: 2018, month: 5, day: 03)
-                });
-                ctx.Employees.Add(new Employee()
-                {
-                    FirstName = "Mieke",
-                    LastName = "ver",
-                    Function = "2",
-                    Email = "m@hotmail.com",
-                    Password = "MIaz56%%",
-                    UserName = "Mieke",
-                    Address = "Markt 5",
-                    PostCode = "2440",
-                    Woonplaats = "Geel",
-                    DatumIn = new DateTime(year: 2019, month: 5, day: 03)
-                });
-                ctx.Employees.Add(new Employee()
-                {
-                    FirstName = "Louis",
-                    LastName = "p",
-                    Function = "3",
-                    Email = "p@hotmail.com",
-                    Password = "MIaz56%%",
-                    UserName = "Louis",
-                    Address = "Markt 5",
-                    PostCode = "2440",
-                    Woonplaats = "Geel",
-                    DatumIn = new DateTime(year: 2020, month: 5, day: 03)
-                });
+            //using (ProjectContext ctx = new ProjectContext())
+            //{
+            //    ctx.Employees.Add(new Employee()
+            //    {
+            //        FirstName = "Jef",
+            //        LastName = "verachtert",
+            //        Function = "1",
+            //        Email = "katia@hotmail.com",
+            //        Password = "abcd",
+            //        UserName = "Jefke",
+            //        Address = "Markt 5",
+            //        PostCode = "2440",
+            //        Woonplaats = "Geel",
+            //        DatumIn = new DateTime(year: 2018, month: 5, day: 03)
+            //    });
+            //    ctx.Employees.Add(new Employee()
+            //    {
+            //        FirstName = "Mieke",
+            //        LastName = "ver",
+            //        Function = "2",
+            //        Email = "m@hotmail.com",
+            //        Password = "MIaz56%%",
+            //        UserName = "Mieke",
+            //        Address = "Markt 5",
+            //        PostCode = "2440",
+            //        Woonplaats = "Geel",
+            //        DatumIn = new DateTime(year: 2019, month: 5, day: 03)
+            //    });
+            //    ctx.Employees.Add(new Employee()
+            //    {
+            //        FirstName = "Louis",
+            //        LastName = "p",
+            //        Function = "3",
+            //        Email = "p@hotmail.com",
+            //        Password = "MIaz56%%",
+            //        UserName = "Louis",
+            //        Address = "Markt 5",
+            //        PostCode = "2440",
+            //        Woonplaats = "Geel",
+            //        DatumIn = new DateTime(year: 2020, month: 5, day: 03)
+            //    });
 
-                ctx.Clients.Add(new Client()
-                {
-                    C_Name = "Biermans",
-                    C_Adress = "Markt 2",
-                    C_PostCode = "2440",
-                    C_Woonplaats = "Geel",
-                    C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
+            //    ctx.Clients.Add(new Client()
+            //    {
+            //        C_Name = "Biermans",
+            //        C_Adress = "Markt 2",
+            //        C_PostCode = "2440",
+            //        C_Woonplaats = "Geel",
+            //        C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
 
-                });
-                ctx.SaveChanges();
-            }
+            //    });
+            //    ctx.SaveChanges();
+            //}
 
         }
         public class Employee
@@ -133,7 +133,9 @@ namespace ProjectInlog
             public DateTime C_CreatedAt { get; set; } = DateTime.Now;
             [DataType(DataType.Date)]
             public DateTime C_ChangedAt { get; set; } = DateTime.Now;
+            public int UserId { get; set; }
 
+            
         }
 
         public class Supplier
@@ -158,7 +160,7 @@ namespace ProjectInlog
         {
             [Key]
             public int ProductId { get; set; }
-            //public int SupplierId { get; set; }
+            public int SupplierId { get; set; }
             public string Description { get; set; }
             public int stock { get; set; }
             public int Ordered { get; set; }
@@ -170,7 +172,7 @@ namespace ProjectInlog
             public DateTime P_UpdatedAt { get; set; } = DateTime.Now;
 
             public Supplier Supplier { get; set; }
-
+            //public OrderLine OrderLine { get; set; }
 
         }
         public class Order
@@ -187,6 +189,7 @@ namespace ProjectInlog
             public bool Invoice { get; set; }
 
             public Client Client { get; set; }
+            public OrderLine OrderLine { get; set; }
         }
 
         public class Invoice
@@ -207,20 +210,27 @@ namespace ProjectInlog
         }
         public class OrderLine
         {
-            [Key, Column(Order = 1)]
-            public int OrderId { get; set; }
-            [Key, Column(Order = 2)]
-            public int ProductId { get; set; }
+            //[Key]
+            public int OrderLineId { get; set; }
+            //[Key, Column(Order = 1)]
+
+            //[Key, Column(Order = 2)]
+
             public int O_Aantal { get; set; }
 
+           
+            [ForeignKey("Order")]
+            public int OrderID { get; set; }
             public Order Order { get; set; }
+            [ForeignKey("Product")]
+            public int ProductId { get; set; }
             public Product Product { get; set; }
         }
         public class ProjectContext : DbContext
         {
             public ProjectContext() : base("name=ProjectDBConnectString")
             {
-                // Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
+                //Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
                   Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
                 //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
