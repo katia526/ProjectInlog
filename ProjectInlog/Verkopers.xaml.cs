@@ -366,8 +366,6 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
 
-               
-
                 ctx.Orders.Add(new Order()
                 {
                     ClientId = klt,
@@ -377,12 +375,14 @@ namespace ProjectInlog
    
                 });
 
-                var lijst = ctx.Orders.Join(ctx.OrderLines,
-                     c => c.OrderLine.OrderId,
-                     d => d.OrderId,
-                     (c, d) => new { Ordr = d.OrderId }
-                     );
-                tst tst = ctx.Orders.Find(orderId)
+             
+
+                //var lijst = ctx.Orders.Join(ctx.OrderLines,
+                //     c => c.OrderLine.OrderId,
+                //     d => d.OrderId,
+                //     (c, d) => new { Ordr = d.OrderId }
+                //     );
+               
                 //ctx.SaveChanges();
 
                 //var lijst = ctx.Orders.Join(ctx.OrderLines,
@@ -428,8 +428,45 @@ namespace ProjectInlog
             var klt = Convert.ToInt32(id);
             using (ProjectContext ctx = new ProjectContext())
             {
-                var best = ctx.Orders.Where(c => c.ClientId == klt)
-                   .Select(c => new { Id = c.ClientId, Ordr = c.OrderId, Verk = c.VerkId }).ToList();
+
+                //var best = ctx.Orders.Join(ctx.OrderLines,
+                //    p => p.OrderId,
+                //    s => s.OrderLin.
+
+                //var col = ctx.Orders.Where(c => c.ClientId == klt);
+                   
+                   
+
+
+                var sell = ctx.OrderLines.Join(ctx.Orders,
+                s => s.Order.OrderId,
+                a => a.OrderId,
+                (s, a) => new { s, a })
+                    .Where(z => z.a.ClientId == klt);
+                var best = sell.Join(ctx.Products,
+                    sa => sa.s.ProductId,
+                    alb => alb.ProductId,
+                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Ordr = sa.a.OrderId }).ToList();
+
+                //var col = ctx.Clients.Where(s => s.C_PostCode == txtPost.Text)
+                //  .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
+
+
+                //var best = ctx.OrderLines.Join(ctx.Orders,
+                //    p => p.Order.OrderId,
+                //    s => s.OrderId,
+
+                //    );
+
+
+                //var best = ctx.OrderLines.Join(ctx.Products,
+                //    p => p.Product.ProductId,
+                //    s => s.ProductId,
+                //    (p, s) => new { Name = s.Description, Price = s.Price, Aantal = p.O_Aantal }).ToList();
+
+
+                //var best = ctx.Orders.Where(c => c.ClientId == klt)
+                //   .Select(c => new { Id = c.ClientId, Ordr = c.OrderId, Verk = c.VerkId, }).ToList();
 
 
                 lstbest.ItemsSource = best;

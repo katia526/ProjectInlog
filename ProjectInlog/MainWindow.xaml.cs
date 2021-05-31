@@ -122,11 +122,11 @@ namespace ProjectInlog
 
                 //});
 
-               
+
             //    ctx.SaveChanges();
             //}
 
-    }
+        }
     public class Employee
         {
             [Key]
@@ -222,7 +222,7 @@ namespace ProjectInlog
             public int OrderId { get; set; }
             public int ClientId { get; set; }
             public int VerkId { get; set; }
-            public int Orderline { get; set; }
+           
             [DataType(DataType.Date)]
             public DateTime OrderedAt { get; set; } = DateTime.Now;
             [DataType(DataType.Date)]
@@ -230,7 +230,29 @@ namespace ProjectInlog
             public bool Invoice { get; set; }
 
             public Client Client { get; set; }
-            public OrderLine OrderLine { get; set; }
+            //public OrderLine OrderLine { get; set; }
+            public virtual ICollection<OrderLine> OrderLine { get; set; }
+        }
+        public class OrderLine
+        {
+            //[Key]
+           // public int OrderLineId { get; set; }
+            //[Key, Column(Order = 1)]
+
+            //[Key, Column(Order = 2)]
+
+            public int O_Aantal { get; set; }
+
+            //[ForeignKey("Order")]
+            [Key, Column(Order = 1)]
+            public int OrderId { get; set; }
+            public virtual Order Order { get; set; }
+            //[ForeignKey("Product")]
+            [Key, Column(Order = 2)]
+            public int ProductId { get; set; }
+            public virtual Product Product { get; set; }
+            public object OrderLin { get; internal set; }
+            //public ICollection<Order> Orders { get; set; }
         }
 
         public class Invoice
@@ -249,31 +271,19 @@ namespace ProjectInlog
             public Client client { get; set; }
 
         }
-        public class OrderLine
-        {
-            [Key]
-            public int OrderLineId { get; set; }
-            //[Key, Column(Order = 1)]
-
-            //[Key, Column(Order = 2)]
-
-            public int O_Aantal { get; set; }
-
-
-            //[ForeignKey("Order")]
-            public int OrderId { get; set; }
-            public Order Order { get; set; }
-            //[ForeignKey("Product")]
-            public int ProductId { get; set; }
-            public Product Product { get; set; }
-            public ICollection<Order> Orders { get; set; }
-        }
+        //protected override void onModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.onModelCreating(modelBuilder);
+        //    modelBuilder.Entity<OrderLine>()
+        //        .HasKey(e => new { e.OrderId, e.ProductId });
+        //}
+       
         public class ProjectContext : DbContext
         {
             public ProjectContext() : base("name=ProjectDBConnectString")
             {
                 //Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
-                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
+               Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
                 //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 
