@@ -363,11 +363,11 @@ namespace ProjectInlog
             string idV = cmbVerk.SelectedValue.ToString();
             var lev = Convert.ToInt32(idV);
 
-            
-
             using (ProjectContext ctx = new ProjectContext())
             {
-              
+
+               
+
                 ctx.Orders.Add(new Order()
                 {
                     ClientId = klt,
@@ -377,15 +377,25 @@ namespace ProjectInlog
    
                 });
 
-     
-                ctx.SaveChanges();
+                var lijst = ctx.Orders.Join(ctx.OrderLines,
+                     c => c.OrderLine.OrderId,
+                     d => d.OrderId,
+                     (c, d) => new { Ordr = d.OrderId }
+                     );
+                tst tst = ctx.Orders.Find(orderId)
+                //ctx.SaveChanges();
 
-              
+                //var lijst = ctx.Orders.Join(ctx.OrderLines,
+                //    c => c.OrderLine.OrderId,
+                //    d => d.OrderId,
+                //    (c, d) => new {Ordr = d.OrderId}
+                //    );
+
                 foreach (var bestelling in bestellingen)
                 {
                     ctx.OrderLines.Add(new OrderLine()
                     {
-                       //OrderId = aant.OrderId,
+                      //OrderId = ,
                        ProductId = Convert.ToInt32(bestelling.Product),
                        O_Aantal = Convert.ToInt32(bestelling.Aantal)
                     });

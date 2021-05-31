@@ -82,11 +82,52 @@ namespace ProjectInlog
             //        C_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
 
             //    });
+
+            //    ctx.Supplier.Add(new Supplier()
+            //    {
+            //        S_Name = "Dams",
+            //        S_Address = "Logen 56",
+            //        s_PostCode = "2440",
+            //        s_City = "Geel",
+            //        s_Contact = "Jef",
+            //        S_Phone = "014 - 56 56 56",
+            //        S_Email = "jef@dams.be",
+            //        S_Website = "www.dams.be",
+            //        S_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
+
+            //    });
+
+                //ctx.Products.Add(new Product()
+                //{
+                //    SupplierId = 1,
+                //    Description = "MelkChocolade",
+                //    Stock = 10,
+                //    Ordered = 5,
+                //    Place = "1A2B",
+                //    Price = 1.45,
+
+                //    P_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
+
+                //});
+                //ctx.Products.Add(new Product()
+                //{
+                //    SupplierId = 1,
+                //    Description = "PureChocolade",
+                //    Stock = 10,
+                //    Ordered = 5,
+                //    Place = "1A2C",
+                //    Price = 1.99,
+
+                //    P_CreatedAt = new DateTime(year: 2021, month: 5, day: 03)
+
+                //});
+
+               
             //    ctx.SaveChanges();
             //}
 
-        }
-        public class Employee
+    }
+    public class Employee
         {
             [Key]
             public int UserId { get; set; }
@@ -162,7 +203,7 @@ namespace ProjectInlog
             public int ProductId { get; set; }
             public int SupplierId { get; set; }
             public string Description { get; set; }
-            public int stock { get; set; }
+            public int Stock { get; set; }
             public int Ordered { get; set; }
             public string Place { get; set; }
             public double Price { get; set; }
@@ -221,7 +262,7 @@ namespace ProjectInlog
 
             //[ForeignKey("Order")]
             public int OrderId { get; set; }
-            //public Order Order { get; set; }
+            public Order Order { get; set; }
             //[ForeignKey("Product")]
             public int ProductId { get; set; }
             public Product Product { get; set; }
@@ -232,7 +273,7 @@ namespace ProjectInlog
             public ProjectContext() : base("name=ProjectDBConnectString")
             {
                 //Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
-                  Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
+                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
                 //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 

@@ -391,8 +391,9 @@
                                 <ListView x:Name="lstbest" Width="400" Height="100" Margin="0,60,0,0" ItemsSource="{Binding best}" >
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Width="100" Header="Bestelling" DisplayMemberBinding="{Binding Ordr}" />
-                                            <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding verk}" />
+                                            
+                                            <GridViewColumn Width="100" Header="Bestelling" DisplayMemberBinding="{Binding Path=Ordr}" />
+                                            <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding Path= Verk}" />
                                             <!--<GridViewColumn Width="100" Header="Aantal" DisplayMemberBinding="{Binding Aantal}" />
                                             <GridViewColumn Width="100" Header="Prijs" DisplayMemberBinding="{Binding Prijs}"/>-->
                                         </GridView>
