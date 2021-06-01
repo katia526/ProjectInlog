@@ -306,15 +306,22 @@ namespace ProjectInlog
             string idP = cmbProd.SelectedValue.ToString();
             var pro = Convert.ToInt32(idP);
 
-            bestellingen.Add(new Bestelling() { Aantal = Convert.ToInt32(txtAantal.Text), Prijs = Convert.ToDouble(txtPrijs.Text), 
-                Product = idP, Pnaam = cmbProd.Text
+
+
+            bestellingen.Add(new Bestelling()
+            {
+                Aantal = Convert.ToInt32(txtAantal.Text),
+                Prijs = Convert.ToDouble(txtPrijs.Text),
+                Product = idP,
+                Pnaam = cmbProd.Text
             });
+
 
             //foreach (var bestelling in bestellingen)
             //{
-                lstView.ItemsSource = bestellingen;
+            lstbe.ItemsSource = bestellingen;
             //}
-            
+
 
 
             //foreach (var bestelling in bestellingen)
@@ -396,7 +403,7 @@ namespace ProjectInlog
                 {
                     ctx.OrderLines.Add(new OrderLine()
                     {
-                      //OrderId = ,
+                      
                        ProductId = Convert.ToInt32(bestelling.Product),
                        O_Aantal = Convert.ToInt32(bestelling.Aantal)
                     });
@@ -478,35 +485,54 @@ namespace ProjectInlog
                     var best = sell.Join(ctx.Products,
                         sa => sa.s.ProductId,
                         alb => alb.ProductId,
-                      //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
-                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+                    //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+                    (sa, alb) => new { sa, alb });
                     var ok = best.Join(ctx.Clients,
-                        b=> b.Kl,
+                        b => b.sa.a.ClientId,
                         c => c.ClientId,
-                        (b, c) => new { b, c });
+                        (b, c) => new { Name = b.alb.Description, Price = b.alb.Price, Aantal = b.sa.s.O_Aantal, 
+                            Kl = b.sa.a.ClientId, Ordr = b.sa.a.OrderId, KL_name = c.C_Name, KL_adres = c.C_Adress, KL_woonplaats = c.C_Woonplaats, KL_postcode = c.C_PostCode, KL_btw = c.C_BtwNr, Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal) }).ToList();
 
 
 
-            var tel = 0;
-                    foreach (var item in best)
+                    var tel = 0;
+                    double tota = 0;
+                    foreach (var item in ok)
                     {
+                        
                         if (tel != item.Ordr)
                         {
                             sw.WriteLine("Factuur");
-                            sw.WriteLine($"Ordernummer=  { item.Ordr}");
+                            sw.WriteLine();
+                            sw.WriteLine($"{ item.KL_name}");
+                            sw.WriteLine($"{ item.KL_adres}");
+                            sw.WriteLine($"{ item.KL_postcode}  {item.KL_woonplaats}");
+                            sw.WriteLine($"{ item.KL_btw}");
+                            sw.WriteLine($"Ordernummer =  { item.Ordr}");
+                            sw.WriteLine();
                             sw.WriteLine("Omschrijving    Prijs    Aantal    Totaal");
-                            sw.WriteLine($"{item.Name} {item.Price} {item.Aantal} {item.Tot}");
+                            sw.WriteLine();
+                            sw.WriteLine("---------------------------------------------------------------------------------");
+                            sw.WriteLine();
+                            sw.WriteLine($"{item.Name}      {item.Price}     {item.Aantal}             {item.Tot}");
                             tel = item.Ordr;
+                            tota =+ item.Tot;
                         }
                         
                         else
                         {
-                            sw.WriteLine($"{item.Name} {item.Price} {item.Aantal} {item.Tot}");
+                            sw.WriteLine($"{item.Name}    {item.Price}      {item.Aantal}           {item.Tot}");
                             tel = item.Ordr;
+                            tota += item.Tot;
                         }
-                       
+                        
                     }
-                   
+                    sw.WriteLine();
+                    sw.WriteLine("---------------------------------------------------------------------------------");
+                    sw.WriteLine();
+                    sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
+                    sw.WriteLine($"BTW bedrag is {tota * 0.06}");
+                    sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
                 }
             }
         }

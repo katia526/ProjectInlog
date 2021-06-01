@@ -320,7 +320,7 @@
                                     <TextBox x:Name="txtTotaal" Width="200" Height="25"></TextBox>
                                 </TextBlock>
 
-                                <ListView x:Name="lstView" Width="500" Height="300" Margin="0,60,0,0" ItemsSource="{Binding Bestellingen}" >
+                                <ListView x:Name="lstbe" Width="500" Height="300" Margin="0,60,0,0" ItemsSource="{Binding bestellingen}" >
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding Path = Pnaam}" />

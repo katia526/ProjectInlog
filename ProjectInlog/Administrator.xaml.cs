@@ -25,6 +25,7 @@ namespace ProjectInlog
         public Administrator()
         {
             InitializeComponent();
+         
         }
 
         private void TabItem_Loaded(object sender, RoutedEventArgs e)
@@ -97,27 +98,34 @@ namespace ProjectInlog
             string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
             Regex rg = new Regex(pattern);
             Match match = rg.Match(txtPassword.Text);
-            if (txtFirstName.Text == null)
+            if (txtFirstName.Text == "" )
             {
+              
+                txtErrorMessage.Visibility = Visibility.Visible;
+                //txtErrorMessage.Background = Brushes.Yellow;
                 txtErrorMessage.Text = "Geef een voornaam";
+                txtErrorMessage.Text = " Deze leverancier bestaat reeds!";
                 txtFirstName.Focus();
             }
-            if (txtLastName.Text == null)
+            if (txtLastName.Text == "")
             {
+                txtErrorMessage.Visibility = Visibility.Visible;
                 txtErrorMessage.Text = "Achternaam ontbreekt";
                 txtLastName.Focus();
             }
-            if (txtEmail.Text == null)
+            if (txtEmail.Text == "")
             {
+                txtErrorMessage.Visibility = Visibility.Visible;
                 txtErrorMessage.Text = "Vul het email adres in ";
                 txtEmail.Focus();
             }
             else if (!Regex.IsMatch(txtEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
             {
+                txtErrorMessage.Visibility = Visibility.Visible;
                 txtErrorMessage.Text = "Email voldoet niet aan vereiste. ";
                 txtEmail.Focus();
             }
-            if (txtPassword.Text == null)
+            if (txtPassword.Text == "")
             {
                 txtErrorMessage.Text = "vul het paswoord in";
                 txtPassword.Focus();
@@ -134,7 +142,7 @@ namespace ProjectInlog
             //    string salt = SecurityHelper.GenerateSalt(30);
             //    pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
             //}
-            if (txtUserName.Text == null)
+            if (txtUserName.Text == "")
             {
                 txtErrorMessage.Text = "vul de Usernaam in";
                 txtUserName.Focus();
