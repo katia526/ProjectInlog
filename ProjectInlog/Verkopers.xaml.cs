@@ -1,7 +1,12 @@
-﻿using System;
+﻿using PdfSharp;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -291,7 +296,7 @@ namespace ProjectInlog
 
                // Client S_tewijzigen = ctx.Clients.Where(c => c.ClientId == del).FirstOrDefault();
 
-
+               
                 txtPrijs.Text = prijs.Price.ToString();
             }
         }
@@ -305,10 +310,10 @@ namespace ProjectInlog
                 Product = idP, Pnaam = cmbProd.Text
             });
 
-            foreach (var bestelling in bestellingen)
-            {
+            //foreach (var bestelling in bestellingen)
+            //{
                 lstView.ItemsSource = bestellingen;
-            }
+            //}
             
 
 
@@ -340,20 +345,29 @@ namespace ProjectInlog
             public double Prijs { get; set; }
             
         }
-        class ListViewItem
+        class Klient
         {
-            private string[] arr;
 
-            public ListViewItem(string[] arr)
-            {
-                this.arr = arr;
-            }
-
-            public string Prod { get; set; }
-            public int Aant { get; set; }
-            public double Pr { get; set; }
+            public string Knaam { get; set; }
+            public string Kadres { get; set; }
+            public int Kwoonplaats { get; set; }
+            public double Kbtw { get; set; }
 
         }
+        //class ListViewItem
+        //{
+        //    private string[] arr;
+
+        //    public ListViewItem(string[] arr)
+        //    {
+        //        this.arr = arr;
+        //    }
+
+        //    public string Prod { get; set; }
+        //    public int Aant { get; set; }
+        //    public double Pr { get; set; }
+
+        //}
 
         private void btnSlaOp_Click(object sender, RoutedEventArgs e)
         {
@@ -377,19 +391,6 @@ namespace ProjectInlog
 
              
 
-                //var lijst = ctx.Orders.Join(ctx.OrderLines,
-                //     c => c.OrderLine.OrderId,
-                //     d => d.OrderId,
-                //     (c, d) => new { Ordr = d.OrderId }
-                //     );
-               
-                //ctx.SaveChanges();
-
-                //var lijst = ctx.Orders.Join(ctx.OrderLines,
-                //    c => c.OrderLine.OrderId,
-                //    d => d.OrderId,
-                //    (c, d) => new {Ordr = d.OrderId}
-                //    );
 
                 foreach (var bestelling in bestellingen)
                 {
@@ -429,14 +430,7 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
 
-                //var best = ctx.Orders.Join(ctx.OrderLines,
-                //    p => p.OrderId,
-                //    s => s.OrderLin.
-
-                //var col = ctx.Orders.Where(c => c.ClientId == klt);
-                   
-                   
-
+                
 
                 var sell = ctx.OrderLines.Join(ctx.Orders,
                 s => s.Order.OrderId,
@@ -446,31 +440,86 @@ namespace ProjectInlog
                 var best = sell.Join(ctx.Products,
                     sa => sa.s.ProductId,
                     alb => alb.ProductId,
-                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Ordr = sa.a.OrderId }).ToList();
+                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Ordr = sa.a.OrderId, Tot = alb.Price *sa.s.O_Aantal }).ToList();
 
-                //var col = ctx.Clients.Where(s => s.C_PostCode == txtPost.Text)
-                //  .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
-
-
-                //var best = ctx.OrderLines.Join(ctx.Orders,
-                //    p => p.Order.OrderId,
-                //    s => s.OrderId,
-
-                //    );
-
-
-                //var best = ctx.OrderLines.Join(ctx.Products,
-                //    p => p.Product.ProductId,
-                //    s => s.ProductId,
-                //    (p, s) => new { Name = s.Description, Price = s.Price, Aantal = p.O_Aantal }).ToList();
-
-
-                //var best = ctx.Orders.Where(c => c.ClientId == klt)
-                //   .Select(c => new { Id = c.ClientId, Ordr = c.OrderId, Verk = c.VerkId, }).ToList();
-
+                
 
                 lstbest.ItemsSource = best;
                 
+            }
+        }
+
+        private void txtAantal_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //double prs = Convert.ToInt32(txtPrijs.Text);
+            //var aan = Convert.ToInt32(txtAantal.Text);
+            //double tot = ( prs * aan);
+            //txtTotaal.Text = tot.ToString();
+        }
+
+        private void btnFact_Click(object sender, RoutedEventArgs e)
+        {
+            
+            string id = cmbKl.SelectedValue.ToString();
+            var klt = Convert.ToInt32(id);
+            string file = "gegevens.txt";
+            using (StreamWriter sw = new StreamWriter("gegevens.txt"))
+            {
+                using (ProjectContext ctx = new ProjectContext())
+                {
+                    //var head = false;
+
+
+                    var sell = ctx.OrderLines.Join(ctx.Orders,
+                s => s.Order.OrderId,
+                a => a.OrderId,
+                (s, a) => new { s, a })
+                    .Where(z => z.a.ClientId == klt);
+                    var best = sell.Join(ctx.Products,
+                        sa => sa.s.ProductId,
+                        alb => alb.ProductId,
+                      //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+                    var ok = best.Join(ctx.Clients,
+                        b=> b.Kl,
+                        c => c.ClientId,
+                        (b, c) => new { b, c });
+
+
+
+            var tel = 0;
+                    foreach (var item in best)
+                    {
+                        if (tel != item.Ordr)
+                        {
+                            sw.WriteLine("Factuur");
+                            sw.WriteLine($"Ordernummer=  { item.Ordr}");
+                            sw.WriteLine("Omschrijving    Prijs    Aantal    Totaal");
+                            sw.WriteLine($"{item.Name} {item.Price} {item.Aantal} {item.Tot}");
+                            tel = item.Ordr;
+                        }
+                        
+                        else
+                        {
+                            sw.WriteLine($"{item.Name} {item.Price} {item.Aantal} {item.Tot}");
+                            tel = item.Ordr;
+                        }
+                       
+                    }
+                   
+                }
+            }
+        }
+
+        private void TabItem_Loaded_4(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var klant = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                cmbKl.ItemsSource = klant;
+                cmbKl.DisplayMemberPath = "Name";
+                cmbKl.SelectedValuePath = "Id";
             }
         }
     }
