@@ -361,20 +361,7 @@ namespace ProjectInlog
             public double Kbtw { get; set; }
 
         }
-        //class ListViewItem
-        //{
-        //    private string[] arr;
-
-        //    public ListViewItem(string[] arr)
-        //    {
-        //        this.arr = arr;
-        //    }
-
-        //    public string Prod { get; set; }
-        //    public int Aant { get; set; }
-        //    public double Pr { get; set; }
-
-        //}
+       
 
         private void btnSlaOp_Click(object sender, RoutedEventArgs e)
         {
@@ -467,16 +454,17 @@ namespace ProjectInlog
         private void btnFact_Click(object sender, RoutedEventArgs e)
         {
             
+            DateTime Datum = DateTime.Now;
+            string selected = cmbKl.Text;
+
             string id = cmbKl.SelectedValue.ToString();
             var klt = Convert.ToInt32(id);
-            string file = "gegevens.txt";
-            using (StreamWriter sw = new StreamWriter("gegevens.txt"))
+            string file = ($"{selected}{Datum:yyyy.M.dd}.txt");
+            using (StreamWriter sw = new StreamWriter(file))
             {
                 using (ProjectContext ctx = new ProjectContext())
                 {
-                    //var head = false;
-
-
+                    
                     var sell = ctx.OrderLines.Join(ctx.Orders,
                 s => s.Order.OrderId,
                 a => a.OrderId,
@@ -494,7 +482,7 @@ namespace ProjectInlog
                             Kl = b.sa.a.ClientId, Ordr = b.sa.a.OrderId, KL_name = c.C_Name, KL_adres = c.C_Adress, KL_woonplaats = c.C_Woonplaats, KL_postcode = c.C_PostCode, KL_btw = c.C_BtwNr, Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal) }).ToList();
 
 
-
+                    var eind = false;
                     var tel = 0;
                     double tota = 0;
                     foreach (var item in ok)
@@ -502,6 +490,18 @@ namespace ProjectInlog
                         
                         if (tel != item.Ordr)
                         {
+                            if ( eind)
+                            {
+                                sw.WriteLine();
+                                sw.WriteLine("---------------------------------------------------------------------------------");
+                                sw.WriteLine();
+                                sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
+                                sw.WriteLine($"BTW bedrag is {tota * 0.06}");
+                                sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
+                                sw.WriteLine("<% Page %>");
+                            }
+                             
+
                             sw.WriteLine("Factuur");
                             sw.WriteLine();
                             sw.WriteLine($"{ item.KL_name}");
@@ -515,6 +515,10 @@ namespace ProjectInlog
                             sw.WriteLine("---------------------------------------------------------------------------------");
                             sw.WriteLine();
                             sw.WriteLine($"{item.Name}      {item.Price}     {item.Aantal}             {item.Tot}");
+                            if (tel != item.Ordr)
+                            {
+                                eind = true;
+                            }
                             tel = item.Ordr;
                             tota =+ item.Tot;
                         }
@@ -522,10 +526,25 @@ namespace ProjectInlog
                         else
                         {
                             sw.WriteLine($"{item.Name}    {item.Price}      {item.Aantal}           {item.Tot}");
-                            tel = item.Ordr;
                             tota += item.Tot;
+                            //if (tel != item.Ordr)
+                            //{
+                            //    sw.WriteLine();
+                            //    sw.WriteLine("---------------------------------------------------------------------------------");
+                            //    sw.WriteLine();
+                            //    sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
+                            //    sw.WriteLine($"BTW bedrag is {tota * 0.06}");
+                            //    sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
+                            //}
+                            if (tel != item.Ordr)
+                            {
+                                eind = true;
+                            }
+                            tel = item.Ordr;
+                            
                         }
                         
+
                     }
                     sw.WriteLine();
                     sw.WriteLine("---------------------------------------------------------------------------------");
@@ -533,7 +552,22 @@ namespace ProjectInlog
                     sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
                     sw.WriteLine($"BTW bedrag is {tota * 0.06}");
                     sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
+
+                    ctx.Invoices.Add(new Invoice()
+                    {
+                        Amount = tota,
+                        Status = false,
+                        CreatedAt = Datum
+
+                    });
+
+                  //  Order S_Change = ctx.Orders.Where(c => c.OrderId == ).FirstOrDefault();
+                    ctx.SaveChanges();
+
+
                 }
+               
+
             }
         }
 

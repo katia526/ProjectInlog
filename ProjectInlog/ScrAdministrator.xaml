@@ -12,8 +12,9 @@
             <StackPanel Background="LightGray">
                 <Label Content="Administrator Page" FontSize="20" HorizontalAlignment="Center" Margin="20" Background="LightGray"></Label>
                 <Separator/>
-                <Button x:Name="btnProfiel" Width="100" Height="30" Content="Gebruikers" Margin="0, 60, 0, 0 " Click="btnProfiel_Click"></Button>
-                <Button x:Name="btnData" Width="100" Height="30" Content="Database" Margin="0,20, 0, 0" Visibility="Hidden"></Button>
+                <Button x:Name="btnEmployees" Width="100" Height="30" Content="Gebruikers" Margin="0, 20, 0, 0 " Click="btnProfiel_Click"></Button>
+                <Button x:Name="btnSuppliers" Width="100" Height="30" Content="Leveranciers" Margin="0, 20, 0, 0 " Click="btnSuppliers_Click" ></Button>
+                <Button x:Name="btnCustomers" Width="100" Height="30" Content="Klanten" Margin="0,20, 0, 0" Click="btnCustomers_Click" ></Button>
                 <Button x:Name="btnExit" Width="100" Height="30" Content="Exit" Margin="0,20" Click="btnExit_Click"></Button>
             </StackPanel>
         </Border>

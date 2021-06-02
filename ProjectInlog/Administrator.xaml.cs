@@ -82,7 +82,7 @@ namespace ProjectInlog
             {
                 var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
                 //BindingList<Employee> col = new BindingList<Employee>(MyMethodReturningList());
-               cmbWerknemer.ItemsSource = col;
+                cmbWerknemer.ItemsSource = col;
                 cmbWerknemer.DisplayMemberPath = "Name";
                 cmbWerknemer.SelectedValuePath = "Id";
 
@@ -101,39 +101,41 @@ namespace ProjectInlog
             if (txtFirstName.Text == "" )
             {
               
-                txtErrorMessage.Visibility = Visibility.Visible;
-                //txtErrorMessage.Background = Brushes.Yellow;
-                txtErrorMessage.Text = "Geef een voornaam";
-                txtErrorMessage.Text = " Deze leverancier bestaat reeds!";
-                txtFirstName.Focus();
+                txtError.Visibility = Visibility.Visible;
+               
+                txtError.Background = Brushes.Yellow;
+                txtError.Foreground = Brushes.Black;
+                txtError.Text = "Geef een voornaam";
+               
+                //txtFirstName.Focus();
             }
             if (txtLastName.Text == "")
             {
-                txtErrorMessage.Visibility = Visibility.Visible;
-                txtErrorMessage.Text = "Achternaam ontbreekt";
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Achternaam ontbreekt";
                 txtLastName.Focus();
             }
             if (txtEmail.Text == "")
             {
-                txtErrorMessage.Visibility = Visibility.Visible;
-                txtErrorMessage.Text = "Vul het email adres in ";
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Vul het email adres in ";
                 txtEmail.Focus();
             }
             else if (!Regex.IsMatch(txtEmail.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
             {
-                txtErrorMessage.Visibility = Visibility.Visible;
-                txtErrorMessage.Text = "Email voldoet niet aan vereiste. ";
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Email voldoet niet aan vereiste. ";
                 txtEmail.Focus();
             }
             if (txtPassword.Text == "")
             {
-                txtErrorMessage.Text = "vul het paswoord in";
+                txtError.Text = "vul het paswoord in";
                 txtPassword.Focus();
             }
 
             else if (!match.Success)
             {
-                txtErrorMessage.Text = "het paswoord voldoet niet aan de voorschriften";
+                txtError.Text = "het paswoord voldoet niet aan de voorschriften";
                 txtPassword.Focus();
             }
             //else
@@ -144,7 +146,7 @@ namespace ProjectInlog
             //}
             if (txtUserName.Text == "")
             {
-                txtErrorMessage.Text = "vul de Usernaam in";
+                txtError.Text = "vul de Usernaam in";
                 txtUserName.Focus();
             }
            
@@ -154,7 +156,7 @@ namespace ProjectInlog
                 var result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Text);
                 if (result != null)
                 {
-                    txtErrorMessage.Text = "Gebruiker bestaat reeds";
+                    txtError.Text = "Gebruiker bestaat reeds";
 
                 }
                 else
@@ -198,7 +200,7 @@ namespace ProjectInlog
                 txtPassword.Text = " ";
                 txtUserName.Text = " ";
                 txtAdres.Text = " ";
-                txtErrorMessage.Text = " ";
+                txtError.Text = " ";
                 txtWoonplaats.Text = " ";
                 txtTelefoon.Text = " ";
             }

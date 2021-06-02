@@ -63,10 +63,10 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-
+                                
                                 <TextBlock Grid.Column="1" Grid.Row="0"  >
                                  
-                                    <TextBox x:Name="txtErrorMessage" Width="250" Height="25" Visibility="Hidden" Foreground="Red" ></TextBox>
+                                  <TextBox x:Name="txtError" Width="200" Height="25" HorizontalAlignment="right"></TextBox>
                                 </TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="0">
                                     <Label x:Name="lblFirstName" Content="Voornaam" Width="100" Height="25" Margin="0,20,0,0"></Label>

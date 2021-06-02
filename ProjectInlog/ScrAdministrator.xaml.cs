@@ -27,14 +27,26 @@ namespace ProjectInlog
 
         private void btnProfiel_Click(object sender, RoutedEventArgs e)
         {
-            Window1 window1 = new Window1();
+            Administrator administrator = new Administrator();
 
-            window1.Show();
+            administrator.Show();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSuppliers_Click(object sender, RoutedEventArgs e)
+        {
+            magazijnTab magazijnTab = new magazijnTab();
+            magazijnTab.Show();
+        }
+
+        private void btnCustomers_Click(object sender, RoutedEventArgs e)
+        {
+            Verkopers verkopers = new Verkopers();
+            verkopers.Show();
         }
     }
 }

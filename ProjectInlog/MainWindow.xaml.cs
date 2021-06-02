@@ -232,6 +232,7 @@ namespace ProjectInlog
             public Client Client { get; set; }
             //public OrderLine OrderLine { get; set; }
             public virtual ICollection<OrderLine> OrderLine { get; set; }
+            //public virtual ICollection<Invoice> Invoices { get; set; }
         }
         public class OrderLine
         {
@@ -261,14 +262,15 @@ namespace ProjectInlog
             public int InvoiceId { get; set; }
             //public int OrderId { get; set; }
             //public int ClientId { get; set; }
+            public double Amount { get; set; }
             public bool Status { get; set; }
 
             [DataType(DataType.Date)]
             public DateTime CreatedAt { get; set; } = DateTime.Now;
             [DataType(DataType.Date)]
             public DateTime PayedAt { get; set; } = DateTime.Now;
-            public Order order { get; set; }
-            public Client client { get; set; }
+            public virtual Order order { get; set; }
+            public virtual Client client { get; set; }
 
         }
         //protected override void onModelCreating(DbModelBuilder modelBuilder)
@@ -284,7 +286,7 @@ namespace ProjectInlog
             {
                 //Database.SetInitializer(new CreateDatabaseIfNotExists<ProjectContext>());
                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ProjectContext>());
-                //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
+               //Database.SetInitializer(new DropCreateDatabaseAlways<ProjectContext>());
             }
 
             public DbSet<Employee> Employees { get; set; }
@@ -315,9 +317,9 @@ namespace ProjectInlog
 
                     this.Hide();
 
-                    Administrator Administrator = new Administrator();
+                    ScrAdministrator scrAdministrator = new ScrAdministrator();
 
-                    Administrator.Show();
+                    scrAdministrator.Show();
 
                     
                     this.Close();
