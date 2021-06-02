@@ -4,6 +4,7 @@ using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -498,7 +499,8 @@ namespace ProjectInlog
                                 sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
                                 sw.WriteLine($"BTW bedrag is {tota * 0.06}");
                                 sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
-                                sw.WriteLine("<% Page %>");
+                                sw.WriteLine("<% @Page %>");
+                                sw.WriteLine();
                             }
                              
 
@@ -508,6 +510,7 @@ namespace ProjectInlog
                             sw.WriteLine($"{ item.KL_adres}");
                             sw.WriteLine($"{ item.KL_postcode}  {item.KL_woonplaats}");
                             sw.WriteLine($"{ item.KL_btw}");
+                            sw.WriteLine();
                             sw.WriteLine($"Ordernummer =  { item.Ordr}");
                             sw.WriteLine();
                             sw.WriteLine("Omschrijving    Prijs    Aantal    Totaal");
@@ -558,12 +561,33 @@ namespace ProjectInlog
                         Amount = tota,
                         Status = false,
                         CreatedAt = Datum
-
+                      
                     });
 
                   //  Order S_Change = ctx.Orders.Where(c => c.OrderId == ).FirstOrDefault();
-                    ctx.SaveChanges();
+                    //ctx.SaveChanges();
+                    try
+                    {
+                        // Your code...
+                        // Could also be before try if you know the exception occurs in SaveChanges
 
+                       ctx.SaveChanges();
+                    }
+                    catch (DbEntityValidationException f)
+                    {
+                        foreach (var eve in f.EntityValidationErrors)
+                        {
+                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                    ve.PropertyName, ve.ErrorMessage);
+                            }
+                        }
+                        throw;
+                    }
+                
 
                 }
                

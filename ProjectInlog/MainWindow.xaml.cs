@@ -232,7 +232,7 @@ namespace ProjectInlog
             public Client Client { get; set; }
             //public OrderLine OrderLine { get; set; }
             public virtual ICollection<OrderLine> OrderLine { get; set; }
-            //public virtual ICollection<Invoice> Invoices { get; set; }
+            public virtual Invoice Invoices { get; set; }
         }
         public class OrderLine
         {
@@ -258,9 +258,11 @@ namespace ProjectInlog
 
         public class Invoice
         {
+            //[ForeignKey("Order")]
             [Key]
             public int InvoiceId { get; set; }
-            //public int OrderId { get; set; }
+           
+            public int OrderId { get; set; }
             //public int ClientId { get; set; }
             public double Amount { get; set; }
             public bool Status { get; set; }
@@ -269,17 +271,19 @@ namespace ProjectInlog
             public DateTime CreatedAt { get; set; } = DateTime.Now;
             [DataType(DataType.Date)]
             public DateTime PayedAt { get; set; } = DateTime.Now;
+            [Required]
             public virtual Order order { get; set; }
-            public virtual Client client { get; set; }
+            //public virtual Client client { get; set; }
 
         }
         //protected override void onModelCreating(DbModelBuilder modelBuilder)
         //{
-        //    base.onModelCreating(modelBuilder);
-        //    modelBuilder.Entity<OrderLine>()
-        //        .HasKey(e => new { e.OrderId, e.ProductId });
+
+        //    modelBuilder.Entity<Order>()
+        //        .HasOptional(s => s.Invoice)
+        //        .WithRequired(ad => ad.Order);
         //}
-       
+
         public class ProjectContext : DbContext
         {
             public ProjectContext() : base("name=ProjectDBConnectString")
