@@ -127,7 +127,7 @@ namespace ProjectInlog
             //}
 
         }
-    public class Employee
+        public class Employee
         {
             [Key]
             public int UserId { get; set; }
@@ -271,8 +271,8 @@ namespace ProjectInlog
             public DateTime CreatedAt { get; set; } = DateTime.Now;
             [DataType(DataType.Date)]
             public DateTime PayedAt { get; set; } = DateTime.Now;
-            [Required]
-            public virtual Order order { get; set; }
+            //[Required]
+            //public virtual Order order { get; set; }
             //public virtual Client client { get; set; }
 
         }

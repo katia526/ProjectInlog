@@ -66,7 +66,7 @@
 
                                 <TextBlock Grid.Column="1" Grid.Row="0">
                                  
-                                    <TextBox x:Name="txtErrorMessage" Width="200" Height="25" Visibility="Hidden"></TextBox>
+                                    <TextBox x:Name="txtErrorMessage" Width="200" Height="25" Visibility="Hidden"/>
                                 </TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="0">
                                     <Label x:Name="lblNaam" Content="Naam" Width="100" Height="25" Margin="0,30,0,0"></Label>
@@ -79,7 +79,6 @@
                                                DisplayMemberPath="Name"
                                                SelectedValuePath="Id"
                                                SelectedValue="{Binding col}" >
-                                                 
                                      </ComboBox>
                                 </TextBlock>
                                 <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,5,0,0">
@@ -282,7 +281,7 @@
                                                ItemsSource="{Binding col}" 
                                                DisplayMemberPath="Name"
                                                SelectedValuePath="Id"
-                                               SelectedValue="{Binding col}" >
+                                               SelectedValue="{Binding col}" SelectionChanged="cmbVerk_SelectionChanged" >
                                                  
                                      </ComboBox>
                                 </TextBlock>

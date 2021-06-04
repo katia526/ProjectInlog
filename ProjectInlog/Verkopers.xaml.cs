@@ -67,11 +67,22 @@ namespace ProjectInlog
         private void btnBewaar_Click(object sender, RoutedEventArgs e)
         {
             string id = cmbVerkoper.SelectedValue.ToString();
+
             var del = Convert.ToInt32(id);
-           
+            txtErrorMessage.Text = " ";
+            if (txtNaam.Text == "")
+            {
+                txtErrorMessage.IsEnabled = true;
+                txtErrorMessage.Visibility = Visibility.Visible;
+                txtErrorMessage.Text = " Vul een naam in!";
+
+                txtNaam.Focus();
+            }
+
             using (ProjectContext ctx = new ProjectContext())
             {
-              
+             
+
             var result = ctx.Clients.FirstOrDefault(c => c.C_Name == txtNaam.Text && c.C_Adress == txtAdres.Text);
 
             if (result != null)
@@ -304,10 +315,12 @@ namespace ProjectInlog
 
         public void btnKeep_Click(object sender, RoutedEventArgs e)
         {
+            lstbe.ItemsSource = " ";
             string idP = cmbProd.SelectedValue.ToString();
             var pro = Convert.ToInt32(idP);
-
-
+            
+            cmbKlnt.IsEnabled = false;
+            cmbVerk.IsEnabled = false;
 
             bestellingen.Add(new Bestelling()
             {
@@ -401,7 +414,10 @@ namespace ProjectInlog
             }
             txtAantal.Text = " ";
             txtPrijs.Text = " ";
-           
+            lstbe.ItemsSource = " ";
+            cmbKlnt.IsEnabled = true;
+            cmbVerk.IsEnabled = true;
+
         }
 
         private void TabItem_Loaded_3(object sender, RoutedEventArgs e)
@@ -560,8 +576,9 @@ namespace ProjectInlog
                     {
                         Amount = tota,
                         Status = false,
-                        CreatedAt = Datum
-                      
+                        CreatedAt = Datum,
+                      PayedAt = Datum,
+                      OrderId = tel
                     });
 
                   //  Order S_Change = ctx.Orders.Where(c => c.OrderId == ).FirstOrDefault();
@@ -605,6 +622,11 @@ namespace ProjectInlog
                 cmbKl.DisplayMemberPath = "Name";
                 cmbKl.SelectedValuePath = "Id";
             }
+        }
+
+        private void cmbVerk_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //cmbVerk.IsEnabled = false;
         }
     }
 }

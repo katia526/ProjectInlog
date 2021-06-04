@@ -93,12 +93,12 @@ namespace ProjectInlog
         {
 
             string sel = " ";
-
+            txtError.Text = " ";
 
             string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
             Regex rg = new Regex(pattern);
             Match match = rg.Match(txtPassword.Text);
-            if (txtFirstName.Text == "" )
+            if (txtFirstName.Text == "")
             {
               
                 txtError.Visibility = Visibility.Visible;
