@@ -200,14 +200,39 @@ namespace ProjectInlog
                 using (ProjectContext ctx = new ProjectContext())
                 {
                     var col = ctx.Supplier.FirstOrDefault(c => c.SupplierId == del);
-                    txtLevNaam.Text = col.S_Name;
-                    txtLevAdres.Text = col.S_Address;
-                    txtLevContact.Text = col.s_Contact;
-                    txtLevEmail.Text = col.S_Email;
-                    txtLevPostcode.Text = col.s_PostCode;
-                    txtLevTelefoon.Text = col.S_Phone;
-                    txtLevWebsite.Text = col.S_Website;
-                    txtLevWoonplaats.Text = col.s_City;
+                    if (txtLevNaam.Text != "")
+                    {
+                        txtLevNaam.Text = col.S_Name;
+                    }
+                    if (txtLevAdres.Text != "")
+                    {
+                        txtLevAdres.Text = col.S_Address;
+                    }
+                    if (txtLevContact.Text != "")
+                    {
+                        txtLevContact.Text = col.s_Contact;
+                    }
+                    if (txtLevEmail.Text != "")
+                    {
+                        txtLevEmail.Text = col.S_Email;
+                    }
+                    if (txtLevPostcode.Text != "")
+                    {
+                        txtLevPostcode.Text = col.s_PostCode;
+                    }
+                    if (txtLevTelefoon.Text != "")
+                    {
+                        txtLevTelefoon.Text = col.S_Phone;
+                    }
+                    if (txtLevWebsite.Text != "")
+                    {
+                        txtLevWebsite.Text = col.S_Website;
+                    }
+                    if (txtLevWoonplaats.Text != "")
+                    {
+                        txtLevWoonplaats.Text = col.s_City;
+                    }
+                    
                                         
                 }
             }

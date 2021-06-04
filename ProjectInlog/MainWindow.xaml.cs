@@ -306,7 +306,9 @@ namespace ProjectInlog
         {
             using (ProjectContext ctx = new ProjectContext())
             {
-                var result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
+
+                string pass = Encryptor(txtPassword.Password);
+                var result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == pass);
                 if (result == null)
                 {
                     MessageBox.Show("fout paswoord of username");
@@ -380,6 +382,19 @@ namespace ProjectInlog
         public class thisDate1
         {
             public DateTime thisdate { get; set; }
+        }
+        static string Encryptor(string wachtwoord)
+        {
+            string encrypted = "";
+
+            for (int i = 0; i < wachtwoord.Length; i++)
+            {
+                {
+                    encrypted += 255 - wachtwoord[i];
+                }
+            }
+
+            return encrypted;
         }
     }
 }

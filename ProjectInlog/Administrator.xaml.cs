@@ -138,6 +138,7 @@ namespace ProjectInlog
                 txtError.Text = "het paswoord voldoet niet aan de voorschriften";
                 txtPassword.Focus();
             }
+
             //else
             //{
             //    string pwd = txtPassword.Text;
@@ -149,7 +150,7 @@ namespace ProjectInlog
                 txtError.Text = "vul de Usernaam in";
                 txtUserName.Focus();
             }
-           
+            //string pass = Encryptor(txtPassword.Text);
 
             using (ProjectContext ctx = new ProjectContext())
             {
@@ -181,7 +182,7 @@ namespace ProjectInlog
                 LastName = txtLastName.Text,
                 Email = txtEmail.Text,
                 Function = sel,
-                Password = txtPassword.Text,
+                Password = Encryptor(txtPassword.Text),
                 UserName = txtUserName.Text,
                 Address = txtAdres.Text,
                 Woonplaats = txtWoonplaats.Text,
@@ -256,9 +257,26 @@ namespace ProjectInlog
         {
 
         }
+
+        static string Encryptor(string wachtwoord)
+        {
+            string encrypted = "";
+
+            for (int i = 0; i < wachtwoord.Length; i++)
+            {
+                {
+                    encrypted += 255 - wachtwoord[i];
+                }
+            }
+
+            return encrypted;
+        }
+
     }
 
     internal class Date
     {
     }
+
+    
 }

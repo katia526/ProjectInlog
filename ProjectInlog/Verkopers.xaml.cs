@@ -70,19 +70,31 @@ namespace ProjectInlog
 
             var del = Convert.ToInt32(id);
             txtErrorMessage.Text = " ";
-            if (txtNaam.Text == "")
+            if (String.IsNullOrEmpty(txtNaam.Text) )
             {
-                txtErrorMessage.IsEnabled = true;
+                txtErrorMessage.Text = null;
+                txtErrorMessage.Foreground = Brushes.White;
+                txtErrorMessage.Background = Brushes.Red;
                 txtErrorMessage.Visibility = Visibility.Visible;
-                txtErrorMessage.Text = " Vul een naam in!";
-
-                txtNaam.Focus();
+                txtErrorMessage.Text = string.Format(" Vul een naam in!");
+                MessageBox.Show("vul een naam in");
+              
+                txtNaam.Select(txtNaam.Text.Length,0);
             }
+            if (String.IsNullOrEmpty(txtAdres.Text))
+            {
+                txtErrorMessage.Text = null;
+                txtErrorMessage.Foreground = Brushes.White;
+                txtErrorMessage.Background = Brushes.Red;
+                txtErrorMessage.Visibility = Visibility.Visible;
+                txtErrorMessage.Text = string.Format(" Vul een adres in!");
+                MessageBox.Show("vul een adres in");
 
+                txtAdres.Select(txtAdres.Text.Length, 0);
+            }
             using (ProjectContext ctx = new ProjectContext())
             {
-             
-
+    
             var result = ctx.Clients.FirstOrDefault(c => c.C_Name == txtNaam.Text && c.C_Adress == txtAdres.Text);
 
             if (result != null)
@@ -216,15 +228,39 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
                 Client S_tewijzigen = ctx.Clients.Where(c => c.ClientId == del).FirstOrDefault();
-                S_tewijzigen.C_Name = txtKltNaam.Text;
-                S_tewijzigen.C_Contact = txtKltContact.Text;
-                S_tewijzigen.C_Woonplaats = txtKltWoonplaats.Text;
-                S_tewijzigen.C_PostCode = txtKltPostcode.Text;
-                S_tewijzigen.C_Email = txtKltEmail.Text;
-                S_tewijzigen.C_Adress = txtKltAdres.Text;
-                S_tewijzigen.C_BtwNr = txtKltBtwNr.Text;
-                S_tewijzigen.C_Phone = txtKltTelefoon.Text;
-
+                if (txtKltNaam.Text != "")
+                {
+                    S_tewijzigen.C_Name = txtKltNaam.Text;
+                }
+                if (txtKltAdres.Text != "")
+                {
+                    S_tewijzigen.C_Adress = txtKltAdres.Text;
+                }
+                if (txtKltPostcode.Text != "")
+                {
+                    S_tewijzigen.C_PostCode = txtKltPostcode.Text;
+                }
+                if (txtKltTelefoon.Text != "")
+                {
+                    S_tewijzigen.C_Phone = txtKltTelefoon.Text;
+                }
+                if (txtKltContact.Text != "")
+                {
+                    S_tewijzigen.C_Contact = txtKltContact.Text;
+                }
+                if (txtKltBtwNr.Text != "")
+                {
+                    S_tewijzigen.C_BtwNr = txtKltBtwNr.Text;
+                }
+                if (txtKltWoonplaats.Text != "")
+                {
+                    S_tewijzigen.C_Woonplaats = txtKltWoonplaats.Text;
+                }
+                if (txtKltEmail.Text != "")
+                {
+                    S_tewijzigen.C_Email = txtKltEmail.Text;
+                }
+              
                 ctx.SaveChanges();
                 txtKltNaam.Text = " ";
                 txtKltAdres.Text = " ";
