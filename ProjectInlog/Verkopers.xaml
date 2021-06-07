@@ -322,7 +322,7 @@
                                 <ListView x:Name="lstbe" Width="500" Height="300" Margin="0,60,0,0" ItemsSource="{Binding bestellingen}" >
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding Path = Pnaam}" />
+                                            <GridViewColumn Width="150" Header="Product" DisplayMemberBinding="{Binding Path = Pnaam}" />
                                             <GridViewColumn Width="100" Header="Aantal" DisplayMemberBinding="{Binding Path = Aantal}" />
                                             <GridViewColumn Width="100" Header="Prijs" DisplayMemberBinding="{Binding Path = Prijs}"/>
                                         </GridView>
@@ -370,15 +370,15 @@
                                                  
                                      </ComboBox>
                                 </TextBlock>
-                                <ListView x:Name="lstbest" Width="500" Height="100" Margin="0,60,0,0" ItemsSource="{Binding best}" >
+                                <ListView x:Name="lstbest" Width="500" Height="400" Margin="0,60,0,0" ItemsSource="{Binding best}" >
                                     <ListView.View>
                                         <GridView>
                                             
-                                            <GridViewColumn Width="100" Header="Order" DisplayMemberBinding="{Binding Path = Ordr}" />
+                                            <GridViewColumn Width="100"  Header="Order" DisplayMemberBinding="{Binding Path = Ordr}" />
                                             <GridViewColumn Width="100" Header="Product" DisplayMemberBinding="{Binding Path= Name}" />
                                             <GridViewColumn Width="100" Header="Aantal" DisplayMemberBinding="{Binding Path = Aantal}" />
                                             <GridViewColumn Width="100" Header="Prijs" DisplayMemberBinding="{Binding Path = Price}"/>
-                                            <GridViewColumn Width="100" Header="Prijs" DisplayMemberBinding="{Binding Path = Tot}"/>
+                                            <GridViewColumn Width="100" Header="Totaal" DisplayMemberBinding="{Binding Path = Tot}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -400,8 +400,9 @@
                             </TextBlock>
 
                             <TextBlock>
-                                  <Button x:Name="btnFact" Content="kies een facturatie" Width="100" Height="25"  Margin="20,20,20,0" Click="btnFact_Click" ></Button>
-                                <TextBox x:Name="txtFact" Width="100" Height="25" ></TextBox>
+                                  <Button x:Name="btnFact" Content="Maak factuur" Width="100" Height="25"  Margin="20,20,20,0" Click="btnFact_Click" ></Button>
+                                <Button x:Name="btnword" Content="Maak wordfactuur" Width="100" Height="25"  Margin="20,20,20,0" Click="btnword_Click" ></Button>
+                                <!--<TextBox x:Name="txtFact" Width="100" Height="25" ></TextBox>-->
                             </TextBlock>
                         </StackPanel>
                         

@@ -664,5 +664,10 @@ namespace ProjectInlog
         {
             //cmbVerk.IsEnabled = false;
         }
+
+        private void btnword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

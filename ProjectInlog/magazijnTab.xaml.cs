@@ -105,8 +105,7 @@ namespace ProjectInlog
 
         private void lbLeveranciers_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            //txtNaamBedrijf = lbLeveranciers.SelectedValue
-
+           
            
 
 
@@ -291,7 +290,7 @@ namespace ProjectInlog
             txtHoofd.Text = "Alfabetisch gesorteerd";
             using (ProjectContext ctx = new ProjectContext())
             {
-                // var col = ctx.Supplier.Select(c => new { Id = c.SupplierId, Name = c.S_Name, Phone = c.S_Phone }).ToList();
+               
                 var col = ctx.Supplier.OrderBy(c => c.S_Name)
                        .Select(s => new { Name = s.S_Name, Id = s.SupplierId, Phone = s.S_Phone }).ToList();
 
@@ -299,8 +298,7 @@ namespace ProjectInlog
                 if (col != null)
                 {
                     lstLev.ItemsSource = col;
-                    //lstLev.DisplayMemberPath = "Name";
-                    //lstLev.SelectedValuePath = "Id";
+                  
                 }
             }
         }
@@ -316,9 +314,7 @@ namespace ProjectInlog
             {
                 using (ProjectContext ctx = new ProjectContext())
                 {
-                    // var col = ctx.Supplier.AddRange(ctx.Supplier.Where(c => c.s_PostCode == txtPost.Text)).ToList();
-
-
+                    
                     var col = ctx.Supplier.Where(c => c.s_PostCode == txtPost.Text)
                         .Select(s => new { Name = s.S_Name, Id = s.SupplierId, Phone = s.S_Phone}).ToList();
                     txtHoofd.Text = txtPost.Text;
@@ -330,8 +326,7 @@ namespace ProjectInlog
 
         private void btnLaad_Click(object sender, RoutedEventArgs e)
         {
-            //string[] levArray = GebruikersOphalen();
-
+         
            string[] levArray = File.ReadAllLines("leverancier.txt");
 
             txtlevNaam.Text = levArray[0];
@@ -339,43 +334,52 @@ namespace ProjectInlog
             txtlevPrijs.Text = levArray[2];
             txtlevAantal.Text = levArray[3];
 
-            
-
-            //for (int i = 0; i < levArray.Length; i++)
-            //{
-
-                //}
+          
         }
 
         private void btnOpslaan_Click(object sender, RoutedEventArgs e)
         {
             using (ProjectContext ctx = new ProjectContext())
             {
-                var col = ctx.Supplier.Where(c => c.S_Name == txtlevNaam.Text)
-                    .Select(s => new { Id = s.SupplierId });
-                if (col == null)
+                var lNaam = txtlevNaam.Text;
+          
+                var col = ctx.Supplier.Where( c => c.S_Name == lNaam)
+                    .Select(c => new { Id = c.SupplierId, Name = c.S_Name }).ToList();
+                if (col.Count == 0)
                 {
                     MessageBox.Show("Leverancier bestaat niet, gelieve deze aan te maken");
                 }
+                else
+                {
+                    var prod = ctx.Products.Where(c => c.Description == txtlevProduct.Text)
+                        .Select(t => new { P_id = t.ProductId }).ToList();
 
+                    if (prod.Count == 0)
+                    {
+                        ctx.Products.Add(new Product()
+                        {
+                            Description = txtlevProduct.Text,
+                            Stock = Convert.ToInt32(txtlevAantal.Text),
+                            Price = Convert.ToDouble(txtlevPrijs.Text),
+                           SupplierId = 1,
+                          
 
-                //var prod = ctx.Products.Where(c => c.Description == txtlevProduct.Text && c.SupplierId == col.)
-                //    .Select(t => new { P_id = t.ProductId });
+                        }); 
+                        ctx.SaveChanges();
+                        txtlevProduct.Text = " ";
+                        txtlevNaam.Text = " ";
+                        txtlevAantal.Text = " ";
+                        txtlevPrijs.Text = " ";
+                        
+                    }
+
+                }
+                
+
+                
             }
         }
 
-        //static string[] GebruikersOphalen()
-        //{
-        //    string[] gebruikersArray;
-
-        //    gebruikersArray = File.ReadAllLines("leverancier.txt");
-
-        //    for (int i = 0; i < gebruikersArray.Length; i++)
-        //    {
-        //        gebruikersArray[i] = gebruikersArray[i].Split(' ')[0];
-        //    }
-
-        //    return gebruikersArray;
-        //}
+       
     }
 }
