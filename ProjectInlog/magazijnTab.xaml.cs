@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -326,5 +327,55 @@ namespace ProjectInlog
                    
             }
         }
+
+        private void btnLaad_Click(object sender, RoutedEventArgs e)
+        {
+            //string[] levArray = GebruikersOphalen();
+
+           string[] levArray = File.ReadAllLines("leverancier.txt");
+
+            txtlevNaam.Text = levArray[0];
+            txtlevProduct.Text = levArray[1];
+            txtlevPrijs.Text = levArray[2];
+            txtlevAantal.Text = levArray[3];
+
+            
+
+            //for (int i = 0; i < levArray.Length; i++)
+            //{
+
+                //}
+        }
+
+        private void btnOpslaan_Click(object sender, RoutedEventArgs e)
+        {
+            using (ProjectContext ctx = new ProjectContext())
+            {
+                var col = ctx.Supplier.Where(c => c.S_Name == txtlevNaam.Text)
+                    .Select(s => new { Id = s.SupplierId });
+                if (col == null)
+                {
+                    MessageBox.Show("Leverancier bestaat niet, gelieve deze aan te maken");
+                }
+
+
+                //var prod = ctx.Products.Where(c => c.Description == txtlevProduct.Text && c.SupplierId == col.)
+                //    .Select(t => new { P_id = t.ProductId });
+            }
+        }
+
+        //static string[] GebruikersOphalen()
+        //{
+        //    string[] gebruikersArray;
+
+        //    gebruikersArray = File.ReadAllLines("leverancier.txt");
+
+        //    for (int i = 0; i < gebruikersArray.Length; i++)
+        //    {
+        //        gebruikersArray[i] = gebruikersArray[i].Split(' ')[0];
+        //    }
+
+        //    return gebruikersArray;
+        //}
     }
 }

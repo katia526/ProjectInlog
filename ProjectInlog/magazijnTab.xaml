@@ -24,7 +24,9 @@
                     <MenuItem Header="_Edit">
                         <MenuItem Header="Snij" Command="Cut" >
                             <!--<MenuItem.Icon>
-                                --><!--<Image Source="emo-1.png"></Image>--><!--
+                                -->
+                            <!--<Image Source="emo-1.png"></Image>-->
+                            <!--
                             </MenuItem.Icon>-->
                         </MenuItem>
                         <MenuItem Command="Copy"></MenuItem>
@@ -34,13 +36,13 @@
                     </MenuItem>
                 </Menu>
                 <TabControl SelectionChanged="TabControl_SelectionChanged">
-                    
-                        <TabItem Header="Nieuwe leverancier">
+
+                    <TabItem Header="Nieuwe leverancier">
                         <StackPanel Width="1000" Height="800">
                             <Label Content="Nieuwe Leverancier" FontSize="25" HorizontalAlignment="Center"></Label>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                   
+
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
@@ -117,7 +119,7 @@
                         </Expander>-->
                         <Grid HorizontalAlignment="Center">
                             <StackPanel>
-                        <TextBlock Margin="0,0,0,20">
+                                <TextBlock Margin="0,0,0,20">
                         <Label Content="Naam leverancier" Width="100" Height="25" HorizontalAlignment="Center" Margin="0,20,0,0"></Label>
                         <ComboBox x:Name="cmbLeverancier" Width="200" Height="25" HorizontalAlignment="Center" Margin="0,20,0,0"
                                   ItemsSource="{Binding col}"
@@ -126,8 +128,8 @@
                                   SelectedValue="{Binding col}" SelectionChanged="cmbLeverancier_SelectionChanged">
                             
                         </ComboBox>
-                        </TextBlock>
-                        <TextBlock Margin="0,0,0,10">
+                                </TextBlock>
+                                <TextBlock Margin="0,0,0,10">
                             <Label Content="Naam" Width="100" Height="25" HorizontalAlignment="Center"></Label>
                             <TextBox x:Name="txtLevNaam" Width="200" Height="25"></TextBox>
                                 </TextBlock>
@@ -162,7 +164,7 @@
                                 <Button x:Name="btnSave" Content="Bewaar" Width="100" Height="25" Margin="0,20,0,0" Click="btnSave_Click"></Button>
                                 <Button x:Name="btnEinde" Content="Exit" Width="100" Height="25" Margin="0,20,0,0" Click="btnEinde_Click"></Button>
                             </StackPanel>
-    </Grid>    
+                        </Grid>
                     </TabItem>
                     <TabItem Header="Leverancier verwijderen" Margin="-2,0" ContextMenuClosing="TabItem_ContextMenuClosing" ContextMenuOpening="TabItem_ContextMenuOpening" Loaded="TabItem_Loaded">
                         <StackPanel Orientation="Vertical" Width="400" Height="400">
@@ -171,7 +173,7 @@
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding col}" SelectionChanged="lbLeveranciers_SelectionChanged_2"  >
-                            <!--<ListBox.ItemTemplate>
+                                <!--<ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="0,2">
                                         <Grid.ColumnDefinitions>
@@ -183,22 +185,26 @@
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>-->
-                        </ListBox>
+                            </ListBox>
                             <TextBox x:Name="txtNaamBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
                             <TextBox x:Name="txtAdresBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
                             <TextBox x:Name="txtWoonplaatsBedrijf" Width="150" Height="20" Margin="0,10,0,10"></TextBox>
                             <Button x:Name="btnVerwijder" HorizontalAlignment="Center" Width="100" Height="30" Content="Verwijder" Click="btnVerwijder_Click"></Button>
-                           
+
                         </StackPanel>
                     </TabItem>
                     <TabItem Header="Overzicht leveranciers" Margin="-2,0">
                         <Grid>
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                            <Button x:Name="btnAlfa" Content="Alfabetisch" Width="100" Height="25"  Margin="20,20,20,0" Click="btnAlfa_Click"></Button>
-                            <Button x:Name="btnPost" Content="kies een postcode" Width="100" Height="25"  Margin="20,20,20,0" Click="btnPost_Click"></Button>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="545*"/>
+                                <ColumnDefinition Width="441*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                <Button x:Name="btnAlfa" Content="Alfabetisch" Width="100" Height="25"  Margin="20,20,20,0" Click="btnAlfa_Click"></Button>
+                                <Button x:Name="btnPost" Content="kies een postcode" Width="100" Height="25"  Margin="20,20,20,0" Click="btnPost_Click"></Button>
                                 <TextBox x:Name="txtPost" Width="100" Height="25" ></TextBox>
-                        </StackPanel>
-                        <!--<StackPanel>
+                            </StackPanel>
+                            <!--<StackPanel>
                                 <TextBox x:Name="txtHoofd" Width="200" Height="25" Margin="0,20,0,0"></TextBox>
                                 <ListView x:Name="lstLev" Width="200" Height="300" Margin="60"  ItemsSource="{Binding col}" DisplayMemberPath="Name"     
                                     SelectedValuePath="Id"
@@ -206,7 +212,7 @@
 
                                 </ListView>
                         </StackPanel>-->
-                            
+
                             <!--<ListView x:Name="lstLev" Width="400" Height="300" Margin="60">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -219,21 +225,47 @@
                                 </ListView.ItemTemplate>
                             </ListView>-->
 
-                            <TextBox x:Name="txtHoofd" VerticalAlignment="Top" Width="200" Height="25" Margin="0,20,0,0"></TextBox>
-                            <ListView x:Name="lstLev" Width="300" Height="400" Margin="0,60,0,0" ItemsSource="{Binding col}">
+                            <TextBox x:Name="txtHoofd" VerticalAlignment="Top" Width="200" Height="25" Margin="393,20,393,0" Grid.ColumnSpan="2"></TextBox>
+                            <ListView x:Name="lstLev" Width="300" Height="400" Margin="343,60,343,0" ItemsSource="{Binding col}" Grid.ColumnSpan="2">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel>
-                                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                                             <TextBlock Text=" - "/>
                                             <TextBlock Text="{Binding Phone}"/>
                                         </WrapPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            
-                            
-                        </Grid>    
+
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Laad bestelling" Margin="-2,0">
+                        <Grid>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+          
+                                <Button x:Name="btnLaad" Content="Laad" Width="100" Height="25"  Margin="20,20,20,0" Click="btnLaad_Click" ></Button>
+                                <TextBlock  Margin="10,20,0,0">
+                                    <Label Content="Leverancier" Width="200" Height="25" HorizontalAlignment="Center"></Label>
+                                    <TextBox x:Name="txtlevNaam" Width="200" Height="25" HorizontalAlignment="Center"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="10,20,0,0" VerticalAlignment="Center">
+                                    <Label Content="Product" Width="200" Height="25" HorizontalAlignment="Left"></Label>
+                                    <TextBox x:Name="txtlevProduct" Width="200" Height="25" HorizontalAlignment="Center"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="10,20,0,0">
+                                    <Label Content="Prijs" Width="200" Height="25" HorizontalAlignment="Center"></Label>
+                                    <TextBox x:Name="txtlevPrijs" Width="200" Height="25" HorizontalAlignment="Center"></TextBox>
+                                </TextBlock>
+                                <TextBlock Margin="10,20,0,0">
+                                    <Label Content="Aantal" Width="200" Height="25" HorizontalAlignment="Center"></Label>
+                                    <TextBox x:Name="txtlevAantal" Width="200" Height="25" HorizontalAlignment="Center"></TextBox>
+                                </TextBlock>
+                                <Button x:Name="btnOpslaan" Content="Opslaan" Width="100" Height="25"  Margin="20,20,20,0" Click="btnOpslaan_Click"  ></Button>
+                                <!--<TextBox x:Name="txtPost" Width="100" Height="25" ></TextBox>-->
+                            </StackPanel>
+                        </Grid>
                     </TabItem>
                 </TabControl>
             </StackPanel>
