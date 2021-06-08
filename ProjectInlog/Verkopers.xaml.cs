@@ -21,6 +21,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static ProjectInlog.MainWindow;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Office.Interop.Word;
 
 namespace ProjectInlog
 {
@@ -669,262 +670,173 @@ namespace ProjectInlog
 
         private void btnword_Click(object sender, RoutedEventArgs e)
         {
-            //CreateDocument();
-            CreateTest();
+            CreateDocument();
+            //CreateTest();
         }
-        //private void CreateDocument()
+        private void CreateDocument()
+        {
+        }
+        //private void CreateTest()
         //{
-        //    try
+        //    DateTime Datum = DateTime.Now;
+        //    string selected = cmbKl.Text;
+
+        //    string id = cmbKl.SelectedValue.ToString();
+        //    var klt = Convert.ToInt32(id);
+        //    string file = ($"{selected}{Datum:yyyy.M.dd}.txt");
+        //    using (StreamWriter sw = new StreamWriter(file))
         //    {
-        //        Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
-        //        winword.ShowAnimation = false;
-        //        winword.Visible = false;
-        //        object missing = System.Reflection.Missing.Value;
-        //        Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-        //        foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+        //        using (ProjectContext ctx = new ProjectContext())
         //        {
-        //            Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-        //            headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-        //            headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-        //            headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-        //            headerRange.Font.Size = 10;
-        //            headerRange.Text = "Header text goes here";
-        //        }
-        //        foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
-        //        {
-        //            Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-        //            footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
-        //            footerRange.Font.Size = 10;
-        //            footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-        //            footerRange.Text = "Footer text goes here";
-        //        }
 
-        //        //adding text to document  
-        //        document.Content.SetRange(0, 0);
-        //        document.Content.Text = "This is test document " + Environment.NewLine;
-        //        Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-        //        object styleHeading1 = "Heading 1";
-        //        para1.Range.set_Style(ref styleHeading1);
-        //        para1.Range.Text = "Para 1 text";
-        //        para1.Range.InsertParagraphAfter();
-
-        //        //Add paragraph with Heading 2 style  
-        //        Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-        //        object styleHeading2 = "Heading 2";
-        //        para2.Range.set_Style(ref styleHeading2);
-        //        para2.Range.Text = "Para 2 text";
-        //        para2.Range.InsertParagraphAfter();
-
-        //        //Create a 5X5 table and insert some dummy record  
-        //        Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
-
-        //        firstTable.Borders.Enable = 1;
-        //        foreach (Row row in firstTable.Rows)
-        //        {
-        //            foreach (Cell cell in row.Cells)
-        //            {
-        //                //Header row  
-        //                if (cell.RowIndex == 1)
+        //            var sell = ctx.OrderLines.Join(ctx.Orders,
+        //        s => s.Order.OrderId,
+        //        a => a.OrderId,
+        //        (s, a) => new { s, a })
+        //            .Where(z => z.a.ClientId == klt);
+        //            var best = sell.Join(ctx.Products,
+        //                sa => sa.s.ProductId,
+        //                alb => alb.ProductId,
+        //            //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+        //            (sa, alb) => new { sa, alb });
+        //            var ok = best.Join(ctx.Clients,
+        //                b => b.sa.a.ClientId,
+        //                c => c.ClientId,
+        //                (b, c) => new
         //                {
-        //                    cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-        //                    cell.Range.Font.Bold = 1;
-        //                    //other format properties goes here  
-        //                    cell.Range.Font.Name = "verdana";
-        //                    cell.Range.Font.Size = 10;
-        //                    //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
-        //                    cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-        //                    //Center alignment for the Header cells  
-        //                    cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-        //                    cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+        //                    Name = b.alb.Description,
+        //                    Price = b.alb.Price,
+        //                    Aantal = b.sa.s.O_Aantal,
+        //                    Kl = b.sa.a.ClientId,
+        //                    Ordr = b.sa.a.OrderId,
+        //                    KL_name = c.C_Name,
+        //                    KL_adres = c.C_Adress,
+        //                    KL_woonplaats = c.C_Woonplaats,
+        //                    KL_postcode = c.C_PostCode,
+        //                    KL_btw = c.C_BtwNr,
+        //                    Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal)
+        //                }).ToList();
+
+
+        //            var eind = false;
+        //            var tel = 0;
+        //            double tota = 0;
+
+        //            Word.Application objWord = new Word.Application();
+        //            objWord.Visible = true;
+        //            objWord.WindowState = Word.WdWindowState.wdWindowStateNormal;
+
+        //            Word.Document objDoc = objWord.Documents.Add();
+
+        //            foreach (var item in ok)
+        //            {
+
+        //                if (tel != item.Ordr)
+        //                {
+        //                    if (eind)
+        //                    {
+
+
+
+
+        //                        sw.WriteLine();
+        //                        sw.WriteLine("---------------------------------------------------------------------------------");
+        //                        sw.WriteLine();
+        //                        sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
+        //                        sw.WriteLine($"BTW bedrag is {tota * 0.06}");
+        //                        sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
+        //                        sw.WriteLine("<% @Page %>");
+        //                        sw.WriteLine();
+        //                    }
+
+        //                    Word.Paragraph objPara;
+        //                    objPara = objDoc.Paragraphs.Add();
+        //                    objPara.Range.Text = "Factuur";
+        //                    objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+        //                    objPara.Range.Font.Size = 40;
+        //                    objPara.Range.Bold = 3;
+
+        //                    objPara.Range.InsertParagraphAfter();
+
+        //                    objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+        //                    objPara.Range.Bold = 0;
+        //                    objPara.Range.Font.Size = 15;
+        //                    objPara.Range.Text = ($"{item.KL_name}\r\n{ item.KL_adres}\r\n{ item.KL_postcode} { item.KL_woonplaats}\r\n{ item.KL_btw}");
+
+        //                    objPara.Range.InsertParagraphAfter();
+        //                    objPara = objDoc.Paragraphs.Add();
+
+        //                    objPara.Range.Bold = 0;
+
+        //                    //    sw.WriteLine($"Ordernummer =  { item.Ordr}");
+        //                    objPara.Range.InsertParagraphAfter();
+        //                    objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+        //                    objPara.Range.Text = "Omschrijving    Prijs    Aantal    Totaal";
+        //                    //    //sw.WriteLine();
+        //                    //    //sw.WriteLine("---------------------------------------------------------------------------------");
+        //                    //    //sw.WriteLine();
+        //                    objPara = objDoc.Paragraphs.Add();
+        //                    objPara.Range.Text = ($"{item.Name}      {item.Price}     {item.Aantal}             {item.Tot}");
+        //                    if (tel != item.Ordr)
+        //                    {
+        //                        eind = true;
+        //                    }
+        //                    tel = item.Ordr;
+        //                    tota = +item.Tot;
         //                }
-        //                //Data row  
+
         //                else
         //                {
-        //                    cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-        //                }
-        //            }
-        //        }
+        //                    Word.Paragraph objPara;
+        //                    objPara = objDoc.Paragraphs.Add();
+        //                    objPara.Range.Text = $"{item.Name}    {item.Price}      {item.Aantal}           {item.Tot}";
+        //                    tota += item.Tot;
+        //                    //if (tel != item.Ordr)
+        //                    //{
+        //                    //    sw.WriteLine();
+        //                    //    sw.WriteLine("---------------------------------------------------------------------------------");
+        //                    //    sw.WriteLine();
+        //                    //    sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
+        //                    //    sw.WriteLine($"BTW bedrag is {tota * 0.06}");
+        //                    //    sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
+        //                    //}
+        //                    if (tel != item.Ordr)
+        //                    {
+        //                        eind = true;
+        //                    }
+        //                    tel = item.Ordr;
 
-        //        //Save the document  
-        //        //object filename = @"c:\temp1.docx";
-        //        object filename = @"C:\Users\HP\OneDrive\temp1.docx";
-        //        document.SaveAs2(ref filename);
-        //        document.Close(ref missing, ref missing, ref missing);
-        //        document = null;
-        //        winword.Quit(ref missing, ref missing, ref missing);
-        //        winword = null;
-        //        MessageBox.Show("Document created successfully !");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Document not created !");
-        //        MessageBox.Show(ex.Message);
-        //    }
+        //                }
+        //                objDoc.SaveAs2(@"C:\Users\HP\OneDrive\Documenten\temp1.docx");
+        //                objDoc.Close();
+        //                objWord.Quit();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //object oCollapseEnd = Word.WdCollapseDirection.wdCollapseEnd;
+        //doc.Paragraphs.Add();
+        //Word.Range objRange = doc.Content;
+        //objRange.Collapse(ref oCollapseEnd);
+
 
 
 
         //}
-        private void CreateTest()
-        {
-            DateTime Datum = DateTime.Now;
-            string selected = cmbKl.Text;
-
-            string id = cmbKl.SelectedValue.ToString();
-            var klt = Convert.ToInt32(id);
-            string file = ($"{selected}{Datum:yyyy.M.dd}.txt");
-            using (StreamWriter sw = new StreamWriter(file))
-            {
-                using (ProjectContext ctx = new ProjectContext())
-                {
-
-                    var sell = ctx.OrderLines.Join(ctx.Orders,
-                s => s.Order.OrderId,
-                a => a.OrderId,
-                (s, a) => new { s, a })
-                    .Where(z => z.a.ClientId == klt);
-                    var best = sell.Join(ctx.Products,
-                        sa => sa.s.ProductId,
-                        alb => alb.ProductId,
-                    //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
-                    (sa, alb) => new { sa, alb });
-                    var ok = best.Join(ctx.Clients,
-                        b => b.sa.a.ClientId,
-                        c => c.ClientId,
-                        (b, c) => new
-                        {
-                            Name = b.alb.Description,
-                            Price = b.alb.Price,
-                            Aantal = b.sa.s.O_Aantal,
-                            Kl = b.sa.a.ClientId,
-                            Ordr = b.sa.a.OrderId,
-                            KL_name = c.C_Name,
-                            KL_adres = c.C_Adress,
-                            KL_woonplaats = c.C_Woonplaats,
-                            KL_postcode = c.C_PostCode,
-                            KL_btw = c.C_BtwNr,
-                            Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal)
-                        }).ToList();
-
-
-                    var eind = false;
-                    var tel = 0;
-                    double tota = 0;
-
-                    Word.Application objWord = new Word.Application();
-                    objWord.Visible = true;
-                    objWord.WindowState = Word.WdWindowState.wdWindowStateNormal;
-
-                    Word.Document objDoc = objWord.Documents.Add();
-
-                    foreach (var item in ok)
-                    {
-
-                        if (tel != item.Ordr)
-                        {
-                            if (eind)
-                            {
-
-
-
-
-                                sw.WriteLine();
-                                sw.WriteLine("---------------------------------------------------------------------------------");
-                                sw.WriteLine();
-                                sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
-                                sw.WriteLine($"BTW bedrag is {tota * 0.06}");
-                                sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
-                                sw.WriteLine("<% @Page %>");
-                                sw.WriteLine();
-                            }
-
-                            Word.Paragraph objPara;
-                            objPara = objDoc.Paragraphs.Add();
-                            objPara.Range.Text = "Factuur";
-                            objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                            objPara.Range.Font.Size = 40;
-                            objPara.Range.Bold = 3;
-
-                            objPara.Range.InsertParagraphAfter();
-
-                            objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
-                            objPara.Range.Bold = 0;
-                            objPara.Range.Font.Size = 15;
-                            objPara.Range.Text = ($"{item.KL_name}\r\n{ item.KL_adres}\r\n{ item.KL_postcode} { item.KL_woonplaats}\r\n{ item.KL_btw}");
-
-                            objPara.Range.InsertParagraphAfter();
-                            objPara = objDoc.Paragraphs.Add();
-                      
-                            objPara.Range.Bold = 0;
-
-                            //    sw.WriteLine($"Ordernummer =  { item.Ordr}");
-                            objPara.Range.InsertParagraphAfter();
-                            objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                            objPara.Range.Text = "Omschrijving    Prijs    Aantal    Totaal";
-                            //    //sw.WriteLine();
-                            //    //sw.WriteLine("---------------------------------------------------------------------------------");
-                            //    //sw.WriteLine();
-                            objPara = objDoc.Paragraphs.Add();
-                            objPara.Range.Text = ($"{item.Name}      {item.Price}     {item.Aantal}             {item.Tot}");
-                            if (tel != item.Ordr)
-                            {
-                                eind = true;
-                            }
-                            tel = item.Ordr;
-                            tota = +item.Tot;
-                        }
-
-                        else
-                        {
-                            Word.Paragraph objPara;
-                            objPara = objDoc.Paragraphs.Add();
-                            objPara.Range.Text = $"{item.Name}    {item.Price}      {item.Aantal}           {item.Tot}";
-                            tota += item.Tot;
-                            //if (tel != item.Ordr)
-                            //{
-                            //    sw.WriteLine();
-                            //    sw.WriteLine("---------------------------------------------------------------------------------");
-                            //    sw.WriteLine();
-                            //    sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
-                            //    sw.WriteLine($"BTW bedrag is {tota * 0.06}");
-                            //    sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
-                            //}
-                            if (tel != item.Ordr)
-                            {
-                                eind = true;
-                            }
-                            tel = item.Ordr;
-
-                        }
-                        objDoc.SaveAs2(@"C:\Users\HP\OneDrive\Documenten\temp1.docx");
-                        objDoc.Close();
-                        objWord.Quit();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        //object oCollapseEnd = Word.WdCollapseDirection.wdCollapseEnd;
-                        //doc.Paragraphs.Add();
-                        //Word.Range objRange = doc.Content;
-                        //objRange.Collapse(ref oCollapseEnd);
-
-
-
-
-                    }
-                }
-            }
-        }
+        //}
+        //    }
+        //}
     }
 }
