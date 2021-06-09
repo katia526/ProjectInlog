@@ -21,19 +21,7 @@
                         <MenuItem Header="_Exit"></MenuItem>
                     </MenuItem>
                     <MenuItem Header="_Help"></MenuItem>
-                    <MenuItem Header="_Edit">
-                        <MenuItem Header="Snij" Command="Cut" >
-                            <!--<MenuItem.Icon>
-                                -->
-                            <!--<Image Source="emo-1.png"></Image>-->
-                            <!--
-                            </MenuItem.Icon>-->
-                        </MenuItem>
-                        <MenuItem Command="Copy"></MenuItem>
-                        <MenuItem Command="Paste"></MenuItem>
-                        <MenuItem Command="Undo"></MenuItem>
-                        <MenuItem Command="Redo"></MenuItem>
-                    </MenuItem>
+                   
                 </Menu>
                 <TabControl SelectionChanged="TabControl_SelectionChanged">
 
@@ -72,42 +60,44 @@
                                     <Label x:Name="lblNaam" Content="Naam" Width="100" Height="25" Margin="0,30,0,0"></Label>
                                     <TextBox x:Name="txtNaam" Width="200" Height="25"></TextBox>
                                 </TextBlock>
+                               
                                 <TextBlock Grid.Column="0" Grid.Row="1" Margin="0,5,0,0">
+                                    <Label x:Name="lblContact" Content="Contactpersoon" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtContact" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,5,0,0">
+                                    <Label x:Name="lblAdres" Content="Adres" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtAdres" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="3" Margin="0,5,0,0">
+                                    <Label x:Name="lblPostCode" Content="PostCode" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtPostCode" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="4" Margin="0,5,0,0">
+                                    <Label x:Name="lblWoonplaats" Content="Woonplaats" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtWoonplaats" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="5" Margin="0,5,0,0">
+                                    <Label x:Name="lblEmail" Content="Email" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtEmail" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="6" Margin="0,5,0,0">
+                                    <Label x:Name="lblTelefoon" Content="Telefoon" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtTelefoon" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="7" Margin="0,5,0,0">
+                                    <Label x:Name="lblBTWnr" Content="BTWnr" Width="100" Height="25"></Label>
+                                    <TextBox x:Name="txtBTWnr" Width="200" Height="25"></TextBox>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="8" Margin="0,5,0,0">
                                     <Label x:Name="lblVerkoper" Content="Verkoper" Width="100" Height="25"></Label>
                                      <ComboBox Height="23" HorizontalAlignment="Left" Name="cmbVerkoper" Width="200" 
                                                ItemsSource="{Binding col}" 
                                                DisplayMemberPath="Name"
                                                SelectedValuePath="Id"
+                                               
                                                SelectedValue="{Binding col}" >
                                      </ComboBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,5,0,0">
-                                    <Label x:Name="lblContact" Content="Contactpersoon" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtContact" Width="200" Height="25"></TextBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="3" Margin="0,5,0,0">
-                                    <Label x:Name="lblAdres" Content="Adres" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtAdres" Width="200" Height="25"></TextBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="4" Margin="0,5,0,0">
-                                    <Label x:Name="lblPostCode" Content="PostCode" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtPostCode" Width="200" Height="25"></TextBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="5" Margin="0,5,0,0">
-                                    <Label x:Name="lblWoonplaats" Content="Woonplaats" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtWoonplaats" Width="200" Height="25"></TextBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="6" Margin="0,5,0,0">
-                                    <Label x:Name="lblEmail" Content="Email" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtEmail" Width="200" Height="25"></TextBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="7" Margin="0,5,0,0">
-                                    <Label x:Name="lblTelefoon" Content="Telefoon" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtTelefoon" Width="200" Height="25"></TextBox>
-                                </TextBlock>
-                                <TextBlock Grid.Column="0" Grid.Row="8" Margin="0,5,0,0">
-                                    <Label x:Name="lblBTWnr" Content="BTWnr" Width="100" Height="25"></Label>
-                                    <TextBox x:Name="txtBTWnr" Width="200" Height="25"></TextBox>
                                 </TextBlock>
                                 <Button x:Name="btnBewaar" Content="Bewaar" Width="200" Grid.Column="0" Grid.Row="10" Margin="150,5,150,0" Height="20" VerticalAlignment="Top" Click="btnBewaar_Click" />
                             </Grid>

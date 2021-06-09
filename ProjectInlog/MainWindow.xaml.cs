@@ -304,6 +304,18 @@ namespace ProjectInlog
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            if (txtUserName.Text == "" || txtPassword.Password == "")
+            {
+                MessageBox.Show("vul paswoord en username in");
+                txtUserName.Focus();
+            }
+            else
+            {
+                Login();
+            }
+        }
+        private void Login()
+        { 
             using (ProjectContext ctx = new ProjectContext())
             {
 
@@ -317,9 +329,7 @@ namespace ProjectInlog
                 
                 if (result != null && result.Function == "1")
                 {
-                    //ScrAdministrator scrAdministrator = new ScrAdministrator();
-
-                    //scrAdministrator.Show();
+                   
 
                     this.Hide();
 
@@ -332,11 +342,7 @@ namespace ProjectInlog
 
 
                 }
-                //string pwd = txtPassword.Password;
-                //string salt = SecurityHelper.GenerateSalt(30);
-                //string pwdHashed = SecurityHelper.HashPassword(pwd, salt, 10101, 30);
-                //result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == pwdHashed);
-               // result = ctx.Employees.FirstOrDefault(c => c.UserName == txtUserName.Text && c.Password == txtPassword.Password);
+  
                
                 if (result != null && result.Function == "2")
                 {
@@ -355,30 +361,7 @@ namespace ProjectInlog
                 }
             }
         }
-        //public class SecurityHelper
-        //{
-        //    public static string GenerateSalt(int nSalt)
-        //    {
-        //        var saltBytes = new byte[nSalt];
-
-        //        using (var provider = new RNGCryptoServiceProvider())
-        //        {
-        //            provider.GetNonZeroBytes(saltBytes);
-        //        }
-
-        //        return Convert.ToBase64String(saltBytes);
-        //    }
-
-        //    public static string HashPassword(string password, string salt, int nIterations, int nHash)
-        //    {
-        //        var saltBytes = Convert.FromBase64String(salt);
-
-        //        using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
-        //        {
-        //            return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
-        //        }
-        //    }
-        //}
+     
         public class thisDate1
         {
             public DateTime thisdate { get; set; }

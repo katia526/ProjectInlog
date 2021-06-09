@@ -1,27 +1,37 @@
-﻿using Word = Microsoft.Office.Interop.Word;
-using PdfSharp;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
+﻿
+
+using Syncfusion.Drawing;
+using Syncfusion.Pdf.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.IO;
+//using System.Data.Entity.Validation;
+//using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static ProjectInlog.MainWindow;
-using static System.Net.Mime.MediaTypeNames;
-using Microsoft.Office.Interop.Word;
+
+//using static ProjectInlog.MainWindow;
+
+//using Syncfusion.Pdf;
+
+
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using PdfSharp;
+using Xceed.Document.NET;
+using Xceed.Words.NET;
+//using DataTable = System.Data.DataTable;
+//using System.Diagnostics;
+//using Syncfusion.Drawing;
+//using System.Drawing;
+
+//using System.Drawing;
 
 namespace ProjectInlog
 {
@@ -34,7 +44,7 @@ namespace ProjectInlog
         public Verkopers()
         {
             InitializeComponent();
-            
+
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -49,10 +59,10 @@ namespace ProjectInlog
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
             using (ProjectContext ctx = new ProjectContext())
             {
-               // var col = ctx.Employees.Where(c => c.Function == "3").ToList();
+                // var col = ctx.Employees.Where(c => c.Function == "3").ToList();
                 // var col = ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }).ToList();
                 // var col = ctx.Employees.Where(s => (s.Function = "3").ctx.Employees.Select(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName }));
                 //var col = ctx.Employees.Select(ctx.Employees.Where(s => s.Function == "3").(c => new { Id = c.UserId, Name = c.FirstName + " " + c.LastName })).ToList();
@@ -69,46 +79,61 @@ namespace ProjectInlog
 
         private void btnBewaar_Click(object sender, RoutedEventArgs e)
         {
-            string id = cmbVerkoper.SelectedValue.ToString();
 
+
+            var id = " ";
+            if (cmbVerkoper.SelectedValue != null)
+            {
+                id = cmbVerkoper.SelectedValue.ToString();
+                Bewaar(id);
+            }
+            else
+            {
+                MessageBox.Show("kies een verkoper");
+                cmbVerkoper.Focus();
+            }
+        }
+        private void Bewaar(string id)
+        {
             var del = Convert.ToInt32(id);
             txtErrorMessage.Text = " ";
-            if (String.IsNullOrEmpty(txtNaam.Text) )
+            if (String.IsNullOrEmpty(txtNaam.Text))
             {
                 txtErrorMessage.Text = null;
-                txtErrorMessage.Foreground = Brushes.White;
-                txtErrorMessage.Background = Brushes.Red;
+                //txtErrorMessage.Foreground = Brushes.White;
+                //txtErrorMessage.Background = Brushes.Red;
                 txtErrorMessage.Visibility = Visibility.Visible;
                 txtErrorMessage.Text = string.Format(" Vul een naam in!");
                 MessageBox.Show("vul een naam in");
-              
-                txtNaam.Select(txtNaam.Text.Length,0);
+
+                txtNaam.Select(txtNaam.Text.Length, 0);
             }
             if (String.IsNullOrEmpty(txtAdres.Text))
             {
                 txtErrorMessage.Text = null;
-                txtErrorMessage.Foreground = Brushes.White;
-                txtErrorMessage.Background = Brushes.Red;
+                //txtErrorMessage.Foreground = Brushes.White;
+                //txtErrorMessage.Background = Brushes.Red;
                 txtErrorMessage.Visibility = Visibility.Visible;
                 txtErrorMessage.Text = string.Format(" Vul een adres in!");
                 MessageBox.Show("vul een adres in");
 
                 txtAdres.Select(txtAdres.Text.Length, 0);
             }
+
             using (ProjectContext ctx = new ProjectContext())
             {
-    
-            var result = ctx.Clients.FirstOrDefault(c => c.C_Name == txtNaam.Text && c.C_Adress == txtAdres.Text);
 
-            if (result != null)
-            {
-                txtErrorMessage.Visibility = Visibility.Visible;
-                txtErrorMessage.Text = " Deze Klant bestaat reeds!";
-                txtNaam.Text = " ";
-                txtNaam.Focus();
-            }
-            else
-            {
+                var result = ctx.Clients.FirstOrDefault(c => c.C_Name == txtNaam.Text && c.C_Adress == txtAdres.Text);
+
+                if (result != null)
+                {
+                    txtErrorMessage.Visibility = Visibility.Visible;
+                    txtErrorMessage.Text = " Deze Klant bestaat reeds!";
+                    txtNaam.Text = " ";
+                    txtNaam.Focus();
+                }
+                else
+                {
                     ctx.Clients.Add(new Client()
                     {
                         C_Name = txtNaam.Text,
@@ -121,21 +146,21 @@ namespace ProjectInlog
                         C_Email = txtEmail.Text,
                         C_Verkoper = del.ToString(),
                         C_ChangedAt = DateTime.Now
-                    }) ; 
-                ctx.SaveChanges();
+                    });
+                    ctx.SaveChanges();
 
-                txtNaam.Text = " ";
-                txtAdres.Text = " ";
-                txtPostCode.Text = " ";
-                txtWoonplaats.Text = " ";
-                txtContact.Text = " ";
-                txtTelefoon.Text = " ";
-                txtEmail.Text = " ";
-                txtBTWnr.Text = " ";
+                    txtNaam.Text = " ";
+                    txtAdres.Text = " ";
+                    txtPostCode.Text = " ";
+                    txtWoonplaats.Text = " ";
+                    txtContact.Text = " ";
+                    txtTelefoon.Text = " ";
+                    txtEmail.Text = " ";
+                    txtBTWnr.Text = " ";
+                }
             }
         }
 
-    }
 
         private void TabItem_Loaded(object sender, RoutedEventArgs e)
         {
@@ -153,8 +178,8 @@ namespace ProjectInlog
         private void lbKlant_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbKlant.Items.Count != 0)
-           
-                {
+
+            {
                 string id = lbKlant.SelectedValue.ToString();
                 var del = Convert.ToInt32(id);
 
@@ -178,12 +203,12 @@ namespace ProjectInlog
 
                 ctx.SaveChanges();
 
-               
-                    var col = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
 
-                    lbKlant.ItemsSource = col;
-                    lbKlant.DisplayMemberPath = "Name";
-                    lbKlant.SelectedValuePath = "Id";
+                var col = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                lbKlant.ItemsSource = col;
+                lbKlant.DisplayMemberPath = "Name";
+                lbKlant.SelectedValuePath = "Id";
 
                 txtNaamKl.Text = " ";
                 txtAdresKl.Text = " ";
@@ -263,7 +288,7 @@ namespace ProjectInlog
                 {
                     S_tewijzigen.C_Email = txtKltEmail.Text;
                 }
-              
+
                 ctx.SaveChanges();
                 txtKltNaam.Text = " ";
                 txtKltAdres.Text = " ";
@@ -281,13 +306,13 @@ namespace ProjectInlog
             txtHoofd.Text = "Alfabetisch gesorteerd";
             using (ProjectContext ctx = new ProjectContext())
             {
-               
+
                 var col = ctx.Clients.OrderBy(c => c.C_Name)
                      .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
                 if (col != null)
                 {
                     lstKlant.ItemsSource = col;
-                   
+
                 }
             }
         }
@@ -298,7 +323,7 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
                 //var col = ctx.Clients.Where(s => s.C_PostCode == txtPost.Text);
-                    
+
                 var col = ctx.Clients.Where(s => s.C_PostCode == txtPost.Text)
                   .Select(c => new { Id = c.ClientId, Name = c.C_Name, Phone = c.C_Phone }).ToList();
 
@@ -306,7 +331,7 @@ namespace ProjectInlog
                 {
                     lstKlant.ItemsSource = col;
                 }
-            }    
+            }
         }
 
         private void TabItem_Loaded_2(object sender, RoutedEventArgs e)
@@ -319,7 +344,7 @@ namespace ProjectInlog
                 cmbVerk.ItemsSource = col;
                 cmbVerk.DisplayMemberPath = "Name";
                 cmbVerk.SelectedValuePath = "Id";
-               
+
                 var coll = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
 
                 cmbKlnt.ItemsSource = coll;
@@ -332,7 +357,7 @@ namespace ProjectInlog
                 cmbProd.DisplayMemberPath = "Name";
                 cmbProd.SelectedValuePath = "Id";
 
-            }    
+            }
 
         }
 
@@ -343,11 +368,11 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
                 Product prijs = ctx.Products.Where(c => c.ProductId == del).FirstOrDefault();
-             //       .Select(c => new { Id = c.ProductId, Name = c.Description }).ToList();
+                //       .Select(c => new { Id = c.ProductId, Name = c.Description }).ToList();
 
-               // Client S_tewijzigen = ctx.Clients.Where(c => c.ClientId == del).FirstOrDefault();
+                // Client S_tewijzigen = ctx.Clients.Where(c => c.ClientId == del).FirstOrDefault();
 
-               
+
                 txtPrijs.Text = prijs.Price.ToString();
             }
         }
@@ -357,7 +382,7 @@ namespace ProjectInlog
             lstbe.ItemsSource = " ";
             string idP = cmbProd.SelectedValue.ToString();
             var pro = Convert.ToInt32(idP);
-            
+
             cmbKlnt.IsEnabled = false;
             cmbVerk.IsEnabled = false;
 
@@ -394,16 +419,16 @@ namespace ProjectInlog
             //}
             txtAantal.Text = " ";
             txtPrijs.Text = " ";
-           
+
         }
         class Bestelling
         {
-           
+
             public string Product { get; set; }
             public string Pnaam { get; set; }
             public int Aantal { get; set; }
             public double Prijs { get; set; }
-            
+
         }
         class Klient
         {
@@ -414,7 +439,7 @@ namespace ProjectInlog
             public double Kbtw { get; set; }
 
         }
-       
+
 
         private void btnSlaOp_Click(object sender, RoutedEventArgs e)
         {
@@ -433,19 +458,19 @@ namespace ProjectInlog
                     VerkId = lev,
                     OrderedAt = DateTime.Now,
                     Invoice = false
-   
+
                 });
 
-             
+
 
 
                 foreach (var bestelling in bestellingen)
                 {
                     ctx.OrderLines.Add(new OrderLine()
                     {
-                      
-                       ProductId = Convert.ToInt32(bestelling.Product),
-                       O_Aantal = Convert.ToInt32(bestelling.Aantal)
+
+                        ProductId = Convert.ToInt32(bestelling.Product),
+                        O_Aantal = Convert.ToInt32(bestelling.Aantal)
                     });
 
                 }
@@ -470,7 +495,7 @@ namespace ProjectInlog
                 cmbKlan.SelectedValuePath = "Id";
             }
 
-                
+
         }
 
         private void cmbKlan_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -480,7 +505,7 @@ namespace ProjectInlog
             using (ProjectContext ctx = new ProjectContext())
             {
 
-                
+
 
                 var sell = ctx.OrderLines.Join(ctx.Orders,
                 s => s.Order.OrderId,
@@ -490,12 +515,12 @@ namespace ProjectInlog
                 var best = sell.Join(ctx.Products,
                     sa => sa.s.ProductId,
                     alb => alb.ProductId,
-                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Ordr = sa.a.OrderId, Tot = alb.Price *sa.s.O_Aantal }).ToList();
+                    (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Ordr = sa.a.OrderId, Tot = alb.Price * sa.s.O_Aantal }).ToList();
 
-                
+
 
                 lstbest.ItemsSource = best;
-                
+
             }
         }
 
@@ -509,7 +534,7 @@ namespace ProjectInlog
 
         private void btnFact_Click(object sender, RoutedEventArgs e)
         {
-            
+
             DateTime Datum = DateTime.Now;
             string selected = cmbKl.Text;
 
@@ -520,7 +545,7 @@ namespace ProjectInlog
             {
                 using (ProjectContext ctx = new ProjectContext())
                 {
-                    
+
                     var sell = ctx.OrderLines.Join(ctx.Orders,
                 s => s.Order.OrderId,
                 a => a.OrderId,
@@ -534,8 +559,20 @@ namespace ProjectInlog
                     var ok = best.Join(ctx.Clients,
                         b => b.sa.a.ClientId,
                         c => c.ClientId,
-                        (b, c) => new { Name = b.alb.Description, Price = b.alb.Price, Aantal = b.sa.s.O_Aantal, 
-                            Kl = b.sa.a.ClientId, Ordr = b.sa.a.OrderId, KL_name = c.C_Name, KL_adres = c.C_Adress, KL_woonplaats = c.C_Woonplaats, KL_postcode = c.C_PostCode, KL_btw = c.C_BtwNr, Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal) }).ToList();
+                        (b, c) => new
+                        {
+                            Name = b.alb.Description,
+                            Price = b.alb.Price,
+                            Aantal = b.sa.s.O_Aantal,
+                            Kl = b.sa.a.ClientId,
+                            Ordr = b.sa.a.OrderId,
+                            KL_name = c.C_Name,
+                            KL_adres = c.C_Adress,
+                            KL_woonplaats = c.C_Woonplaats,
+                            KL_postcode = c.C_PostCode,
+                            KL_btw = c.C_BtwNr,
+                            Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal)
+                        }).ToList();
 
 
                     var eind = false;
@@ -543,10 +580,10 @@ namespace ProjectInlog
                     double tota = 0;
                     foreach (var item in ok)
                     {
-                        
+
                         if (tel != item.Ordr)
                         {
-                            if ( eind)
+                            if (eind)
                             {
                                 sw.WriteLine();
                                 sw.WriteLine("---------------------------------------------------------------------------------");
@@ -557,7 +594,7 @@ namespace ProjectInlog
                                 sw.WriteLine("<% @Page %>");
                                 sw.WriteLine();
                             }
-                             
+
 
                             sw.WriteLine("Factuur");
                             sw.WriteLine();
@@ -578,9 +615,9 @@ namespace ProjectInlog
                                 eind = true;
                             }
                             tel = item.Ordr;
-                            tota =+ item.Tot;
+                            tota = +item.Tot;
                         }
-                        
+
                         else
                         {
                             sw.WriteLine($"{item.Name}    {item.Price}      {item.Aantal}           {item.Tot}");
@@ -599,9 +636,9 @@ namespace ProjectInlog
                                 eind = true;
                             }
                             tel = item.Ordr;
-                            
+
                         }
-                        
+
 
                     }
                     sw.WriteLine();
@@ -616,18 +653,18 @@ namespace ProjectInlog
                         Amount = tota,
                         Status = false,
                         CreatedAt = Datum,
-                      PayedAt = Datum,
-                      OrderId = tel
+                        PayedAt = Datum,
+                        OrderId = tel
                     });
 
-                  //  Order S_Change = ctx.Orders.Where(c => c.OrderId == ).FirstOrDefault();
+                    //  Order S_Change = ctx.Orders.Where(c => c.OrderId == ).FirstOrDefault();
                     //ctx.SaveChanges();
                     try
                     {
                         // Your code...
                         // Could also be before try if you know the exception occurs in SaveChanges
 
-                       ctx.SaveChanges();
+                        ctx.SaveChanges();
                     }
                     catch (DbEntityValidationException f)
                     {
@@ -643,10 +680,10 @@ namespace ProjectInlog
                         }
                         throw;
                     }
-                
+
 
                 }
-               
+
 
             }
         }
@@ -670,22 +707,86 @@ namespace ProjectInlog
 
         private void btnword_Click(object sender, RoutedEventArgs e)
         {
-            CreateDocument();
-            //CreateTest();
+            //  CreateDocument();
+            CreateTest();
+
         }
-        private void CreateDocument()
-        {
-        }
-        //private void CreateTest()
+        //public FormattedText(string textToFormat, Typeface typeface, double emSize, System.Windows.Media.Brush foreground)
         //{
+
+        //}
+
+
+
+        //public String titleFormat { get; set; }
+        //private void CreateDocument()
+        //{
+
         //    DateTime Datum = DateTime.Now;
         //    string selected = cmbKl.Text;
 
         //    string id = cmbKl.SelectedValue.ToString();
         //    var klt = Convert.ToInt32(id);
-        //    string file = ($"{selected}{Datum:yyyy.M.dd}.txt");
-        //    using (StreamWriter sw = new StreamWriter(file))
+
+        //    string file = ($"{selected}{Datum:yyyy.M.dd}.pdf");
+
+        //    //         string fileName = @"C:\Users\HP\source\repos\ProjectInlog\ProjectInlog\bin\Debug\temp1.docx";
+        //    //         var doc = DocX.Create(file);
+
+
+        //    //         using (ProjectContext ctx = new ProjectContext())
+        //    //         {
+
+        //    //             var sell = ctx.OrderLines.Join(ctx.Orders,
+        //    //         s => s.Order.OrderId,
+        //    //         a => a.OrderId,
+        //    //         (s, a) => new { s, a })
+        //    //             .Where(z => z.a.ClientId == klt);
+        //    //             var best = sell.Join(ctx.Products,
+        //    //                 sa => sa.s.ProductId,
+        //    //                 alb => alb.ProductId,
+        //    //             //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+        //    //             (sa, alb) => new { sa, alb });
+        //    //             var ok = best.Join(ctx.Clients,
+        //    //                 b => b.sa.a.ClientId,
+        //    //                 c => c.ClientId,
+        //    //                 (b, c) => new
+        //    //                 {
+        //    //                     Name = b.alb.Description,
+        //    //                     Price = b.alb.Price,
+        //    //                     Aantal = b.sa.s.O_Aantal,
+        //    //                     Kl = b.sa.a.ClientId,
+        //    //                     Ordr = b.sa.a.OrderId,
+        //    //                     KL_name = c.C_Name,
+        //    //                     KL_adres = c.C_Adress,
+        //    //                     KL_woonplaats = c.C_Woonplaats,
+        //    //                     KL_postcode = c.C_PostCode,
+        //    //                     KL_btw = c.C_BtwNr,
+        //    //                     Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal)
+        //    //                 }).ToList();
+
+
+
+
+
+
+
+        //    using (PdfDocument pdf = new PdfDocument())
         //    {
+        //        PdfPage Page = pdf.AddPage();
+        //        PdfPage page = pdf.Pages.Add();
+        //        PdfGraphics graph = page.Graphics;
+
+        //        //PdfSharp.Pdf.PdfDocument pdf = new PdfSharp.Pdf.PdfDocument();
+        //        ////Add a page
+        //        //PdfSharp.Pdf.PdfPage page = pdf.AddPage();
+        //        // PdfGraphics graph = ;
+        //        PdfFont font = new PdfStandardFont(PdfFontFamily.TimesRoman, 24, PdfFontStyle.Bold);
+        //        PdfFont font1 = new PdfStandardFont(PdfFontFamily.TimesRoman, 14);
+        //        graph.DrawString("Factuur", font, PdfBrushes.Black, new PointF(10, 50));
+        //        ;
+        //        //string file = ($"{selected}{Datum:yyyy.M.dd}.txt");
+
         //        using (ProjectContext ctx = new ProjectContext())
         //        {
 
@@ -721,122 +822,165 @@ namespace ProjectInlog
         //            var eind = false;
         //            var tel = 0;
         //            double tota = 0;
-
-        //            Word.Application objWord = new Word.Application();
-        //            objWord.Visible = true;
-        //            objWord.WindowState = Word.WdWindowState.wdWindowStateNormal;
-
-        //            Word.Document objDoc = objWord.Documents.Add();
-
+        //            //   graph.DrawString(, font, XBrushes.Black, new XRect(0, 0, pdfPage.Width.Point, pdfPage.Height.Point), XStringFormats.TopLeft);
+        //            var i = 150;
+        //            var j = 50;
         //            foreach (var item in ok)
         //            {
-
-        //                if (tel != item.Ordr)
+        //                if (tel == 0)
         //                {
-        //                    if (eind)
-        //                    {
+        //                    var gem = item.KL_postcode + " " + item.KL_woonplaats;
+        //                    graph.DrawString(item.KL_name, font1, PdfBrushes.Black, new PointF(10, 30));
+        //                    graph.DrawString(item.KL_adres, font1, PdfBrushes.Black, new PointF(10, 40));
+        //                    graph.DrawString(gem, font1, PdfBrushes.Black, new PointF(10, 50));
+        //                    graph.DrawString(item.KL_btw, font1, PdfBrushes.Black, new PointF(10, 60));
+        //                    graph.DrawString("Product", font1, PdfBrushes.Black, new PointF(10, 70));
+        //                    DataTable datatable = new DataTable();
 
-
-
-
-        //                        sw.WriteLine();
-        //                        sw.WriteLine("---------------------------------------------------------------------------------");
-        //                        sw.WriteLine();
-        //                        sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
-        //                        sw.WriteLine($"BTW bedrag is {tota * 0.06}");
-        //                        sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
-        //                        sw.WriteLine("<% @Page %>");
-        //                        sw.WriteLine();
-        //                    }
-
-        //                    Word.Paragraph objPara;
-        //                    objPara = objDoc.Paragraphs.Add();
-        //                    objPara.Range.Text = "Factuur";
-        //                    objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-        //                    objPara.Range.Font.Size = 40;
-        //                    objPara.Range.Bold = 3;
-
-        //                    objPara.Range.InsertParagraphAfter();
-
-        //                    objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
-        //                    objPara.Range.Bold = 0;
-        //                    objPara.Range.Font.Size = 15;
-        //                    objPara.Range.Text = ($"{item.KL_name}\r\n{ item.KL_adres}\r\n{ item.KL_postcode} { item.KL_woonplaats}\r\n{ item.KL_btw}");
-
-        //                    objPara.Range.InsertParagraphAfter();
-        //                    objPara = objDoc.Paragraphs.Add();
-
-        //                    objPara.Range.Bold = 0;
-
-        //                    //    sw.WriteLine($"Ordernummer =  { item.Ordr}");
-        //                    objPara.Range.InsertParagraphAfter();
-        //                    objPara.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-        //                    objPara.Range.Text = "Omschrijving    Prijs    Aantal    Totaal";
-        //                    //    //sw.WriteLine();
-        //                    //    //sw.WriteLine("---------------------------------------------------------------------------------");
-        //                    //    //sw.WriteLine();
-        //                    objPara = objDoc.Paragraphs.Add();
-        //                    objPara.Range.Text = ($"{item.Name}      {item.Price}     {item.Aantal}             {item.Tot}");
-        //                    if (tel != item.Ordr)
-        //                    {
-        //                        eind = true;
-        //                    }
-        //                    tel = item.Ordr;
-        //                    tota = +item.Tot;
+        //                    datatable.Columns.Add("Product");
+        //                    datatable.Columns.Add("Description");
+        //                    datatable.Columns.Add("Quantity");
+        //                    datatable.Columns.Add("Price");
+        //                    tel = 1;
         //                }
 
-        //                else
-        //                {
-        //                    Word.Paragraph objPara;
-        //                    objPara = objDoc.Paragraphs.Add();
-        //                    objPara.Range.Text = $"{item.Name}    {item.Price}      {item.Aantal}           {item.Tot}";
-        //                    tota += item.Tot;
-        //                    //if (tel != item.Ordr)
-        //                    //{
-        //                    //    sw.WriteLine();
-        //                    //    sw.WriteLine("---------------------------------------------------------------------------------");
-        //                    //    sw.WriteLine();
-        //                    //    sw.WriteLine($"Totaal factuur zonder BTW is {tota}");
-        //                    //    sw.WriteLine($"BTW bedrag is {tota * 0.06}");
-        //                    //    sw.WriteLine($"Totaal met BTW bedraagt {tota += (tota * 0.06)}");
-        //                    //}
-        //                    if (tel != item.Ordr)
-        //                    {
-        //                        eind = true;
-        //                    }
-        //                    tel = item.Ordr;
+        //                graph.DrawString(item.Name, font1, PdfBrushes.Black, new PointF(0, 160));
+        //                graph.DrawString((item.Aantal).ToString(), font1, PdfBrushes.Black, new PointF(10, 30));
+        //                graph.DrawString((item.Price).ToString(), font1, PdfBrushes.Black, new PointF(10, 30));
+        //                graph.DrawString((item.Tot).ToString(), font1, PdfBrushes.Black, new PointF(10, 30));
+        //            }
+        //        }
+        //        pdf.Save("firstpage.pdf");
+        //        Process.Start("Firstpage.pdf");
 
-        //                }
-        //                objDoc.SaveAs2(@"C:\Users\HP\OneDrive\Documenten\temp1.docx");
-        //                objDoc.Close();
-        //                objWord.Quit();
+        //        pdf.Close(true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //object oCollapseEnd = Word.WdCollapseDirection.wdCollapseEnd;
-        //doc.Paragraphs.Add();
-        //Word.Range objRange = doc.Content;
-        //objRange.Collapse(ref oCollapseEnd);
-
-
-
-
-        //}
-        //}
         //    }
         //}
+        private void CreateTest()
+        {
+            DateTime Datum = DateTime.Now;
+            string selected = cmbKl.Text;
+
+            string id = cmbKl.SelectedValue.ToString();
+            var klt = Convert.ToInt32(id);
+            string title = "Factuur";
+            string file = ($"{selected}{Datum:yyyy.M.dd}.pdf");
+
+            Formatting titleFormat = new Formatting();
+            //Specify font family  
+            titleFormat.FontFamily = new Xceed.Document.NET.Font("arial");
+            //Specify font size  
+            titleFormat.Size = 25D;
+            titleFormat.Position = 40;
+            titleFormat.FontColor = System.Drawing.Color.Orange;
+            titleFormat.UnderlineColor = System.Drawing.Color.Gray;
+            titleFormat.Italic = true;
+            titleFormat.Bold = true;
+            titleFormat.Spacing = 50;
+
+
+            Formatting textParagraphFormat = new Formatting();
+            textParagraphFormat.FontFamily = new Xceed.Document.NET.Font("times new roman");
+            textParagraphFormat.Size = 20D;
+            textParagraphFormat.Spacing = 2;
+
+
+
+
+
+
+            string fileName = @"firstpage.docx";
+            var doc = DocX.Create(fileName);
+            // doc.InsertParagraph("Factuur");
+            Paragraph paragraphTitle = doc.InsertParagraph(title, false, titleFormat);
+            using (ProjectContext ctx = new ProjectContext())
+            {
+
+                var sell = ctx.OrderLines.Join(ctx.Orders,
+            s => s.Order.OrderId,
+            a => a.OrderId,
+            (s, a) => new { s, a })
+                .Where(z => z.a.ClientId == klt);
+                var best = sell.Join(ctx.Products,
+                    sa => sa.s.ProductId,
+                    alb => alb.ProductId,
+                //  (sa, alb) => new { Name = alb.Description, Price = alb.Price, Aantal = sa.s.O_Aantal, Kl = sa.a.ClientId, Ordr = sa.a.OrderId, Tot = Math.Round(alb.Price * sa.s.O_Aantal) }).ToList();
+                (sa, alb) => new { sa, alb });
+                var ok = best.Join(ctx.Clients,
+                    b => b.sa.a.ClientId,
+                    c => c.ClientId,
+                    (b, c) => new
+                    {
+                        Name = b.alb.Description,
+                        Price = b.alb.Price,
+                        Aantal = b.sa.s.O_Aantal,
+                        Kl = b.sa.a.ClientId,
+                        Ordr = b.sa.a.OrderId,
+                        KL_name = c.C_Name,
+                        KL_adres = c.C_Adress,
+                        KL_woonplaats = c.C_Woonplaats,
+                        KL_postcode = c.C_PostCode,
+                        KL_btw = c.C_BtwNr,
+                        Tot = Math.Round(b.alb.Price * b.sa.s.O_Aantal)
+                    }).ToList();
+
+
+                //var eind = false;
+                var tel = 0;
+                double tota = 0;
+
+                Table t = doc.AddTable(24, 4);
+                t.Alignment = Alignment.center;
+                t.Design = TableDesign.ColorfulList;
+                var i = 1;
+                foreach (var item in ok)
+                {
+                    
+                    if (tel == 0)
+                    {
+                        var gem = item.KL_postcode + " " + item.KL_woonplaats;
+                        doc.InsertParagraph(item.KL_name);
+                        doc.InsertParagraph(item.KL_adres);
+                        doc.InsertParagraph(gem);
+                        doc.InsertParagraph(item.KL_btw);
+                        doc.InsertParagraph();
+                       
+                        tel = 1;
+                        t.Rows[0].Cells[0].Paragraphs.First().Append("Omschrijving");
+                        t.Rows[0].Cells[1].Paragraphs.First().Append("Aantal");
+                        t.Rows[0].Cells[2].Paragraphs.First().Append("Prijs");
+                        t.Rows[0].Cells[3].Paragraphs.First().Append("Totaal");
+                    }
+
+
+
+                    //Create Table with 2 rows and 4 columns.  
+
+                    //Fill cells by adding text.  
+                    t.Rows[i].Cells[0].Paragraphs.First().Append(item.Name);
+                    t.Rows[i].Cells[1].Paragraphs.First().Append(item.Aantal.ToString());
+                    t.Rows[i].Cells[2].Paragraphs.First().Append(item.Price.ToString());
+                    t.Rows[i].Cells[3].Paragraphs.First().Append(item.Tot.ToString());
+                    tota += item.Tot;
+                    i += 1;
+                }
+                t.Rows[21].Cells[2].Paragraphs.First().Append("Totaal zonder BTW");
+                t.Rows[21].Cells[3].Paragraphs.First().Append(tota.ToString());
+                // t.Rows[21].Cells[0].);
+
+
+                var btw = tota * 0.06;
+                t.Rows[22].Cells[2].Paragraphs.First().Append("BTW bedrag");
+                t.Rows[22].Cells[3].Paragraphs.First().Append(btw.ToString());
+                var total = tota + btw;
+                t.Rows[23].Cells[2].Paragraphs.First().Append("Totaal met BTW");
+                t.Rows[23].Cells[3].Paragraphs.First().Append(total.ToString());
+                doc.InsertTable(t);
+                doc.Save();
+                Process.Start("WINWORD.EXE", fileName);
+            }
+        }
+
     }
 }
