@@ -28,42 +28,53 @@ namespace ProjectInlog
 
         private void btnBewaar_Click(object sender, RoutedEventArgs e)
         {
-            using (ProjectContext ctx = new ProjectContext())
+            if (txtNaam.Text == "")
             {
-                var result = ctx.Supplier.FirstOrDefault(c => c.S_Name == txtNaam.Text && c.S_Address == txtAdres.Text);
+                txtErrorMessage.Visibility = Visibility.Visible;
+                txtErrorMessage.Text = " Vul een naam in";
+                MessageBox.Show("vul een naam in");
+                txtNaam.Focus();
+            }
+            else
+            {
 
-                if (result != null)
+
+                using (ProjectContext ctx = new ProjectContext())
                 {
-                    txtErrorMessage.Visibility = Visibility.Visible;
-                    txtErrorMessage.Text = " Deze leverancier bestaat reeds!";
-                    txtNaam.Focus();
-                }
-                else
-                {
-                    ctx.Supplier.Add(new Supplier()
+                    var result = ctx.Supplier.FirstOrDefault(c => c.S_Name == txtNaam.Text && c.S_Address == txtAdres.Text);
+
+                    if (result != null)
                     {
-                        S_Name = txtNaam.Text,
-                        S_Address = txtAdres.Text,
-                        s_PostCode = txtPostCode.Text,
-                        s_City = txtWoonplaats.Text,
-                        s_Contact = txtContact.Text,
-                        S_Phone = txtTelefoon.Text,
-                        S_Email = txtEmail.Text,
-                        S_Website = txtWebsite.Text
+                        txtErrorMessage.Visibility = Visibility.Visible;
+                        txtErrorMessage.Text = " Deze leverancier bestaat reeds!";
+                        txtNaam.Focus();
+                    }
+                    else
+                    {
+                        ctx.Supplier.Add(new Supplier()
+                        {
+                            S_Name = txtNaam.Text,
+                            S_Address = txtAdres.Text,
+                            s_PostCode = txtPostCode.Text,
+                            s_City = txtWoonplaats.Text,
+                            s_Contact = txtContact.Text,
+                            S_Phone = txtTelefoon.Text,
+                            S_Email = txtEmail.Text,
+                            S_Website = txtWebsite.Text
 
-                    }); ;
-                    ctx.SaveChanges();
-                    txtNaam.Text = " ";
-                    txtAdres.Text = " ";
-                    txtPostCode.Text = " ";
-                    txtWoonplaats.Text = " ";
-                    txtContact.Text = " ";
-                    txtTelefoon.Text = " ";
-                    txtEmail.Text = " ";
-                    txtWebsite.Text = " ";
+                        }); ;
+                        ctx.SaveChanges();
+                        txtNaam.Text = " ";
+                        txtAdres.Text = " ";
+                        txtPostCode.Text = " ";
+                        txtWoonplaats.Text = " ";
+                        txtContact.Text = " ";
+                        txtTelefoon.Text = " ";
+                        txtEmail.Text = " ";
+                        txtWebsite.Text = " ";
+                    }
                 }
             }
-           
         }
 
         private void txtEditor_TextChanged(object sender, TextChangedEventArgs e)
@@ -113,31 +124,46 @@ namespace ProjectInlog
 
         private void lbLeveranciers_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
         {
-          if (lbLeveranciers.SelectedValue.ToString() != null)
-           {
-                string id = lbLeveranciers.SelectedValue.ToString();
-                var del = Convert.ToInt32(id);
-
-                using (ProjectContext ctx = new ProjectContext())
+            try
+            {
+                if (lbLeveranciers.SelectedValue.ToString() != null)
                 {
-                    var col = ctx.Supplier.FirstOrDefault(c => c.SupplierId == del);
-                    txtNaamBedrijf.Text = col.S_Name;
-                    txtAdresBedrijf.Text = col.S_Address;
-                    txtWoonplaatsBedrijf.Text = col.s_City;
+
+                    string id = lbLeveranciers.SelectedValue.ToString();
+                    var del = Convert.ToInt32(id);
+
+                    using (ProjectContext ctx = new ProjectContext())
+                    {
+                        var col = ctx.Supplier.FirstOrDefault(c => c.SupplierId == del);
+                        txtNaamBedrijf.Text = col.S_Name;
+                        txtAdresBedrijf.Text = col.S_Address;
+                        txtWoonplaatsBedrijf.Text = col.s_City;
+                    }
                 }
-           }
+            }
+          catch(Exception)
+            {
+                MessageBox.Show("Selecteer leverancier");
+            }
         }
 
         private void btnVerwijder_Click(object sender, RoutedEventArgs e)
         {
-            string id = lbLeveranciers.SelectedValue.ToString();
-            var del = Convert.ToInt32(id);
-            using (ProjectContext ctx = new ProjectContext())
+            try
             {
-                ctx.Supplier.Remove(ctx.Supplier.FirstOrDefault(c => c.SupplierId == del));
+                string id = lbLeveranciers.SelectedValue.ToString();
+                var del = Convert.ToInt32(id);
+                using (ProjectContext ctx = new ProjectContext())
+                {
+                    ctx.Supplier.Remove(ctx.Supplier.FirstOrDefault(c => c.SupplierId == del));
 
-                ctx.SaveChanges();
-                Laad();
+                    ctx.SaveChanges();
+                    Laad();
+                }
+            }
+           catch(Exception)
+            {
+                MessageBox.Show("Selecteer leverancier");
             }
         }
         //private bool UserFilter(object item)
@@ -191,9 +217,12 @@ namespace ProjectInlog
                     cmbLeverancier.SelectedValuePath = "Id";
                 }
             }
-
-            if (cmbLeverancier.SelectedValue.ToString() != null)
+            try
             {
+
+            
+            //if (cmbLeverancier.SelectedValue.ToString() != null)
+            //{
                 string id = cmbLeverancier.SelectedValue.ToString();
                 var del = Convert.ToInt32(id);
 
@@ -236,6 +265,10 @@ namespace ProjectInlog
                                         
                 }
             }
+            catch(Exception)
+            {
+                MessageBox.Show("kies een leverancier");
+            }
         }
 
         private void TabItem_Loaded_1(object sender, RoutedEventArgs e)
@@ -254,28 +287,37 @@ namespace ProjectInlog
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            string id = cmbLeverancier.SelectedValue.ToString();
-            var del = Convert.ToInt32(id);
-            using (ProjectContext ctx = new ProjectContext())
+            try
             {
-                Supplier S_tewijzigen = ctx.Supplier.Where(c => c.SupplierId == del).FirstOrDefault();
-                S_tewijzigen.S_Name = txtLevNaam.Text;
-                S_tewijzigen.s_Contact = txtLevContact.Text;
-                S_tewijzigen.s_City = txtLevWoonplaats.Text;
-                S_tewijzigen.S_Email = txtLevEmail.Text;
-                S_tewijzigen.S_Address = txtLevAdres.Text;
-                S_tewijzigen.s_PostCode = txtLevPostcode.Text;
-                S_tewijzigen.S_Website = txtLevWebsite.Text;
 
-                ctx.SaveChanges();
-                txtLevNaam.Text = " ";
-                txtLevAdres.Text = " ";
-                txtLevContact.Text = " ";
-                txtLevEmail.Text = " ";
-                txtLevPostcode.Text = " ";
-                txtLevTelefoon.Text = " ";
-                txtLevWebsite.Text = " ";
-                txtLevWoonplaats.Text = " ";
+
+                string id = cmbLeverancier.SelectedValue.ToString();
+                var del = Convert.ToInt32(id);
+                using (ProjectContext ctx = new ProjectContext())
+                {
+                    Supplier S_tewijzigen = ctx.Supplier.Where(c => c.SupplierId == del).FirstOrDefault();
+                    S_tewijzigen.S_Name = txtLevNaam.Text;
+                    S_tewijzigen.s_Contact = txtLevContact.Text;
+                    S_tewijzigen.s_City = txtLevWoonplaats.Text;
+                    S_tewijzigen.S_Email = txtLevEmail.Text;
+                    S_tewijzigen.S_Address = txtLevAdres.Text;
+                    S_tewijzigen.s_PostCode = txtLevPostcode.Text;
+                    S_tewijzigen.S_Website = txtLevWebsite.Text;
+
+                    ctx.SaveChanges();
+                    txtLevNaam.Text = " ";
+                    txtLevAdres.Text = " ";
+                    txtLevContact.Text = " ";
+                    txtLevEmail.Text = " ";
+                    txtLevPostcode.Text = " ";
+                    txtLevTelefoon.Text = " ";
+                    txtLevWebsite.Text = " ";
+                    txtLevWoonplaats.Text = " ";
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("kies een leverancier");
             }
         }
 
@@ -372,14 +414,24 @@ namespace ProjectInlog
                         txtlevPrijs.Text = " ";
                         
                     }
-
                 }
-                
-
-                
-            }
+             }
         }
 
-       
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+
+
+            this.Close();
+        }
     }
 }

@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectInlog"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" >
+        WindowStartupLocation ="CenterScreen"
+        Title="Furniture" Height="450" Width="800" >
     <Grid>
-        <Image Source="Images/achtergrond.jpg" Stretch="Fill" StretchDirection="Both"></Image>
+        <Image Source="Images/meubels.png" Width="200" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+        <Image Source="Images/meubels.png" Width="200" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top"></Image>
         <Border x:Name="Border" BorderBrush="Black" BorderThickness="2" Width="400" Height="330" >
         <StackPanel Width="400" Height="330" Orientation="Vertical" HorizontalAlignment="Center" Background="LightGray" >
             
@@ -15,11 +17,10 @@
             <StackPanel >
                 <TextBlock>
                   <Canvas Width="100" Height="50" VerticalAlignment="Top">
-            <Ellipse Fill="Gainsboro" Canvas.Left="10" Canvas.Top="10" Width="30" Height="30" />
+            <!--<Ellipse Fill="Gainsboro" Canvas.Left="10" Canvas.Top="10" Width="30" Height="30" />
             <Rectangle Fill="LightBlue" Canvas.Left="10" Canvas.Top="10" Width="15" Height="15" />
             <Rectangle Fill="LightCoral" Canvas.Left="15" Canvas.Top="15" Width="15" Height="15" />
-            <Rectangle Fill="LightCyan" Canvas.Left="20" Canvas.Top="20" Width="15" Height="15" />
-            
+            <Rectangle Fill="LightCyan" Canvas.Left="20" Canvas.Top="20" Width="15" Height="15" />-->
         </Canvas>   
                     
               
@@ -37,8 +38,12 @@
                 <Label Content="Password" Width="70" HorizontalAlignment="Left" Margin="10" ></Label>
             <PasswordBox x:Name="txtPassword" Width="100" HorizontalAlignment="Center" PasswordChar="*" MaxLength="10" Margin="10" ></PasswordBox>
                 </TextBlock>
-            </StackPanel>
-            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Width="60" Height="30" Margin="80" Click="btnLogin_Click"></Button>
+            </StackPanel >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button x:Name="btnLogin" Content="Login"  Width="60" Height="30" Margin="0,40,0,0" Click="btnLogin_Click"/>
+                    <Button x:Name="btnexit" Content="Exit"  Width="60" Height="30" Margin="20,40, 0,0" Click="btnexit_Click" />
+                   
+                </StackPanel>
             </StackPanel>
             </Border>
 

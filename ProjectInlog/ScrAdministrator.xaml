@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectInlog"
         mc:Ignorable="d"
-        Title="ScrAdministrator" Height="450" Width="800">
+        WindowStartupLocation ="CenterScreen"
+        Title="Administrator" Height="450" Width="800">
     <Grid>
-        <Image Source="Images/achtergrond.jpg" Stretch="Fill" StretchDirection="Both"></Image>
+        <!--<Image Source="Images/achtergrond.jpg" Stretch="Fill" StretchDirection="Both"></Image>-->
+        <Image Source="Images/meubels.png" Width="200" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+        <Image Source="Images/meubels.png" Width="200" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top"></Image>
         <Border x:Name="BrdAdmin" BorderBrush="Black" BorderThickness="2" Height="300" Width="400" >
             <StackPanel Background="LightGray">
+       
                 <Label Content="Administrator Page" FontSize="20" HorizontalAlignment="Center" Margin="20" Background="LightGray"></Label>
                 <Separator/>
                 <Button x:Name="btnEmployees" Width="100" Height="30" Content="Gebruikers" Margin="0, 20, 0, 0 " Click="btnProfiel_Click"></Button>

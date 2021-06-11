@@ -39,7 +39,7 @@ namespace ProjectInlog
             //        LastName = "verachtert",
             //        Function = "1",
             //        Email = "katia@hotmail.com",
-            //        Password = "abcd",
+            //        Password = "178182158133202201218218",
             //        UserName = "Jefke",
             //        Address = "Markt 5",
             //        PostCode = "2440",
@@ -52,7 +52,7 @@ namespace ProjectInlog
             //        LastName = "ver",
             //        Function = "2",
             //        Email = "m@hotmail.com",
-            //        Password = "MIaz56%%",
+            //        Password = "178182158133202201218218",
             //        UserName = "Mieke",
             //        Address = "Markt 5",
             //        PostCode = "2440",
@@ -65,7 +65,7 @@ namespace ProjectInlog
             //        LastName = "p",
             //        Function = "3",
             //        Email = "p@hotmail.com",
-            //        Password = "MIaz56%%",
+            //        Password = "178182158133202201218218",
             //        UserName = "Louis",
             //        Address = "Markt 5",
             //        PostCode = "2440",
@@ -276,14 +276,7 @@ namespace ProjectInlog
             //public virtual Client client { get; set; }
 
         }
-        //protected override void onModelCreating(DbModelBuilder modelBuilder)
-        //{
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasOptional(s => s.Invoice)
-        //        .WithRequired(ad => ad.Order);
-        //}
-
+       
         public class ProjectContext : DbContext
         {
             public ProjectContext() : base("name=ProjectDBConnectString")
@@ -378,6 +371,11 @@ namespace ProjectInlog
             }
 
             return encrypted;
+        }
+
+        private void btnexit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

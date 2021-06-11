@@ -255,6 +255,21 @@
   <ItemGroup>
     <Resource Include="Images\achtergrond.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\meubels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background wood.jpg" />
+    <Content Include="Images\background wood2.jfif" />
+    <Content Include="Images\background wood3.jfif" />
+    <Resource Include="Images\background wood4.jpg" />
+    <Resource Include="Images\background wood5.jpg" />
+    <Content Include="Images\budgetstapelstoel.jfif" />
+    <Content Include="Images\gekleurde barkruk.jfif" />
+    <Content Include="Images\meubelspic.jfif" />
+    <Content Include="Images\statafel.jfif" />
+    <Resource Include="Images\T3ADA1.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
