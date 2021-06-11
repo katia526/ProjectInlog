@@ -153,7 +153,18 @@ namespace ProjectInlog
                     txtEmail.Text = " ";
                     txtBTWnr.Text = " ";
                     LaadKlant();
-                    
+
+                    var col = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                    cmbKlant.ItemsSource = col;
+                    cmbKlant.DisplayMemberPath = "Name";
+                    cmbKlant.SelectedValuePath = "Id";
+
+                    var klant = ctx.Clients.Select(c => new { Id = c.ClientId, Name = c.C_Name }).ToList();
+
+                    cmbKlan.ItemsSource = klant;
+                    cmbKlan.DisplayMemberPath = "Name";
+                    cmbKlan.SelectedValuePath = "Id";
                 }
             }
         }
@@ -1103,6 +1114,10 @@ namespace ProjectInlog
 
 
             this.Close();
+        }
+        private void LaadData()
+        {
+
         }
     }
 }

@@ -23,10 +23,10 @@
                 <Menu>
                     <MenuItem Header="_File">
                         <MenuItem Header="_LogOut" Click="MenuItem_Click_1"></MenuItem>
-                        
+
                         <MenuItem Header="_Exit" Click="MenuItem_Click"></MenuItem>
                     </MenuItem>
-                   
+
                 </Menu>
                 <TabControl SelectionChanged="TabControl_SelectionChanged" Height="952">
                     <TabControl.Background>
@@ -39,7 +39,7 @@
                             <Grid HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
 
-                                    
+
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -161,7 +161,7 @@
                             <TextBox x:Name="txtKltBtwNr" Width="200" Height="25"></TextBox>
                                 </TextBlock>
                                 <Button x:Name="btnSave" Content="Bewaar" Width="200" Height="25" Margin="100,20,0,0" Click="btnSave_Click" ></Button>
-                          
+
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -195,8 +195,9 @@
                     <TabItem Header="Overzicht klanten" Margin="-2,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="293*"/>
-                                <ColumnDefinition Width="200*"/>
+                                <ColumnDefinition Width="447*"/>
+                                <ColumnDefinition Width="139*"/>
+                                <ColumnDefinition Width="400*"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                                 <Button x:Name="btnAlfa" Content="Alfabetisch" Width="100" Height="25"  Margin="20,20,20,0" Click="btnAlfa_Click" ></Button>
@@ -224,8 +225,8 @@
                                 </ListView.ItemTemplate>
                             </ListView>-->
 
-                            <TextBox x:Name="txtHoofd" VerticalAlignment="Top" Width="200" Height="25" Margin="393,20,393,0" Grid.ColumnSpan="2"></TextBox>
-                            <ListView x:Name="lstKlant" Width="300" Height="400" Margin="343,60,343,0" ItemsSource="{Binding col}" Grid.ColumnSpan="2">
+                            <TextBox x:Name="txtHoofd" VerticalAlignment="Top" Width="200" Height="25" Margin="393,20,393,0" Grid.ColumnSpan="3"></TextBox>
+                            <ListView x:Name="lstKlant" Width="300" Height="400" Margin="343,292,343,232" ItemsSource="{Binding col}" Grid.ColumnSpan="3">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <WrapPanel>
@@ -241,7 +242,7 @@
                         </Grid>
                     </TabItem>
                     <TabItem Header="Bestelling ingeven" Loaded="TabItem_Loaded_2">
-                        
+
                         <StackPanel Width="500" Height="800">
                             <Label Content="Bestelling" FontSize="25" HorizontalAlignment="Center"></Label>
                             <Grid>
@@ -326,8 +327,8 @@
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Width="150" Header="Product" DisplayMemberBinding="{Binding Path = Pnaam}" />
-                                            <GridViewColumn Width="100" Header="Aantal" DisplayMemberBinding="{Binding Path = Aantal}" />
-                                            <GridViewColumn Width="100" Header="Prijs" DisplayMemberBinding="{Binding Path = Prijs}"/>
+                                            <GridViewColumn Width="150" Header="Aantal" DisplayMemberBinding="{Binding Path = Aantal}" />
+                                            <GridViewColumn Width="150" Header="Prijs" DisplayMemberBinding="{Binding Path = Prijs}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

@@ -13,7 +13,8 @@
                 <Menu>
                     <MenuItem Header="_File">
                         <MenuItem Header="_LogOut" Click="MenuItem_Click_1"></MenuItem>
-                        
+                        <MenuItem Header="_Verkoop" Click="MenuItem_Click_2" ></MenuItem>
+                        <MenuItem Header="_Magazijn" Click="MenuItem_Click_3" ></MenuItem>
                         <MenuItem Header="_Exit" Click="MenuItem_Click"></MenuItem>
                     </MenuItem>
                    

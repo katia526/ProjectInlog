@@ -414,6 +414,32 @@ namespace ProjectInlog
             this.Close();
 
         }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+
+            Verkopers verkopers = new Verkopers();
+
+            verkopers.Show();
+
+
+
+            this.Close();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+
+            
+            Magazijniers magazijniers = new Magazijniers();
+            magazijniers.Show();
+
+
+
+            this.Close();
+        }
     }
 
     internal class Date

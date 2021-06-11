@@ -215,10 +215,14 @@ namespace ProjectInlog
                     cmbLeverancier.ItemsSource = col;
                     cmbLeverancier.DisplayMemberPath = "Name";
                     cmbLeverancier.SelectedValuePath = "Id";
+
+                    //  txtLevNaam.Text = col.S_Name;                }
+
                 }
+
             }
-            try
-            {
+            //try
+            //{
 
             
             //if (cmbLeverancier.SelectedValue.ToString() != null)
@@ -229,46 +233,46 @@ namespace ProjectInlog
                 using (ProjectContext ctx = new ProjectContext())
                 {
                     var col = ctx.Supplier.FirstOrDefault(c => c.SupplierId == del);
-                    if (txtLevNaam.Text != "")
-                    {
+                    //if (txtLevNaam.Text != "")
+                    //{
                         txtLevNaam.Text = col.S_Name;
-                    }
-                    if (txtLevAdres.Text != "")
-                    {
+                    //}
+                    //if (txtLevAdres.Text != "")
+                    //{
                         txtLevAdres.Text = col.S_Address;
-                    }
-                    if (txtLevContact.Text != "")
-                    {
+                   // }
+                    //if (txtLevContact.Text != "")
+                    //{
                         txtLevContact.Text = col.s_Contact;
-                    }
-                    if (txtLevEmail.Text != "")
-                    {
+                    //}
+                    //if (txtLevEmail.Text != "")
+                    //{
                         txtLevEmail.Text = col.S_Email;
-                    }
-                    if (txtLevPostcode.Text != "")
-                    {
+                    //}
+                    //if (txtLevPostcode.Text != "")
+                    //{
                         txtLevPostcode.Text = col.s_PostCode;
-                    }
-                    if (txtLevTelefoon.Text != "")
-                    {
+                    //}
+                    //if (txtLevTelefoon.Text != "")
+                    //{
                         txtLevTelefoon.Text = col.S_Phone;
-                    }
-                    if (txtLevWebsite.Text != "")
-                    {
+                    //}
+                    //if (txtLevWebsite.Text != "")
+                    //{
                         txtLevWebsite.Text = col.S_Website;
-                    }
-                    if (txtLevWoonplaats.Text != "")
-                    {
+                    //}
+                    //if (txtLevWoonplaats.Text != "")
+                    //{
                         txtLevWoonplaats.Text = col.s_City;
-                    }
+                    //}
                     
                                         
                 }
-            }
-            catch(Exception)
-            {
-                MessageBox.Show("kies een leverancier");
-            }
+            //}
+            //catch(Exception)
+            //{
+            //    MessageBox.Show("kies een leverancier");
+            //}
         }
 
         private void TabItem_Loaded_1(object sender, RoutedEventArgs e)
